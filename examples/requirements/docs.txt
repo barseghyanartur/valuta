@@ -1,0 +1,6 @@
+-r common.txt
+-r django_3_2.txt
+
+valuta
+rst2pdf
+reportlab==3.3.0

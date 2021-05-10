@@ -1,0 +1,7 @@
+# Style checkers
+pydocstyle
+pylint==1.9
+pyflakes
+flake8
+isort
+pre-commit
