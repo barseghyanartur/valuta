@@ -1,0 +1,6 @@
+-r common.txt
+-r django_1_10.txt
+
+django-fobi
+rst2pdf
+reportlab==3.3.0
