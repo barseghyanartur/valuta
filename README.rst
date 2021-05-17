@@ -513,7 +513,7 @@ To register a new custom currency, do as follows:
 
 .. code-block:: python
 
-    from ..base import BaseCurrency
+    from valuta.base import BaseCurrency
 
     class BTC(BaseCurrency):
         """BTC - Bitcoin."""
