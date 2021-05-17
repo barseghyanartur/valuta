@@ -69,7 +69,7 @@ Model field
 .. code-block:: python
 
     from django.db import models
-    from valuta.enums import Currency
+    import valuta
     from valuta.contrib.django_integration import CurrencyField
 
     class Product(models.Model):
@@ -88,7 +88,7 @@ Model field
         name="My test product",
         price=100,
         price_with_tax=120,
-        currency=Currency.AMD.uid,
+        currency=valuta.AMD.uid,
     )
 
 **You could then refer to the `price` and `price_with_tax` as follows**
@@ -110,7 +110,7 @@ model method with suffix ``_in_currency_units``.
     # ...
     currency = CurrencyField(
         amount_fields=["price", "price_with_tax"],
-        limit_choices_to=[Currency.AMD.uid, Currency.EUR.uid],
+        limit_choices_to=[valuta.AMD.uid, valuta.EUR.uid],
     )
 
 **Casting the ``in_currency_units`` value**
