@@ -18,6 +18,10 @@ unit possible (for EUR it would be cent, which is 1/100 of a single Euro).
 .. image:: https://img.shields.io/travis/barseghyanartur/valuta/master.svg
    :target: http://travis-ci.org/barseghyanartur/valuta
    :alt: Build Status
+   
+.. image:: https://readthedocs.org/projects/valuta/badge/?version=latest
+    :target: http://valuta.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
 
 .. image:: https://img.shields.io/badge/license-GPL--2.0--only%20OR%20LGPL--2.1--or--later-blue.svg
    :target: https://github.com/barseghyanartur/valuta/#License
