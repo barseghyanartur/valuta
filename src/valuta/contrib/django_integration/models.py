@@ -17,12 +17,7 @@ __all__ = ("CurrencyField",)
 
 
 class CurrencyField(models.CharField):
-    """Currency field.
-
-    Consists of two database fields:
-    - amount: `BigIntegerField`
-    - currency: `CharField` with choices.
-    """
+    """Currency field."""
 
     def __init__(
         self,
