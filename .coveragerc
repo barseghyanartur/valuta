@@ -4,6 +4,7 @@ omit =
     src/valuta/tests/*
     examples/simple/project/settings/*
     examples/simple/project/wsgi.py
+    .tox/*
 
 [report]
 exclude_lines =

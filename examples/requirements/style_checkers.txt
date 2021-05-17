@@ -1,7 +1,8 @@
 # Style checkers
-pydocstyle
-pylint==1.9
-pyflakes
+black
 flake8
 isort
 pre-commit
+pydocstyle
+pyflakes
+pylint

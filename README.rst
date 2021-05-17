@@ -7,6 +7,30 @@ In most payment systems that went international, amounts are represented as
 integers, instead of decimals, as they are represented with a smallest
 unit possible (for EUR it would be cent, which is 1/100 of a single Euro).
 
+.. image:: https://img.shields.io/pypi/v/valuta.svg
+   :target: https://pypi.python.org/pypi/valuta
+   :alt: PyPI Version
+
+.. image:: https://img.shields.io/pypi/pyversions/valuta.svg
+    :target: https://pypi.python.org/pypi/valuta/
+    :alt: Supported Python versions
+
+.. image:: https://img.shields.io/travis/barseghyanartur/valuta/master.svg
+   :target: http://travis-ci.org/barseghyanartur/valuta
+   :alt: Build Status
+   
+.. image:: https://readthedocs.org/projects/valuta/badge/?version=latest
+    :target: http://valuta.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+
+.. image:: https://img.shields.io/badge/license-GPL--2.0--only%20OR%20LGPL--2.1--or--later-blue.svg
+   :target: https://github.com/barseghyanartur/valuta/#License
+   :alt: GPL-2.0-only OR LGPL-2.1-or-later
+
+.. image:: https://coveralls.io/repos/github/barseghyanartur/valuta/badge.svg?branch=master&service=github
+    :target: https://coveralls.io/github/barseghyanartur/valuta?branch=master
+    :alt: Coverage
+
 Prerequisites
 =============
 - Python 3.6, 3.7, 3.8 and 3.9.
@@ -49,8 +73,8 @@ Model field
 .. code-block:: python
 
     from django.db import models
-    from valuta.enums import Currency
-    from valuta.contrib.django_integration import CurrencyField
+    import valuta
+    from valuta.contrib.django_integration.models import CurrencyField
 
     class Product(models.Model):
 
@@ -68,7 +92,7 @@ Model field
         name="My test product",
         price=100,
         price_with_tax=120,
-        currency=Currency.AMD.uid,
+        currency=valuta.AMD.uid,
     )
 
 **You could then refer to the `price` and `price_with_tax` as follows**
@@ -87,13 +111,12 @@ model method with suffix ``_in_currency_units``.
 
 .. code-block:: python
 
-    # ...
     currency = CurrencyField(
         amount_fields=["price", "price_with_tax"],
-        limit_choices_to=[Currency.AMD.uid, Currency.EUR.uid],
+        limit_choices_to=[valuta.AMD.uid, valuta.EUR.uid],
     )
 
-**Casting the ``in_currency_units`` value**
+**Casting the `in_currency_units` value**
 
 If you want to explicitly cast the result value to a certain type, provide a
 callable ``cast_to`` for the ``CurrencyField``.
@@ -133,17 +156,15 @@ using the awesome `wikitable2csv <https://github.com/gambolputty/wikitable2csv>`
 
 If that list is ever updated, run the following command:
 
-.. code-block:: shell-script
+.. code-block:: shell
 
     valuta-generate-currencies --skip-first-line
 
 List all available currencies
 =============================
-List of currencies"
+Run the following command to list the currencies:
 
-If that list is ever updated, run the following command:
-
-.. code-block:: shell-script
+.. code-block:: shell
 
     valuta-list-currencies
 
@@ -493,7 +514,7 @@ To register a new custom currency, do as follows:
 
 .. code-block:: python
 
-    from ..base import BaseCurrency
+    from valuta.base import BaseCurrency
 
     class BTC(BaseCurrency):
         """BTC - Bitcoin."""

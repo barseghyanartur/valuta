@@ -2,10 +2,10 @@
 Django settings for simple project.
 
 For more information on this file, see
-https://docs.djangoproject.com/en/1.7/topics/settings/
+https://docs.djangoproject.com/en/3.2/topics/settings/
 
 For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.7/ref/settings/
+https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -63,7 +63,7 @@ TEMPLATES = [
     },
 ]
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "uzc&9xi6b#dz^z7tpa+br3ohq)-9%v9ux@9^t!(5fl41n%&mn$"
@@ -111,6 +111,8 @@ DATABASES = {
         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
+
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
