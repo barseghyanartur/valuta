@@ -74,7 +74,7 @@ Model field
 
     from django.db import models
     import valuta
-    from valuta.contrib.django_integration import CurrencyField
+    from valuta.contrib.django_integration.models import CurrencyField
 
     class Product(models.Model):
 
