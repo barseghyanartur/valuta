@@ -159,9 +159,7 @@ If that list is ever updated, run the following command:
 
 List all available currencies
 =============================
-List of currencies"
-
-If that list is ever updated, run the following command:
+Run the following command to list the currencies:
 
 .. code-block:: shell-script
 
