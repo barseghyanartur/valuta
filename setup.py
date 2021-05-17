@@ -38,11 +38,16 @@ dependency_links = []
 
 # Dependencies
 install_requires = [
-    "Babel>=2.1.1"
+    "Babel>=2.1.1",
 ]
 
 tests_require = [
     "Faker",
+    "pytest",
+    "pytest-cov",
+    "pytest-django",
+    "pytest-ordering",
+    "coverage",
 ]
 
 setup(
