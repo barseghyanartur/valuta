@@ -63,7 +63,7 @@ class ProductProxyCastToInt(AbstractProduct):
     class Meta:
         managed = False
         db_table = Product._meta.db_table
-        verbose_name = _("Product proxy (cast_t=int)")
+        verbose_name = _("Product proxy (cast_to=int)")
         verbose_name_plural = _("Product proxies (cast_to=int)")
 
 
