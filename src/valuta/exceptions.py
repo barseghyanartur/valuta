@@ -9,11 +9,3 @@ class ImproperlyConfigured(Exception):
 
     Supposed to be thrown when code is improperly configured.
     """
-
-    def __init__(self, msg=None):
-        if msg is None:
-            msg = "Improperly configured."
-        else:
-            msg = "Improperly configured. %s" % msg
-
-        super(ImproperlyConfigured, self).__init__(msg)

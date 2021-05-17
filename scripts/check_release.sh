@@ -1,3 +1,3 @@
-python setup.py register
+#python setup.py register
 python setup.py sdist bdist_wheel
-twine check dist/*
+twine check dist/* --verbose

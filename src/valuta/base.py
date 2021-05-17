@@ -53,6 +53,8 @@ class BaseCurrency(metaclass=Registry):
     def name(cls):
         """Automatic currency name.
 
+        Example::
+
             from babel.numbers import get_currency_name
             In: get_currency_name('AMD')
             Out: 'Armenian Dram'
@@ -71,6 +73,8 @@ class BaseCurrency(metaclass=Registry):
     def symbol(cls):
         """Automatic currency symbol.
 
+        Example::
+
             from babel.numbers import get_currency_symbol
             In: get_currency_symbol('AMD')
             Out: 'AMD'
@@ -83,4 +87,4 @@ class BaseCurrency(metaclass=Registry):
 
         :return:
         """
-        return get_currency_name(cls.uid)
+        return get_currency_symbol(cls.uid)

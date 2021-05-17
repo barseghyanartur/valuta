@@ -2,8 +2,8 @@ from copy import deepcopy
 import unittest
 
 from ..base import BaseCurrency
-from ..registry import Registry
 from ..exceptions import ImproperlyConfigured
+from ..registry import Registry
 
 __author__ = "Artur Barseghyan"
 __copyright__ = "2021 Artur Barseghyan"
@@ -39,6 +39,10 @@ class TestBase(unittest.TestCase):
 
             class CurrencyNoRate(BaseCurrency):
                 uid: str = "XYZ"
+
+    def test_symbol(self):
+        """Test symbol."""
+        self.assertEqual(Registry.get("EUR").symbol, "€")
 
 
 if __name__ == "__main__":

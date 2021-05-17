@@ -17,12 +17,7 @@ __all__ = ("CurrencyField",)
 
 
 class CurrencyField(models.CharField):
-    """Currency field.
-
-    Consists of two database fields:
-    - amount: `BigIntegerField`
-    - currency: `CharField` with choices.
-    """
+    """Currency field."""
 
     def __init__(
         self,
@@ -54,7 +49,7 @@ class CurrencyField(models.CharField):
         if not self.null:
             setattr(
                 cls,
-                f"get_currency_cls",
+                f"get_currency_cls_for_{self.name}",
                 partialmethod(self.__class__._get_currency_cls, field=self),
             )
             if self.amount_fields:
