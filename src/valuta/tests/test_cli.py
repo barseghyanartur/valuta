@@ -33,7 +33,6 @@ class TestCLI(unittest.TestCase):
 
     def test_list_currencies(self):
         """Test list currencies CLI."""
-        out_dir = tempfile.mkdtemp()
         res = subprocess.check_output(
             [
                 "valuta-list-currencies",

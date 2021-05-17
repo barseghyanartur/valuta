@@ -18,7 +18,6 @@ __all__ = ("DjangoIntegrationTestCase",)
 
 
 class DjangoIntegrationTestCase(TestCase):
-
     def test_limit_choices_to(self):
         with self.subTest("Field choices"):
             self.assertListEqual(
