@@ -583,3 +583,23 @@ For any issues contact me at the e-mail given in the `Author`_ section.
 Author
 ======
 Artur Barseghyan <artur.barseghyan@gmail.com>
+
+Project documentation
+=====================
+Contents:
+
+.. contents:: Table of Contents
+
+.. toctree::
+   :maxdepth: 20
+
+   index
+   changelog
+   valuta
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
