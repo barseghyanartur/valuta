@@ -13,20 +13,20 @@ __all__ = (
 class ClassProperty(property):
     """ClassProperty.
 
-    How to use:
+    How to use::
 
-    class Something:
+        class Something:
+            @classproperty
+            def default_value(cls):
+                return 10  # Some value
 
-        @classproperty
-        def default_value(cls):
-            return 10  # Some value
+    Can be replaced with the following in Python 3.9::
 
-    Can be replaced with the following in Python 3.9:
-
-        @classmethod
-        @property
-        def default_value(cls):
-            ...
+        class Something:
+            @classmethod
+            @property
+            def default_value(cls):
+                return 10  # Some value
     """
 
     def __get__(self, cls, owner):

@@ -18,7 +18,7 @@ unit possible (for EUR it would be cent, which is 1/100 of a single Euro).
 .. image:: https://img.shields.io/travis/barseghyanartur/valuta/master.svg
    :target: http://travis-ci.org/barseghyanartur/valuta
    :alt: Build Status
-
+   
 .. image:: https://readthedocs.org/projects/valuta/badge/?version=latest
     :target: http://valuta.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
@@ -45,19 +45,25 @@ Installation
 Latest stable version on PyPI:
 
 .. code-block:: sh
+
     pip install valuta
+
 Or development version from GitHub:
 
 .. code-block:: sh
+
     pip install https://github.com/barseghyanartur/valuta/archive/master.tar.gz
+
 Usage examples
 ==============
 Pure Python
 -----------
 .. code-block:: python
+
     import valuta
     valuta.EUR.convert_to_currency_units(1_000)
     # 10.0
+
 Django integration
 ------------------
 Model field
@@ -65,17 +71,22 @@ Model field
 **Define some models (product/models.py)**
 
 .. code-block:: python
+
     from django.db import models
     import valuta
     from valuta.contrib.django_integration.models import CurrencyField
+
     class Product(models.Model):
+
         name = models.CharField(max_length=255)
         price = models.IntegerField()
         price_with_tax = models.IntegerField()
         currency = CurrencyField(amount_fields=["price", "price_with_tax"])
+
 **Create some data**
 
 .. code-block:: python
+
     from product.models import Product
     product = Product.objects.create(
         name="My test product",
@@ -83,25 +94,29 @@ Model field
         price_with_tax=120,
         currency=valuta.AMD.uid,
     )
+
 **You could then refer to the `price` and `price_with_tax` as follows**
 
 Note, that every field listed in the ``amount_fields`` gets a correspondent
 model method with suffix ``_in_currency_units``.
 
 .. code-block:: python
+
     product.price_in_currency_units()
     # 1
     product.price_with_tax_in_currency_units()
     # 1.2
+
 **You could limit the currency choices as follows**
 
 .. code-block:: python
-    # ...
+
     currency = CurrencyField(
         amount_fields=["price", "price_with_tax"],
         limit_choices_to=[valuta.AMD.uid, valuta.EUR.uid],
     )
-**Casting the ``in_currency_units`` value**
+
+**Casting the `in_currency_units` value**
 
 If you want to explicitly cast the result value to a certain type, provide a
 callable ``cast_to`` for the ``CurrencyField``.
@@ -109,24 +124,30 @@ callable ``cast_to`` for the ``CurrencyField``.
 For ``int`` it would be:
 
 .. code-block:: python
+
     currency = CurrencyField(
         amount_fields=("price", "price_with_tax",),
         cast_to=int,
     )
+
 For ``float`` it would be:
 
 .. code-block:: python
+
     currency = CurrencyField(
         amount_fields=("price", "price_with_tax",),
         cast_to=float,
     )
+
 For ``decimal.Decimal`` it would be:
 
 .. code-block:: python
+
     currency = CurrencyField(
         amount_fields=("price", "price_with_tax",),
         cast_to=lambda __v: Decimal(str(__v)),
     )
+
 Generating currencies from a CSV dump
 =====================================
 List of currencies is generated from a single CSV dump obtained from the
@@ -135,7 +156,7 @@ using the awesome `wikitable2csv <https://github.com/gambolputty/wikitable2csv>`
 
 If that list is ever updated, run the following command:
 
-.. code-block:: shell-script
+.. code-block:: shell
 
     valuta-generate-currencies --skip-first-line
 
@@ -143,7 +164,7 @@ List all available currencies
 =============================
 Run the following command to list the currencies:
 
-.. code-block:: shell-script
+.. code-block:: shell
 
     valuta-list-currencies
 
@@ -492,25 +513,35 @@ Custom currencies
 To register a new custom currency, do as follows:
 
 .. code-block:: python
+
     from valuta.base import BaseCurrency
+
     class BTC(BaseCurrency):
         """BTC - Bitcoin."""
+
         uid: str = "BTC"
         rate: int = 100_000_000
+
 Testing
 =======
 Simply type:
 
 .. code-block:: sh
+
     ./runtests.py
+
 Or use tox:
 
 .. code-block:: sh
+
     tox
+
 Or use tox to check specific env:
 
 .. code-block:: sh
+
     tox -e py38
+
 Writing documentation
 =====================
 

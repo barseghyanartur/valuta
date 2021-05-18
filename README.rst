@@ -156,7 +156,7 @@ using the awesome `wikitable2csv <https://github.com/gambolputty/wikitable2csv>`
 
 If that list is ever updated, run the following command:
 
-.. code-block:: shell-script
+.. code-block:: shell
 
     valuta-generate-currencies --skip-first-line
 
@@ -164,7 +164,7 @@ List all available currencies
 =============================
 Run the following command to list the currencies:
 
-.. code-block:: shell-script
+.. code-block:: shell
 
     valuta-list-currencies
 
