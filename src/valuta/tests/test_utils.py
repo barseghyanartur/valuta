@@ -1,8 +1,8 @@
 import logging
 import unittest
 
-from ..utils import get_currency_choices
-from .data import CURRENCY_CHOICES
+from ..utils import get_currency_choices, get_currency_choices_with_code
+from .data import CURRENCY_CHOICES, CURRENCY_CHOICES_WITH_CODE
 
 __author__ = "Artur Barseghyan"
 __copyright__ = "2021 Artur Barseghyan"
@@ -22,6 +22,11 @@ class TestUtils(unittest.TestCase):
         """Test get_currency_choices."""
         choices = get_currency_choices()
         self.assertListEqual(choices, CURRENCY_CHOICES)
+
+    def test_get_currency_choices_with_code(self):
+        """Test get_currency_choices_with_code."""
+        choices = get_currency_choices_with_code()
+        self.assertListEqual(choices, CURRENCY_CHOICES_WITH_CODE)
 
 
 if __name__ == "__main__":

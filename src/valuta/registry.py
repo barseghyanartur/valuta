@@ -58,3 +58,26 @@ class Registry(type):
         else:
             values.sort(key=operator.itemgetter(1))
         return values
+
+    @classmethod
+    def values_with_code(
+        mcs,
+        limit_choices_to: Union[Tuple[str, ...], List[str], Set[str]] = None,
+        sort_by_key: bool = False,
+    ):
+        if limit_choices_to is None:
+            values = [
+                (__key, f"{__value.name} ({__key})")
+                for __key, __value in mcs.REGISTRY.items()
+            ]
+        else:
+            values = [
+                (__key, f"{__value.name} ({__key})")
+                for __key, __value in mcs.REGISTRY.items()
+                if __key in limit_choices_to
+            ]
+        if sort_by_key:
+            values.sort(key=operator.itemgetter(0))
+        else:
+            values.sort(key=operator.itemgetter(1))
+        return values

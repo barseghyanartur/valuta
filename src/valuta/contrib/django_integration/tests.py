@@ -22,7 +22,7 @@ class DjangoIntegrationTestCase(TestCase):
         with self.subTest("Field choices"):
             self.assertListEqual(
                 ProductProxyLimitChoicesTo.currency.field.choices,
-                [("AMD", "Armenian Dram"), ("EUR", "Euro")],
+                [("AMD", "Armenian Dram (AMD)"), ("EUR", "Euro (EUR)")],
             )
 
     # @override_settings(VALUTA_FIELD_LIMIT_CHOICES_TO=(

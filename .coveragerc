@@ -5,6 +5,7 @@ omit =
     examples/simple/project/settings/*
     examples/simple/project/wsgi.py
     .tox/*
+parallel = true
 
 [report]
 exclude_lines =
