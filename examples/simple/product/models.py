@@ -18,9 +18,9 @@ __all__ = (
 class AbstractProduct(models.Model):
     """Abstract product model."""
 
-    name = models.CharField(max_length=255)
-    price = models.IntegerField()
-    price_with_tax = models.IntegerField()
+    name = models.CharField(_("Name"), max_length=255)
+    price = models.IntegerField(_("Price"))
+    price_with_tax = models.IntegerField(_("Price with tax"))
 
     class Meta:
         abstract = True
@@ -35,6 +35,7 @@ class Product(AbstractProduct):
     """Product model."""
 
     currency = CurrencyField(
+        _("Currency"),
         amount_fields=(
             "price",
             "price_with_tax",
@@ -53,6 +54,7 @@ class ProductProxyCastToInt(AbstractProduct):
     """
 
     currency = CurrencyField(
+        _("Currency"),
         amount_fields=(
             "price",
             "price_with_tax",
@@ -74,6 +76,7 @@ class ProductProxyCastToFloat(AbstractProduct):
     """
 
     currency = CurrencyField(
+        _("Currency"),
         amount_fields=(
             "price",
             "price_with_tax",
@@ -95,6 +98,7 @@ class ProductProxyCastToDecimal(AbstractProduct):
     """
 
     currency = CurrencyField(
+        _("Currency"),
         amount_fields=(
             "price",
             "price_with_tax",
@@ -116,6 +120,7 @@ class ProductProxyLimitChoicesTo(AbstractProduct):
     """
 
     currency = CurrencyField(
+        _("Currency"),
         amount_fields=(
             "price",
             "price_with_tax",

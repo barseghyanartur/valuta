@@ -21,6 +21,7 @@ class CurrencyField(models.CharField):
 
     def __init__(
         self,
+        *args,
         amount_fields: Optional[
             Union[List[str], Tuple[str, ...], Set[str]]
         ] = None,
@@ -28,7 +29,6 @@ class CurrencyField(models.CharField):
             Union[List[str], Tuple[str, ...], Set[str]]
         ] = None,
         cast_to: Optional[Callable] = None,
-        *args,
         **kwargs,
     ):
         self.amount_fields = amount_fields
@@ -72,6 +72,8 @@ class CurrencyField(models.CharField):
         **kwargs,
     ):
         key = getattr(self, field.name)
+        if not key:
+            return None
         return Registry.get(key)
 
     def _convert_to_currency_units(
@@ -83,6 +85,8 @@ class CurrencyField(models.CharField):
         **kwargs,
     ):
         key = getattr(self, field.name)
+        if not key:
+            return None
         currency_cls = Registry.get(key)
         amount_in_fractional_units = getattr(self, amount_field)
         value = currency_cls.convert_to_currency_units(

@@ -17,10 +17,11 @@ are used for versioning (schema follows below):
 
 0.1.1
 -----
-2021-05-18
+2021-05-19
 
 - Improve docs.
 - Clean up.
+- Minor fixes.
 
 0.1
 ---
