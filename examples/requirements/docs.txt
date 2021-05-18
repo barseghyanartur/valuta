@@ -1,7 +1,7 @@
 -r common.txt
 -r django_3_2.txt
 
+reportlab==3.3.0
+rst2pdf
 sphinx
 valuta
-rst2pdf
-reportlab==3.3.0

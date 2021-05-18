@@ -1,8 +1,7 @@
-import tempfile
 import logging
-import unittest
-
 import subprocess
+import tempfile
+import unittest
 
 from .data import LIST_CURRENCIES_OUTPUT
 

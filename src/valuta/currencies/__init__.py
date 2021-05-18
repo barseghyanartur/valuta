@@ -1,7 +1,7 @@
-from inspect import isclass
-from pkgutil import iter_modules
-from pathlib import Path
 from importlib import import_module
+from inspect import isclass
+from pathlib import Path
+from pkgutil import iter_modules
 
 __author__ = "Artur Barseghyan"
 __copyright__ = "2021 Artur Barseghyan"
