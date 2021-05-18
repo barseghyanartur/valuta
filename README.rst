@@ -111,13 +111,12 @@ model method with suffix ``_in_currency_units``.
 
 .. code-block:: python
 
-    # ...
     currency = CurrencyField(
         amount_fields=["price", "price_with_tax"],
         limit_choices_to=[valuta.AMD.uid, valuta.EUR.uid],
     )
 
-**Casting the ``in_currency_units`` value**
+**Casting the `in_currency_units` value**
 
 If you want to explicitly cast the result value to a certain type, provide a
 callable ``cast_to`` for the ``CurrencyField``.

@@ -83,4 +83,4 @@ class BaseCurrency(metaclass=Registry):
 
         :return:
         """
-        return get_currency_name(cls.uid)
+        return get_currency_symbol(cls.uid)
