@@ -7,16 +7,20 @@ from .models import Product, ProductProxyLimitChoicesTo
 class ProductAdminMixin:
     """Product admin mixin."""
 
-    @admin.display(description=_("Price in currency units"), ordering="price")
     def display_price_in_currency_units(self, obj):
         return obj.price_in_currency_units()
-
-    @admin.display(
-        description=_("Price with tax in currency units"),
-        ordering="price_with_tax",
+    display_price_in_currency_units.short_description = _(
+        "Price in currency units"
     )
+    display_price_in_currency_units.admin_order_field = "price"
+
     def display_price_with_tax_in_currency_units(self, obj):
         return obj.price_with_tax_in_currency_units()
+    display_price_with_tax_in_currency_units.short_description = _(
+        "Price with tax in currency units"
+    )
+    display_price_with_tax_in_currency_units.admin_order_field = \
+        "price_with_tax"
 
 
 @admin.register(Product)
