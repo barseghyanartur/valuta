@@ -148,6 +148,90 @@ For ``decimal.Decimal`` it would be:
         cast_to=lambda __v: Decimal(str(__v)),
     )
 
+**Customize choices display format**
+
+By default, the following format is used
+(``valuta.utils.get_currency_choices_with_code``):
+
+.. code-block:: python
+
+        [
+            ("AMD", "Armenian Dram (AMD)"),
+            ("EUR", "Euro (EUR)"),
+        ]
+
+If you want to customize that, provide a callable ``get_choices_func`` along:
+
+.. code-block:: python
+
+    from valuta.utils import get_currency_choices
+
+    currency = CurrencyField(
+        amount_fields=("price", "price_with_tax",),
+        get_choices_func=get_currency_choices,
+    )
+
+It would then have the following format:
+
+.. code-block:: python
+
+        [
+            ("AMD", "Armenian Dram"),
+            ("EUR", "Euro"),
+        ]
+
+Take both ``valuta.utils.get_currency_choices`` and
+``valuta.utils.get_currency_choices_with_code`` as a good example of how
+to customize. You could for instance do something like this:
+
+.. code-block:: python
+
+    import operator
+    from typing import List, Tuple, Set, Union
+
+    from babel.numbers import get_currency_symbol
+    from valuta.registry import Registry
+
+    def get_currency_choices_with_sign(
+            limit_choices_to: Union[Tuple[str, ...], List[str], Set[str]] = None,
+            sort_by_key: bool = False,
+    ) -> List[Tuple[str, str]]:
+        """Get currency choices with code.
+
+        List of choices in the following format::
+
+            [
+                ("AMD", "AMD - Armenian Dram"),
+                ("EUR", "€ - Euro"),
+                ("USD", "$ - US Dollar"),
+            ]
+        """
+        if limit_choices_to is None:
+            values = [
+                (__key, f"{get_currency_symbol(__key)} - {__value.name}")
+                for __key, __value in Registry.REGISTRY.items()
+            ]
+        else:
+            values = [
+                (__key, f"{get_currency_symbol(__key)} - {__value.name}")
+                for __key, __value in Registry.REGISTRY.items()
+                if __key in limit_choices_to
+            ]
+        if sort_by_key:
+            values.sort(key=operator.itemgetter(0))
+        else:
+            values.sort(key=operator.itemgetter(1))
+        return values
+
+And then use it as follows:
+
+.. code-block:: python
+
+    currency = CurrencyField(
+        amount_fields=("price", "price_with_tax",),
+        get_choices_func=get_currency_choices_with_sign,
+    )
+
 Generating currencies from a CSV dump
 =====================================
 List of currencies is generated from a single CSV dump obtained from the
