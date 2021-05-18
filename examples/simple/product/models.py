@@ -4,7 +4,10 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 import valuta
+from valuta.utils import get_currency_choices, get_currency_choices_with_code
 from valuta.contrib.django_integration.models import CurrencyField
+
+from .helpers import get_currency_choices_with_sign
 
 __all__ = (
     "Product",
@@ -40,6 +43,7 @@ class Product(AbstractProduct):
             "price",
             "price_with_tax",
         ),
+        get_choices_func=get_currency_choices_with_code,
     )
 
     class Meta:
@@ -81,6 +85,7 @@ class ProductProxyCastToFloat(AbstractProduct):
             "price",
             "price_with_tax",
         ),
+        get_choices_func=get_currency_choices,
         cast_to=float,
     )
 
@@ -103,6 +108,7 @@ class ProductProxyCastToDecimal(AbstractProduct):
             "price",
             "price_with_tax",
         ),
+        get_choices_func=get_currency_choices_with_sign,
         cast_to=lambda __v: Decimal(str(__v)),
     )
 
@@ -129,6 +135,7 @@ class ProductProxyLimitChoicesTo(AbstractProduct):
             valuta.EUR.uid,
             valuta.AMD.uid,
         ),
+        get_choices_func=get_currency_choices_with_code,
     )
 
     class Meta:
