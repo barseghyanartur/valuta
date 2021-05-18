@@ -39,7 +39,7 @@ class Product(AbstractProduct):
         amount_fields=(
             "price",
             "price_with_tax",
-        )
+        ),
     )
 
     class Meta:
