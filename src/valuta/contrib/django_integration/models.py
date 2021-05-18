@@ -11,7 +11,7 @@ from django.db.models import (
 from django.conf import settings
 
 from ...registry import Registry
-from ...utils import get_currency_choices
+from ...utils import get_currency_choices_with_code
 
 __all__ = ("CurrencyField",)
 
@@ -21,18 +21,21 @@ class CurrencyField(models.CharField):
 
     def __init__(
         self,
+        *args,
         amount_fields: Optional[
             Union[List[str], Tuple[str, ...], Set[str]]
         ] = None,
         limit_choices_to: Optional[
             Union[List[str], Tuple[str, ...], Set[str]]
         ] = None,
+        get_choices_func: Callable = get_currency_choices_with_code,
         cast_to: Optional[Callable] = None,
-        *args,
         **kwargs,
     ):
         self.amount_fields = amount_fields
         self.cast_to = cast_to
+        if get_choices_func is None:
+            get_choices_func = get_currency_choices_with_code
         kwargs["max_length"] = 10
         if limit_choices_to is None:
             settings_limit_choices_to = getattr(
@@ -41,7 +44,7 @@ class CurrencyField(models.CharField):
             if settings_limit_choices_to:
                 limit_choices_to = settings_limit_choices_to
 
-        kwargs["choices"] = get_currency_choices(limit_choices_to)
+        kwargs["choices"] = get_choices_func(limit_choices_to)
         super().__init__(*args, **kwargs)
 
     def contribute_to_class(self, cls, name, **kwargs):
@@ -72,6 +75,8 @@ class CurrencyField(models.CharField):
         **kwargs,
     ):
         key = getattr(self, field.name)
+        if not key:
+            return None
         return Registry.get(key)
 
     def _convert_to_currency_units(
@@ -83,6 +88,8 @@ class CurrencyField(models.CharField):
         **kwargs,
     ):
         key = getattr(self, field.name)
+        if not key:
+            return None
         currency_cls = Registry.get(key)
         amount_in_fractional_units = getattr(self, amount_field)
         value = currency_cls.convert_to_currency_units(

@@ -4,7 +4,10 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 import valuta
+from valuta.utils import get_currency_choices, get_currency_choices_with_code
 from valuta.contrib.django_integration.models import CurrencyField
+
+from .helpers import get_currency_choices_with_sign
 
 __all__ = (
     "Product",
@@ -18,9 +21,9 @@ __all__ = (
 class AbstractProduct(models.Model):
     """Abstract product model."""
 
-    name = models.CharField(max_length=255)
-    price = models.IntegerField()
-    price_with_tax = models.IntegerField()
+    name = models.CharField(_("Name"), max_length=255)
+    price = models.IntegerField(_("Price"))
+    price_with_tax = models.IntegerField(_("Price with tax"))
 
     class Meta:
         abstract = True
@@ -35,10 +38,12 @@ class Product(AbstractProduct):
     """Product model."""
 
     currency = CurrencyField(
+        _("Currency"),
         amount_fields=(
             "price",
             "price_with_tax",
-        )
+        ),
+        get_choices_func=get_currency_choices_with_code,
     )
 
     class Meta:
@@ -53,6 +58,7 @@ class ProductProxyCastToInt(AbstractProduct):
     """
 
     currency = CurrencyField(
+        _("Currency"),
         amount_fields=(
             "price",
             "price_with_tax",
@@ -74,10 +80,12 @@ class ProductProxyCastToFloat(AbstractProduct):
     """
 
     currency = CurrencyField(
+        _("Currency"),
         amount_fields=(
             "price",
             "price_with_tax",
         ),
+        get_choices_func=get_currency_choices,
         cast_to=float,
     )
 
@@ -95,10 +103,12 @@ class ProductProxyCastToDecimal(AbstractProduct):
     """
 
     currency = CurrencyField(
+        _("Currency"),
         amount_fields=(
             "price",
             "price_with_tax",
         ),
+        get_choices_func=get_currency_choices_with_sign,
         cast_to=lambda __v: Decimal(str(__v)),
     )
 
@@ -116,6 +126,7 @@ class ProductProxyLimitChoicesTo(AbstractProduct):
     """
 
     currency = CurrencyField(
+        _("Currency"),
         amount_fields=(
             "price",
             "price_with_tax",
@@ -124,6 +135,7 @@ class ProductProxyLimitChoicesTo(AbstractProduct):
             valuta.EUR.uid,
             valuta.AMD.uid,
         ),
+        get_choices_func=get_currency_choices_with_code,
     )
 
     class Meta:

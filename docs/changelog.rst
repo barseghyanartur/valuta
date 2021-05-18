@@ -15,12 +15,20 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.1.2
+-----
+2021-05-19
+
+- Change of the default display format in the Django integration app.
+- Allow customization of the display format in the Django integration app.
+
 0.1.1
 -----
-2021-05-18
+2021-05-19
 
 - Improve docs.
 - Clean up.
+- Minor fixes.
 
 0.1
 ---
