@@ -35,7 +35,7 @@ def read_csv_and_write_output(
     in_file: str = "list_of_circulating_currencies.csv",
     out_dir: str = "currencies",
     skip_first_line: bool = False,
-):
+) -> str:
     """Read CSV."""
     if not os.path.isabs(in_file):
         in_file = project_dir(in_file)
@@ -69,3 +69,5 @@ def read_csv_and_write_output(
                 with open(f"{out_dir}/{iso_code.lower()}.py", "w") as output:
                     output.write(contents)
                     processed.add(iso_code)
+
+    return out_dir

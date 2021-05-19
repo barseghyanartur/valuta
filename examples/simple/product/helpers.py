@@ -4,14 +4,12 @@ from typing import List, Tuple, Set, Union
 from babel.numbers import get_currency_symbol
 from valuta.registry import Registry
 
-__all__ = (
-    "get_currency_choices_with_sign",
-)
+__all__ = ("get_currency_choices_with_sign",)
 
 
 def get_currency_choices_with_sign(
-        limit_choices_to: Union[Tuple[str, ...], List[str], Set[str]] = None,
-        sort_by_key: bool = False,
+    limit_choices_to: Union[Tuple[str, ...], List[str], Set[str]] = None,
+    sort_by_key: bool = False,
 ) -> List[Tuple[str, str]]:
     """Get currency choices with code.
 

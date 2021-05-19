@@ -10,11 +10,13 @@ from valuta.contrib.django_integration.models import CurrencyField
 from .helpers import get_currency_choices_with_sign
 
 __all__ = (
+    "AbstractProduct",
     "Product",
     "ProductProxyCastToInt",
     "ProductProxyCastToFloat",
     "ProductProxyCastToDecimal",
     "ProductProxyLimitChoicesTo",
+    "ProductProxyChoicesFuncNone",
 )
 
 
@@ -143,3 +145,29 @@ class ProductProxyLimitChoicesTo(AbstractProduct):
         db_table = Product._meta.db_table
         verbose_name = _("Product proxy (limit_choices_to)")
         verbose_name_plural = _("Product proxies (limit_choices_to)")
+
+
+class ProductProxyChoicesFuncNone(AbstractProduct):
+    """A sort of a proxy model to Product.
+
+    The `get_choices_func` argument is None here.
+    """
+
+    currency = CurrencyField(
+        _("Currency"),
+        amount_fields=(
+            "price",
+            "price_with_tax",
+        ),
+        limit_choices_to=(
+            valuta.EUR.uid,
+            valuta.AMD.uid,
+        ),
+        get_choices_func=None,
+    )
+
+    class Meta:
+        managed = False
+        db_table = Product._meta.db_table
+        verbose_name = _("Product proxy (get_choices_func=None)")
+        verbose_name_plural = _("Product proxies (get_choices_func=None)")

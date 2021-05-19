@@ -25,6 +25,7 @@
 /build/
 /dist/
 /src/valuta.egg-info
+#/src/valuta/var/
 /hotfixes/
 /MANIFEST.in~
 /prof/

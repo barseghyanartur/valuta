@@ -1,11 +1,12 @@
 [run]
 omit =
-    src/valuta/contrib/django_integration/migrations/*
+    src/valuta/contrib/django_integration/tests/*
     src/valuta/tests/*
     examples/simple/project/settings/*
     examples/simple/project/wsgi.py
+    examples/simple/product/migrations/*
     .tox/*
-parallel = true
+
 
 [report]
 exclude_lines =

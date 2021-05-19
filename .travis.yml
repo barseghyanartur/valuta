@@ -7,7 +7,7 @@ cache: pip
 sudo: true
 
 addons:
-  chrome: stable
+#  chrome: stable
   hosts:
     - localhost
     - 127.0.0.1
@@ -16,44 +16,58 @@ matrix:
   fast_finish: true
   include:
 
-  - env: TOX_ENV=py36-django22
+  - env: TOX_ENV=py36-django22 REQUIREMENTS=django_2_2.in
     python: 3.6
-  - env: TOX_ENV=py37-django22
+  - env: TOX_ENV=py37-django22 REQUIREMENTS=django_2_2.in
     python: 3.7
-  - env: TOX_ENV=py38-django22
+  - env: TOX_ENV=py38-django22 REQUIREMENTS=django_2_2.in
     python: 3.8
-  - env: TOX_ENV=py39-django22
+  - env: TOX_ENV=py39-django22 REQUIREMENTS=django_2_2.in
     python: 3.9
 
-  - env: TOX_ENV=py36-django30
+  - env: TOX_ENV=py36-django30 REQUIREMENTS=django_3_0.in
     python: 3.6
-  - env: TOX_ENV=py37-django30
+  - env: TOX_ENV=py37-django30 REQUIREMENTS=django_3_0.in
     python: 3.7
-  - env: TOX_ENV=py38-django30
+  - env: TOX_ENV=py38-django30 REQUIREMENTS=django_3_0.in
     python: 3.8
-  - env: TOX_ENV=py39-django30
+  - env: TOX_ENV=py39-django30 REQUIREMENTS=django_3_0.in
     python: 3.9
 
-  - env: TOX_ENV=py36-django31
+  - env: TOX_ENV=py36-django31 REQUIREMENTS=django_3_1.in
     python: 3.6
-  - env: TOX_ENV=py37-django31
+  - env: TOX_ENV=py37-django31 REQUIREMENTS=django_3_1.in
     python: 3.7
-  - env: TOX_ENV=py38-django31
+  - env: TOX_ENV=py38-django31 REQUIREMENTS=django_3_1.in
     python: 3.8
-  - env: TOX_ENV=py39-django31
+  - env: TOX_ENV=py39-django31 REQUIREMENTS=django_3_1.in
+    python: 3.9
+
+  - env: TOX_ENV=py36-django32 REQUIREMENTS=django_3_2.in
+    python: 3.6
+  - env: TOX_ENV=py37-django32 REQUIREMENTS=django_3_2.in
+    python: 3.7
+  - env: TOX_ENV=py38-django32 REQUIREMENTS=django_3_2.in
+    python: 3.8
+  - env: TOX_ENV=py39-django32 REQUIREMENTS=django_3_2.in
     python: 3.9
 
 before_install:
-  - sudo apt-get install -y xvfb libappindicator1 fonts-liberation
+#  - sudo apt-get install -y xvfb libappindicator1 fonts-liberation
+#  - sudo apt-get install -y build-essential libssl-dev libffi-dev cargo
+  - pip install pip-tools
+#  - ./scripts/test_compile_requirements.sh
+  - pip-compile examples/requirements/$REQUIREMENTS
 
 install:
-  - wget https://chromedriver.storage.googleapis.com/87.0.4280.88/chromedriver_linux64.zip
-  - unzip chromedriver_linux64.zip -d /home/travis/
+#  - wget https://chromedriver.storage.googleapis.com/87.0.4280.88/chromedriver_linux64.zip
+#  - unzip chromedriver_linux64.zip -d /home/travis/
+  - pip-compile examples/requirements/test.in
   - pip install -r examples/requirements/test.txt
 
-before_script:
-  - export CHROME_BIN=/home/travis/chromedriver
-  - sleep 2
+#before_script:
+#  - export CHROME_BIN=/home/travis/chromedriver
+#  - sleep 2
 
 script: travis_retry tox -e $TOX_ENV
 
