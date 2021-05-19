@@ -33,10 +33,6 @@ class BaseCurrency(metaclass=Registry):
     @classmethod
     def validate(cls):
         """Constructor."""
-        # if not hasattr(cls, "uid"):
-        #     raise ImproperlyConfigured(
-        #         "The `uid` property of the currency shall be defined."
-        #     )
         if not hasattr(cls, "rate"):
             raise ImproperlyConfigured(
                 "The `rate` property of the currency shall be defined."

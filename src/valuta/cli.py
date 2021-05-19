@@ -41,7 +41,7 @@ def generate_currencies():
     in_file = args.in_file
     out_dir = args.out_dir
     skip_first_line = args.skip_first_line
-    return read_csv_and_write_output(in_file, out_dir, skip_first_line)
+    read_csv_and_write_output(in_file, out_dir, skip_first_line)
 
 
 def list_currencies():

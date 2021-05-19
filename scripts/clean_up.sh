@@ -5,6 +5,10 @@ find . -name "__pycache__" -exec rm -rf {} \;
 rm -rf build/
 rm -rf dist/
 rm -rf src/valuta.egg-info/
+rm -rf src/valuta/var/
 rm -rf .cache/
 rm -rf .idea/
 rm -rf htmlcov/
+rm -rf .coverage
+rm -rf .pytest_cache/
+rm -rf .mypy_cache/
