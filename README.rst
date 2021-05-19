@@ -33,7 +33,9 @@ unit possible (for EUR it would be cent, which is 1/100 of a single Euro).
 
 Prerequisites
 =============
-- Python 3.6, 3.7, 3.8 and 3.9.
+- Core package requires Python 3.6, 3.7, 3.8 or 3.9.
+- Django integration package (``valuta.contrib.django_integration``) requires
+  Django 2.2, 3.0, 3.1 or 3.2.
 
 Documentation
 =============
