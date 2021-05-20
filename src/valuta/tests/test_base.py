@@ -47,15 +47,19 @@ class TestBase(unittest.TestCase):
 
     def test_1(self):
         self.assertEqual(UGX.convert_to_currency_units(10), 10)
+        self.assertEqual(UGX.convert_to_currency_units(1_000), 1_000)
 
     def test_5(self):
         self.assertEqual(MRU.convert_to_currency_units(5), 1)
+        self.assertEqual(MRU.convert_to_currency_units(1_000), 200)
 
     def test_10(self):
         self.assertEqual(VND.convert_to_currency_units(10), 1)
+        self.assertEqual(VND.convert_to_currency_units(1_000), 100)
 
     def test_100(self):
         self.assertEqual(EUR.convert_to_currency_units(100), 1)
+        self.assertEqual(EUR.convert_to_currency_units(1_000), 10)
 
     def test_1000(self):
         self.assertEqual(TND.convert_to_currency_units(1_000), 1)
