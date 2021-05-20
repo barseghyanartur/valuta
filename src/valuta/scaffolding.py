@@ -12,7 +12,11 @@ __all__ = (
 )
 
 
-def generate_contents(iso_code: str, number_to_basic: str, currency: str):
+def generate_contents(
+    iso_code: str,
+    number_to_basic: str,
+    currency: str,
+) -> str:
     """Generate the contents for the given currency."""
 
     return f'''from ..base import BaseCurrency
