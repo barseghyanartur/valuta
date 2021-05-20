@@ -2,6 +2,7 @@ from copy import deepcopy
 import unittest
 
 from ..base import BaseCurrency
+from ..currencies import TND, EUR, MRU, VND, UGX
 from ..exceptions import ImproperlyConfigured
 from ..registry import Registry
 
@@ -43,6 +44,21 @@ class TestBase(unittest.TestCase):
     def test_symbol(self):
         """Test symbol."""
         self.assertEqual(Registry.get("EUR").symbol, "€")
+
+    def test_1(self):
+        self.assertEqual(UGX.convert_to_currency_units(10), 10)
+
+    def test_5(self):
+        self.assertEqual(MRU.convert_to_currency_units(5), 1)
+
+    def test_10(self):
+        self.assertEqual(VND.convert_to_currency_units(10), 1)
+
+    def test_100(self):
+        self.assertEqual(EUR.convert_to_currency_units(100), 1)
+
+    def test_1000(self):
+        self.assertEqual(TND.convert_to_currency_units(1_000), 1)
 
 
 if __name__ == "__main__":
