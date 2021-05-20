@@ -63,8 +63,21 @@ Pure Python
 .. code-block:: python
 
     import valuta
+
     valuta.EUR.convert_to_currency_units(1_000)
     # 10.0
+
+    valuta.UGX.convert_to_currency_units(1_000)
+    # 1000.0
+
+    valuta.MRU.convert_to_currency_units(1_000)
+    # 200.0
+
+    valuta.VND.convert_to_currency_units(1_000)
+    # 100.0
+
+    valuta.TND.convert_to_currency_units(1_000)
+    # 1.0
 
 Django integration
 ------------------
