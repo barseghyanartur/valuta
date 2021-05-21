@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 pip uninstall valuta -y
 rm build -rf
 rm dist -rf

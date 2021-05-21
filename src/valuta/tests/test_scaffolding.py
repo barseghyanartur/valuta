@@ -39,7 +39,3 @@ class TestScaffolding(unittest.TestCase):
         self.assertListEqual(
             LIST_GENERATED_CURRENCY_MODULES, generated_modules
         )
-
-
-if __name__ == "__main__":
-    unittest.main()

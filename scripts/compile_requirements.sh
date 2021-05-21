@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 cd examples/requirements/
 pip-compile common.in
 pip-compile debug.in

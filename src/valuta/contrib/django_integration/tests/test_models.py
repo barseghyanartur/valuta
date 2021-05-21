@@ -209,6 +209,57 @@ class DjangoIntegrationTestCase(TestCase):
         currency_cls = p.get_currency_cls_for_currency()
         self.assertIsNone(currency_cls)
 
+    def test_1(self):
+        p = Product.objects.create(
+            **{
+                "name": "My test product",
+                "price": 1_000,
+                "price_with_tax": 1_200,
+                "currency": valuta.UGX.uid,
+            }
+        )
+        self.assertEqual(p.price_in_currency_units(), 1_000)
 
-if __name__ == "__main__":
-    unittest.main()
+    def test_5(self):
+        p = Product.objects.create(
+            **{
+                "name": "My test product",
+                "price": 1_000,
+                "price_with_tax": 1_200,
+                "currency": valuta.MRU.uid,
+            }
+        )
+        self.assertEqual(p.price_in_currency_units(), 200)
+
+    def test_10(self):
+        p = Product.objects.create(
+            **{
+                "name": "My test product",
+                "price": 1_000,
+                "price_with_tax": 1_200,
+                "currency": valuta.VND.uid,
+            }
+        )
+        self.assertEqual(p.price_in_currency_units(), 100)
+
+    def test_100(self):
+        p = Product.objects.create(
+            **{
+                "name": "My test product",
+                "price": 1_000,
+                "price_with_tax": 1_200,
+                "currency": valuta.EUR.uid,
+            }
+        )
+        self.assertEqual(p.price_in_currency_units(), 10)
+
+    def test_1000(self):
+        p = Product.objects.create(
+            **{
+                "name": "My test product",
+                "price": 1_000,
+                "price_with_tax": 1_200,
+                "currency": valuta.TND.uid,
+            }
+        )
+        self.assertEqual(p.price_in_currency_units(), 1)

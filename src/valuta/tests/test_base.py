@@ -63,7 +63,3 @@ class TestBase(unittest.TestCase):
 
     def test_1000(self):
         self.assertEqual(TND.convert_to_currency_units(1_000), 1)
-
-
-if __name__ == "__main__":
-    unittest.main()

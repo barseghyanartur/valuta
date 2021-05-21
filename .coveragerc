@@ -7,7 +7,6 @@ omit =
     examples/simple/product/migrations/*
     .tox/*
 
-
 [report]
 exclude_lines =
     pragma: no cover
