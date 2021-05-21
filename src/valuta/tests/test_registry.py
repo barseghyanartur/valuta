@@ -32,7 +32,3 @@ class TestRegistry(unittest.TestCase):
         items = Registry.items()
         choices = get_currency_choices_with_code()
         self.assertEqual(len(items), len(choices))
-
-
-if __name__ == "__main__":
-    unittest.main()

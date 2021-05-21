@@ -39,7 +39,3 @@ class TestCLI(unittest.TestCase):
         ).strip()
         self.assertEqual(res, LIST_CURRENCIES_OUTPUT)
         return res
-
-
-if __name__ == "__main__":
-    unittest.main()

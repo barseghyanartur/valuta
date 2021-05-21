@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 echo 'Making messages for valuta...'
 cd examples/simple/
 ./manage.py makemigrations valuta

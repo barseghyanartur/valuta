@@ -65,12 +65,15 @@ pytest-django==4.3.0
     # via -r test.in
 pytest-ordering==0.6
     # via -r test.in
+pytest-pythonpath==0.7.3
+    # via -r test.in
 pytest==6.2.4
     # via
     #   -r test.in
     #   pytest-cov
     #   pytest-django
     #   pytest-ordering
+    #   pytest-pythonpath
 python-dateutil==2.8.1
     # via faker
 pytz==2021.1

@@ -42,7 +42,3 @@ class TestUtils(unittest.TestCase):
         """Test get_currency_choices_with_code sort_by_key=True."""
         choices = get_currency_choices_with_code(sort_by_key=True)
         self.assertListEqual(choices, CURRENCY_CHOICES_WITH_CODE_SORT_BY_KEY)
-
-
-if __name__ == "__main__":
-    unittest.main()
