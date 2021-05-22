@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 cd examples/requirements/
+pip-compile benchmarks.in
 pip-compile common.in
 pip-compile debug.in
 pip-compile deployment.in
