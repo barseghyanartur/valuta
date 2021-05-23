@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.1.5
+-----
+2021-05-23
+
+- Add more tests.
+- Add an argument ``--sort-by-value`` for ``valuta-list-ccurrencies`` command.
+
 0.1.4
 -----
 2021-05-20

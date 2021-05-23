@@ -47,7 +47,16 @@ def generate_currencies():
 def list_currencies():
     """List currency modules."""
     parser = argparse.ArgumentParser(description="List currency modules")
-    currencies = get_currency_choices(sort_by_key=True)
+    parser.add_argument(
+        "--sort-by-value",
+        dest="sort_by_value",
+        default=False,
+        action="store_true",
+        help="Sort by value?",
+    )
+    args = parser.parse_args(sys.argv[1:])
+    sort_by_key = not args.sort_by_value
+    currencies = get_currency_choices(sort_by_key=sort_by_key)
     total = len(currencies)
     print("┌───────────┬──────────────────────────────────────────┐")
     print("│ ISO code  │ Currency                                 │")
