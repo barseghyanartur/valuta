@@ -3,7 +3,10 @@ import subprocess
 import tempfile
 import unittest
 
-from .data import LIST_CURRENCIES_OUTPUT
+from .data import (
+    LIST_CURRENCIES_OUTPUT,
+    LIST_CURRENCIES_OUTPUT_SORTED_BY_VALUE,
+)
 
 __author__ = "Artur Barseghyan"
 __copyright__ = "2021 Artur Barseghyan"
@@ -38,4 +41,15 @@ class TestCLI(unittest.TestCase):
             ]
         ).strip()
         self.assertEqual(res, LIST_CURRENCIES_OUTPUT)
+        return res
+
+    def test_list_currencies_sort_by_value(self):
+        """Test list currencies CLI, sorted byvalue."""
+        res = subprocess.check_output(
+            [
+                "valuta-list-currencies",
+                "--sort-by-value",
+            ]
+        ).strip()
+        self.assertEqual(res, LIST_CURRENCIES_OUTPUT_SORTED_BY_VALUE)
         return res
