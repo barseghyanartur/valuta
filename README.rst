@@ -637,7 +637,7 @@ Simply type:
 
 .. code-block:: sh
 
-    ./runtests.py
+    pytest -vvv
 
 Or use tox:
 
@@ -649,7 +649,7 @@ Or use tox to check specific env:
 
 .. code-block:: sh
 
-    tox -e py38
+    tox -e py39-django32
 
 Writing documentation
 =====================

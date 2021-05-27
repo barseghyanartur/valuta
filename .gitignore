@@ -41,9 +41,9 @@ profiler.py.prof
 /examples/tmp/
 /examples/logs/
 /examples/media/cache/
-/examples/simple/settings/local_settings.py
+/examples/django_example/settings/local_settings.py
 /examples/static/
-/examples/simple/project/db.sqlite3
-/examples/simple/project/static/
+/examples/django_example/project/db.sqlite3
+/examples/django_example/project/static/
 
 var/
