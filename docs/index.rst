@@ -1,11 +1,22 @@
 ======
 valuta
 ======
-Currencies done right.
+**Currencies done right**
+
+.. _List of circulating currencies: https://en.wikipedia.org/wiki/List_of_circulating_currencies
 
 In most payment systems that went international, amounts are represented as
 integers, instead of decimals, as they are represented with a smallest
-unit possible (for EUR it would be cent, which is 1/100 of a single Euro).
+unit possible.
+
+For `EUR` it would be `cent <https://en.wikipedia.org/wiki/Cent_(currency)>`__,
+which is 1/100 of a single `Euro <https://en.wikipedia.org/wiki/Euro>`__.
+For `MRU` it would be `khoums <https://en.wikipedia.org/wiki/Khoums>`__,
+which is 1/5 of a single `Ouguiya <https://en.wikipedia.org/wiki/Mauritanian_ouguiya>`__.
+
+List of currencies is generated from a single CSV dump obtained from the
+`list of circulating currencies`_ Wikipedia page using the awesome
+`wikitable2csv <https://github.com/gambolputty/wikitable2csv>`__.
 
 .. image:: https://img.shields.io/pypi/v/valuta.svg
    :target: https://pypi.python.org/pypi/valuta
@@ -18,7 +29,7 @@ unit possible (for EUR it would be cent, which is 1/100 of a single Euro).
 .. image:: https://img.shields.io/travis/barseghyanartur/valuta/master.svg
    :target: http://travis-ci.org/barseghyanartur/valuta
    :alt: Build Status
-   
+
 .. image:: https://readthedocs.org/projects/valuta/badge/?version=latest
     :target: http://valuta.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
@@ -247,28 +258,11 @@ And then use it as follows:
         get_choices_func=get_currency_choices_with_sign,
     )
 
-Generating currencies from a CSV dump
-=====================================
-List of currencies is generated from a single CSV dump obtained from the
-`following Wikipedia page <https://en.wikipedia.org/wiki/List_of_circulating_currencies>`__
-using the awesome `wikitable2csv <https://github.com/gambolputty/wikitable2csv>`__.
-
-If that list is ever updated, run the following command:
-
-.. code-block:: shell
-
-    valuta-generate-currencies --skip-first-line
-
-List all available currencies
-=============================
-Run the following command to list the currencies:
-
-.. code-block:: shell
-
-    valuta-list-currencies
-
 Supported currencies
 ====================
+Currencies marked with `(*)` are custom (added manually). The rest is obtained
+from the already mentioned `list of circulating currencies`_.
+
 .. code-block:: text
 
     ┌───────────┬──────────────────────────────────────────┐
@@ -316,7 +310,7 @@ Supported currencies
     ├───────────┼──────────────────────────────────────────┤
     │ BSD       │ Bahamian Dollar                          │
     ├───────────┼──────────────────────────────────────────┤
-    │ BTC       │ Bitcoin                                  │
+    │ BTC       │ Bitcoin (*)                              │
     ├───────────┼──────────────────────────────────────────┤
     │ BTN       │ Bhutanese Ngultrum                       │
     ├───────────┼──────────────────────────────────────────┤
@@ -607,6 +601,12 @@ Supported currencies
     │ ZWB       │ ZWB                                      │
     └───────────┴──────────────────────────────────────────┘
 
+Run the following command in terminal to list all available currencies:
+
+.. code-block:: shell
+
+    valuta-list-currencies
+
 Custom currencies
 =================
 To register a new custom currency, do as follows:
@@ -615,11 +615,21 @@ To register a new custom currency, do as follows:
 
     from valuta.base import BaseCurrency
 
-    class BTC(BaseCurrency):
-        """BTC - Bitcoin."""
+    class XYZ(BaseCurrency):
+        """XYZ - The XYZ currency."""
 
-        uid: str = "BTC"
+        uid: str = "XYZ"
         rate: int = 100_000_000
+
+Generating currencies from a CSV dump
+=====================================
+If `list of circulating currencies`_ is ever updated, grab it the same way,
+save as `list_of_circulating_currencies.csv` in the source and run the
+following command:
+
+.. code-block:: shell
+
+    valuta-generate-currencies --skip-first-line
 
 Testing
 =======
