@@ -19,10 +19,10 @@ import sys
 # sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath(os.path.join('..', 'src')))
 sys.path.insert(0, os.path.abspath(os.path.join('..', 'examples')))
-sys.path.insert(0, os.path.abspath(os.path.join('..', 'examples', 'simple')))
+sys.path.insert(0, os.path.abspath(os.path.join('..', 'examples', 'django_example')))
 try:
     import valuta
-    from simple import settings as example_settings
+    from django_example import settings as example_settings
     version = valuta.__version__
     project = valuta.__title__
     copyright = valuta.__copyright__

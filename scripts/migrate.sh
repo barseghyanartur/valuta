@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-cd examples/simple/
+cd examples/django_example/
 ./manage.py migrate "$@"
