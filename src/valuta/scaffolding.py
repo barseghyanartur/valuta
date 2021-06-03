@@ -62,7 +62,7 @@ def read_csv_and_write_output(
                 continue
 
             if "none" in number_to_basic:
-                number_to_basic = 1
+                number_to_basic = "1"
 
             iso_code = iso_code[:3]
 

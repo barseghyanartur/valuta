@@ -1,6 +1,6 @@
 from decimal import Decimal
 import operator
-from typing import Optional, Dict, Union, List, Set, Tuple
+from typing import Optional, Dict, Union, List, Set, Tuple, ItemsView
 from babel.numbers import get_currency_name, get_currency_symbol
 
 from .exceptions import ImproperlyConfigured
@@ -41,7 +41,7 @@ class Registry(type):
         return mcs.REGISTRY.get(key, default)
 
     @classmethod
-    def items(mcs) -> List[Tuple[str, "BaseCurrency"]]:
+    def items(mcs) -> ItemsView[str, "BaseCurrency"]:
         return mcs.REGISTRY.items()
 
     @classmethod
@@ -105,7 +105,6 @@ class BaseCurrency(metaclass=Registry):
     """
 
     uid: Optional[str] = None
-    name: str
     rate: int
 
     @classmethod
