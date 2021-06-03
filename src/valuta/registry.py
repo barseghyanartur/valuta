@@ -3,7 +3,7 @@ from .base import Registry
 
 warnings.warn(
     "The `Registry` class is moved from `valuta.registry` to `valuta.base`.",
-    DeprecationWarning
+    DeprecationWarning,
 )
 
 __author__ = "Artur Barseghyan"
