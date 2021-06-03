@@ -113,6 +113,17 @@ Working with string representations of the (ISO) currency codes
     convert_to_currency_units("TND", 1_000)
     # 1.0
 
+By default, exceptions arising from invalid currency codes are
+suppressed (``None`` will be returned on invalid currency codes).
+
+If you want to throw exception on invalid currency codes, set ``fail_silently``
+to ``False``. The following example will throw a
+``valuta.exceptions.InvalidCurrency`` exception.
+
+.. code-block:: python
+
+    convert_to_currency_units("i-dont-exist", 1_000, fail_silently=False)
+
 Django integration
 ------------------
 In its' basis, Django integration package is a ``CurrencyField`` representing
