@@ -15,6 +15,15 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.1.6
+-----
+2021-06-04
+
+- Move ``Registry`` class from ``valuta.registry`` to ``valuta.base``.
+- Add ``valuta.shortcuts`` module as shorthand for when you have a string
+  representation of the currency code and the value to convert and don't
+  want to handle possible exceptions.
+
 0.1.5
 -----
 2021-05-23

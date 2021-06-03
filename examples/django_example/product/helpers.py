@@ -2,7 +2,7 @@ import operator
 from typing import List, Tuple, Set, Union
 
 from babel.numbers import get_currency_symbol
-from valuta.registry import Registry
+from valuta.base import Registry
 
 __all__ = ("get_currency_choices_with_sign",)
 
