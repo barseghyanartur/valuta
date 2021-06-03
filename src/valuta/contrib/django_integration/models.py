@@ -10,7 +10,7 @@ from django.db.models import (
 )
 from django.conf import settings
 
-from ...registry import Registry
+from ...base import Registry
 from ...utils import get_currency_choices_with_code
 
 __author__ = "Artur Barseghyan"
@@ -84,9 +84,7 @@ class CurrencyField(models.CharField):
 
     def _convert_to_currency_units(
         self,
-        field: Union[
-            IntegerField, BigIntegerField, SmallIntegerField, FloatField
-        ],
+        field: "CurrencyField",
         amount_field: str,
         **kwargs,
     ):

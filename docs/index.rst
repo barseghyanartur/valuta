@@ -6,12 +6,12 @@ valuta
 .. _List of circulating currencies: https://en.wikipedia.org/wiki/List_of_circulating_currencies
 
 In most payment systems that went international, amounts are represented as
-integers, instead of decimals, as they are represented with a smallest
-unit possible.
+integers, instead of decimals, as they are represented in minor currency units
+(smallest unit possible).
 
-For `EUR` it would be `cent <https://en.wikipedia.org/wiki/Cent_(currency)>`__,
+For `EUR` it is `cent <https://en.wikipedia.org/wiki/Cent_(currency)>`__,
 which is 1/100 of a single `Euro <https://en.wikipedia.org/wiki/Euro>`__.
-For `MRU` it would be `khoums <https://en.wikipedia.org/wiki/Khoums>`__,
+For `MRU` it is `khoums <https://en.wikipedia.org/wiki/Khoums>`__,
 which is 1/5 of a single `Ouguiya <https://en.wikipedia.org/wiki/Mauritanian_ouguiya>`__.
 
 List of currencies is generated from a single CSV dump obtained from the
@@ -92,6 +92,13 @@ Pure Python
 
 Django integration
 ------------------
+In its' basis, Django integration package is a ``CurrencyField`` representing
+the ISO (ISO 4217) codes of the currencies. If bound to certain number fields
+(``SmallIntegerField``, ``IntegerField``, ``BigIntegerField``) holding the
+amount in minor currency units, it adds up methods to the model class for
+converting field amounts to major currency units (often simply called
+``currency units``).
+
 Model field
 ~~~~~~~~~~~
 **Define some models (product/models.py)**
@@ -105,8 +112,8 @@ Model field
     class Product(models.Model):
 
         name = models.CharField(max_length=255)
-        price = models.IntegerField()
-        price_with_tax = models.IntegerField()
+        price = models.IntegerField()  # Amount in minor currency units
+        price_with_tax = models.IntegerField()  # Amount in minor currency units
         currency = CurrencyField(amount_fields=["price", "price_with_tax"])
 
 **Create some data**
@@ -124,7 +131,8 @@ Model field
 **You could then refer to the `price` and `price_with_tax` as follows**
 
 Note, that every field listed in the ``amount_fields`` gets a correspondent
-model method with suffix ``_in_currency_units``.
+model method with suffix ``_in_currency_units`` for converting the field
+amounts to (major) currency units.
 
 .. code-block:: python
 
@@ -637,7 +645,7 @@ Simply type:
 
 .. code-block:: sh
 
-    ./runtests.py
+    pytest -vvv
 
 Or use tox:
 
@@ -649,7 +657,7 @@ Or use tox to check specific env:
 
 .. code-block:: sh
 
-    tox -e py38
+    tox -e py39-django32
 
 Writing documentation
 =====================

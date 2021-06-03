@@ -1,10 +1,10 @@
 from copy import deepcopy
 import unittest
 
-from ..base import BaseCurrency
+from ..base import BaseCurrency, Registry
 from ..currencies import TND, EUR, MRU, VND, UGX
 from ..exceptions import ImproperlyConfigured
-from ..registry import Registry
+from ..utils import get_currency_choices_with_code
 
 __author__ = "Artur Barseghyan"
 __copyright__ = "2021 Artur Barseghyan"
@@ -63,3 +63,24 @@ class TestBase(unittest.TestCase):
 
     def test_1000(self):
         self.assertEqual(TND.convert_to_currency_units(1_000), 1)
+
+
+class TestRegistry(unittest.TestCase):
+    """Test registry."""
+
+    def setUp(self) -> None:
+        self.registry_backup = deepcopy(Registry.REGISTRY)
+
+    def tearDown(self) -> None:
+        Registry.REGISTRY = self.registry_backup
+
+    def test_get_currency_choices(self):
+        """Test Registry.reset."""
+        Registry.reset()
+        choices = get_currency_choices_with_code()
+        self.assertListEqual(choices, [])
+
+    def test_registry_items(self):
+        items = Registry.items()
+        choices = get_currency_choices_with_code()
+        self.assertEqual(len(items), len(choices))
