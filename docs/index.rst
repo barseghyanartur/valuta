@@ -71,6 +71,8 @@ Usage examples
 ==============
 Pure Python
 -----------
+Using currency classes directly
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. code-block:: python
 
     import valuta
@@ -88,6 +90,27 @@ Pure Python
     # 100.0
 
     valuta.TND.convert_to_currency_units(1_000)
+    # 1.0
+
+Working with string representations of the (ISO) currency codes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. code-block:: python
+
+    from valuta.shortcuts import convert_to_currency_units
+
+    convert_to_currency_units("EUR", 1_000)
+    # 10.0
+
+    convert_to_currency_units("UGX", 1_000)
+    # 1000.0
+
+    convert_to_currency_units("MRU", 1_000)
+    # 200.0
+
+    convert_to_currency_units("VND", 1_000)
+    # 100.0
+
+    convert_to_currency_units("TND", 1_000)
     # 1.0
 
 Django integration
