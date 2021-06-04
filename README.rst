@@ -258,7 +258,7 @@ to customize. You could for instance do something like this:
     from typing import List, Tuple, Set, Union
 
     from babel.numbers import get_currency_symbol
-    from valuta.registry import Registry
+    from valuta.base import Registry
 
     def get_currency_choices_with_sign(
             limit_choices_to: Union[Tuple[str, ...], List[str], Set[str]] = None,

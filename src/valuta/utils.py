@@ -1,5 +1,5 @@
 from typing import Tuple, List, Set, Union
-from .registry import Registry
+from .base import Registry
 
 __author__ = "Artur Barseghyan"
 __copyright__ = "2021 Artur Barseghyan"
