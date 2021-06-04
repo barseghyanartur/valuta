@@ -5,9 +5,9 @@ valuta
 
 .. _List of circulating currencies: https://en.wikipedia.org/wiki/List_of_circulating_currencies
 
-In most payment systems that went international, amounts are represented as
+In most payment systems that went international, amounts are represented in
 integers, instead of decimals, as they are represented in minor currency units
-(smallest unit possible).
+(smallest units possible).
 
 For `EUR` it is `cent <https://en.wikipedia.org/wiki/Cent_(currency)>`__,
 which is 1/100 of a single `Euro <https://en.wikipedia.org/wiki/Euro>`__.
@@ -92,8 +92,8 @@ Using currency classes directly
     valuta.TND.convert_to_currency_units(1_000)
     # 1.0
 
-Working with string representations of the (ISO) currency codes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Working with string representations of the (ISO-4217) currency codes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. code-block:: python
 
     from valuta.shortcuts import convert_to_currency_units
@@ -127,7 +127,7 @@ to ``False``. The following example will throw a
 Django integration
 ------------------
 In its' basis, Django integration package is a ``CurrencyField`` representing
-the ISO (ISO 4217) codes of the currencies. If bound to certain number fields
+the ISO-4217 codes of the currencies. If bound to certain number fields
 (``SmallIntegerField``, ``IntegerField``, ``BigIntegerField``) holding the
 amount in minor currency units, it adds up methods to the model class for
 converting field amounts to major currency units (often simply called
@@ -135,7 +135,7 @@ converting field amounts to major currency units (often simply called
 
 Model field
 ~~~~~~~~~~~
-**Define some models (product/models.py)**
+**Sample model (product/models.py)**
 
 .. code-block:: python
 
@@ -150,7 +150,7 @@ Model field
         price_with_tax = models.IntegerField()  # Amount in minor currency units
         currency = CurrencyField(amount_fields=["price", "price_with_tax"])
 
-**Create some data**
+**Sample data**
 
 .. code-block:: python
 
