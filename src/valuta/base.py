@@ -37,7 +37,9 @@ class Registry(type):
         mcs.REGISTRY = {}
 
     @classmethod
-    def get(mcs, key, default=None) -> Union["BaseCurrency", None]:
+    def get(
+        mcs, key: str, default: "BaseCurrency" = None
+    ) -> Union["BaseCurrency", None]:
         return mcs.REGISTRY.get(key, default)
 
     @classmethod
