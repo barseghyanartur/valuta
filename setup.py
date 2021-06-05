@@ -2,7 +2,7 @@ import os
 
 from setuptools import setup, find_packages
 
-version = "0.1.6"
+version = "0.1.7"
 
 try:
     readme = open(os.path.join(os.path.dirname(__file__), "README.rst")).read()
@@ -66,6 +66,7 @@ setup(
         "later (LGPLv2+)",
         "Framework :: Django",
         "Intended Audience :: Developers",
+        "Intended Audience :: Financial and Insurance Industry",
         "Operating System :: OS Independent",
         "Development Status :: 4 - Beta",
     ],
