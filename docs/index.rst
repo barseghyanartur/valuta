@@ -766,6 +766,7 @@ Contents:
 .. toctree::
    :maxdepth: 20
 
+   index
    valuta
 
 Indices and tables

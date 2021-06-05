@@ -19,7 +19,7 @@ are used for versioning (schema follows below):
 -----
 2021-06-05
 
-- Replace imports from ``valuta.registry`` with imports from ``valuta.base``.
+- Replace all imports from `valuta.registry` with imports from `valuta.base`.
 - Documentation improvements.
 
 0.1.6
