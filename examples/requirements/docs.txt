@@ -17,7 +17,7 @@ babel==2.9.1
     #   -r common.in
     #   sphinx
     #   valuta
-certifi==2020.12.5
+certifi==2021.5.30
     # via requests
 chardet==4.0.0
     # via requests
@@ -25,11 +25,11 @@ coverage[toml]==5.5
     # via
     #   -r test.in
     #   pytest-cov
-distlib==0.3.1
+distlib==0.3.2
     # via virtualenv
 django-debug-toolbar==3.2.1
     # via -r django_3_2.in
-django==3.2.3
+django==3.2.4
     # via
     #   -r django_3_2.in
     #   django-debug-toolbar
@@ -51,14 +51,14 @@ idna==2.10
     # via requests
 imagesize==1.2.0
     # via sphinx
-importlib-metadata==4.0.1
+importlib-metadata==4.5.0
     # via
     #   pluggy
     #   pytest
     #   rst2pdf
     #   tox
     #   virtualenv
-importlib-resources==5.1.3
+importlib-resources==5.1.4
     # via virtualenv
 iniconfig==1.1.1
     # via pytest
@@ -135,13 +135,13 @@ sphinxcontrib-applehelp==1.0.2
     # via sphinx
 sphinxcontrib-devhelp==1.0.2
     # via sphinx
-sphinxcontrib-htmlhelp==1.0.3
+sphinxcontrib-htmlhelp==2.0.0
     # via sphinx
 sphinxcontrib-jsmath==1.0.1
     # via sphinx
 sphinxcontrib-qthelp==1.0.3
     # via sphinx
-sphinxcontrib-serializinghtml==1.1.4
+sphinxcontrib-serializinghtml==1.1.5
     # via sphinx
 sqlparse==0.4.1
     # via
@@ -160,11 +160,11 @@ typing-extensions==3.10.0.0
     # via
     #   asgiref
     #   importlib-metadata
-urllib3==1.26.4
+urllib3==1.26.5
     # via requests
-valuta==0.1.3
+valuta==0.1.7
     # via -r docs.in
-virtualenv==20.4.6
+virtualenv==20.4.7
     # via tox
 zipp==3.4.1
     # via

@@ -1,6 +1,14 @@
 valuta.contrib.django\_integration package
 ==========================================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 20
+
+   valuta.contrib.django_integration.tests
+
 Submodules
 ----------
 
@@ -8,14 +16,6 @@ valuta.contrib.django\_integration.models module
 ------------------------------------------------
 
 .. automodule:: valuta.contrib.django_integration.models
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-valuta.contrib.django\_integration.tests module
------------------------------------------------
-
-.. automodule:: valuta.contrib.django_integration.tests
    :members:
    :undoc-members:
    :show-inheritance:

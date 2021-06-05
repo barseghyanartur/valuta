@@ -126,7 +126,7 @@ to ``False``. The following example will throw a
 
 Django integration
 ------------------
-In its' basis, Django integration package is a ``CurrencyField`` representing
+In its basis, Django integration package is a ``CurrencyField`` representing
 the ISO-4217 codes of the currencies. If bound to certain number fields
 (``SmallIntegerField``, ``IntegerField``, ``BigIntegerField``) holding the
 amount in minor currency units, it adds up (magic) methods to the model class
@@ -183,8 +183,8 @@ amounts to (major) currency units.
 
 Limiting the currency choices
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-On field level
-++++++++++++++
+On the field level
+++++++++++++++++++
 You could limit the currency choices as follows:
 
 .. code-block:: python
@@ -196,7 +196,7 @@ You could limit the currency choices as follows:
 
 Globally
 ++++++++
-You could also override the ``CurrencyField`` choices in Django settings:
+You could also override the ``CurrencyField`` choices in the Django settings:
 
 *settings.py*
 
@@ -212,7 +212,8 @@ Casting the converted values
 If you want to explicitly cast the result value to a certain type, provide a
 callable ``cast_to`` for the ``CurrencyField``.
 
-**For ``int`` it would be**
+For `int` it would be
++++++++++++++++++++++
 
 .. code-block:: python
 
@@ -221,7 +222,8 @@ callable ``cast_to`` for the ``CurrencyField``.
         cast_to=int,
     )
 
-**For ``float`` it would be**
+For `float` it would be
++++++++++++++++++++++++
 
 .. code-block:: python
 
@@ -230,7 +232,8 @@ callable ``cast_to`` for the ``CurrencyField``.
         cast_to=float,
     )
 
-**For ``decimal.Decimal`` it would be**
+For `decimal.Decimal` it would be
++++++++++++++++++++++++++++++++++
 
 .. code-block:: python
 
@@ -239,8 +242,8 @@ callable ``cast_to`` for the ``CurrencyField``.
         cast_to=lambda __v: Decimal(str(__v)),
     )
 
-Customize choices display format
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Customize the choices display format
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 By default, the following format is used
 (``valuta.utils.get_currency_choices_with_code``):
 

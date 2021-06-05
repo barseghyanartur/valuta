@@ -6,7 +6,7 @@
 #
 bleach==3.3.0
     # via readme-renderer
-certifi==2020.12.5
+certifi==2021.5.30
     # via requests
 cffi==1.14.5
     # via cryptography
@@ -22,7 +22,7 @@ docutils==0.17.1
     # via readme-renderer
 idna==2.10
     # via requests
-importlib-metadata==4.0.1
+importlib-metadata==4.5.0
     # via
     #   click
     #   keyring
@@ -66,13 +66,13 @@ six==1.16.0
     #   readme-renderer
 toml==0.10.2
     # via pep517
-tqdm==4.60.0
+tqdm==4.61.0
     # via twine
 twine==3.4.1
     # via -r deployment.in
 typing-extensions==3.10.0.0
     # via importlib-metadata
-urllib3==1.26.4
+urllib3==1.26.5
     # via requests
 webencodings==0.5.1
     # via bleach

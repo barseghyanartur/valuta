@@ -62,6 +62,14 @@ valuta.scaffolding module
    :undoc-members:
    :show-inheritance:
 
+valuta.shortcuts module
+-----------------------
+
+.. automodule:: valuta.shortcuts
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 valuta.utils module
 -------------------
 

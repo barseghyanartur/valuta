@@ -28,10 +28,26 @@ valuta.tests.test\_cli module
    :undoc-members:
    :show-inheritance:
 
+valuta.tests.test\_registry module
+----------------------------------
+
+.. automodule:: valuta.tests.test_registry
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 valuta.tests.test\_scaffolding module
 -------------------------------------
 
 .. automodule:: valuta.tests.test_scaffolding
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+valuta.tests.test\_shortcuts module
+-----------------------------------
+
+.. automodule:: valuta.tests.test_shortcuts
    :members:
    :undoc-members:
    :show-inheritance:
