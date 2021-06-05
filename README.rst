@@ -140,7 +140,6 @@ Model field
 .. code-block:: python
 
     from django.db import models
-    import valuta
     from valuta.contrib.django_integration.models import CurrencyField
 
     class Product(models.Model):
@@ -154,6 +153,7 @@ Model field
 
 .. code-block:: python
 
+    import valuta
     from product.models import Product
     product = Product.objects.create(
         name="My test product",
