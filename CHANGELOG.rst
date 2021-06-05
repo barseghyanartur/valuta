@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.1.7
+-----
+2021-06-05
+
+- Replace all imports from `valuta.registry` with imports from `valuta.base`.
+- Documentation improvements.
+
 0.1.6
 -----
 2021-06-04
