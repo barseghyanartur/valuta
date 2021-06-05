@@ -129,13 +129,17 @@ Django integration
 In its' basis, Django integration package is a ``CurrencyField`` representing
 the ISO-4217 codes of the currencies. If bound to certain number fields
 (``SmallIntegerField``, ``IntegerField``, ``BigIntegerField``) holding the
-amount in minor currency units, it adds up methods to the model class for
-converting field amounts to major currency units (often simply called
+amount in minor currency units, it adds up (magic) methods to the model class
+for converting field amounts to major currency units (often simply called
 ``currency units``).
 
 Model field
 ~~~~~~~~~~~
-**Sample model (product/models.py)**
+Model definition
+^^^^^^^^^^^^^^^^
+**Sample model**
+
+*product/models.py*
 
 .. code-block:: python
 
@@ -162,11 +166,9 @@ Model field
         currency=valuta.AMD.uid,
     )
 
-**You could then refer to the `price` and `price_with_tax` as follows**
-
-Note, that every field listed in the ``amount_fields`` gets a correspondent
-model method with suffix ``_in_currency_units`` for converting the field
-amounts to (major) currency units.
+Converting amounts using `magic methods`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+You could then refer to the `price` and `price_with_tax` as follows:
 
 .. code-block:: python
 
@@ -175,7 +177,15 @@ amounts to (major) currency units.
     product.price_with_tax_in_currency_units()
     # 1.2
 
-**You could limit the currency choices as follows**
+Note, that every field listed in the ``amount_fields`` gets a correspondent
+model method with suffix ``_in_currency_units`` for converting the field
+amounts to (major) currency units.
+
+Limiting the currency choices
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+On field level
+++++++++++++++
+You could limit the currency choices as follows:
 
 .. code-block:: python
 
@@ -184,12 +194,25 @@ amounts to (major) currency units.
         limit_choices_to=[valuta.AMD.uid, valuta.EUR.uid],
     )
 
-**Casting the `in_currency_units` value**
+Globally
+++++++++
+You could also override the ``CurrencyField`` choices in Django settings:
 
+*settings.py*
+
+.. code-block:: python
+
+    VALUTA_FIELD_LIMIT_CHOICES_TO=(
+        valuta.AMD.uid,
+        valuta.EUR.uid,
+    )
+
+Casting the converted values
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 If you want to explicitly cast the result value to a certain type, provide a
 callable ``cast_to`` for the ``CurrencyField``.
 
-For ``int`` it would be:
+**For ``int`` it would be**
 
 .. code-block:: python
 
@@ -198,7 +221,7 @@ For ``int`` it would be:
         cast_to=int,
     )
 
-For ``float`` it would be:
+**For ``float`` it would be**
 
 .. code-block:: python
 
@@ -207,7 +230,7 @@ For ``float`` it would be:
         cast_to=float,
     )
 
-For ``decimal.Decimal`` it would be:
+**For ``decimal.Decimal`` it would be**
 
 .. code-block:: python
 
@@ -216,8 +239,8 @@ For ``decimal.Decimal`` it would be:
         cast_to=lambda __v: Decimal(str(__v)),
     )
 
-**Customize choices display format**
-
+Customize choices display format
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 By default, the following format is used
 (``valuta.utils.get_currency_choices_with_code``):
 
