@@ -51,7 +51,7 @@ class Registry(type):
         mcs,
         limit_choices_to: Union[Tuple[str, ...], List[str], Set[str]] = None,
         sort_by_key: bool = False,
-    ):
+    ) -> List[Tuple[str, str]]:
         if limit_choices_to is None:
             values = [
                 (__key, __value.name)
@@ -74,7 +74,7 @@ class Registry(type):
         mcs,
         limit_choices_to: Union[Tuple[str, ...], List[str], Set[str]] = None,
         sort_by_key: bool = False,
-    ):
+    ) -> List[Tuple[str, str]]:
         if limit_choices_to is None:
             values = [
                 (__key, f"{__value.name} ({__key})")
@@ -125,7 +125,7 @@ class BaseCurrency(metaclass=Registry):
         return value / cls.rate
 
     @classproperty
-    def name(cls):
+    def name(cls) -> str:
         """Automatic currency name.
 
         Example::
@@ -145,7 +145,7 @@ class BaseCurrency(metaclass=Registry):
         return get_currency_name(cls.uid)
 
     @classproperty
-    def symbol(cls):
+    def symbol(cls) -> str:
         """Automatic currency symbol.
 
         Example::
