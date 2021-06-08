@@ -5,4 +5,4 @@ pycallgraph \
   --include "*.*" \
   --max-depth=20 \
   graphviz \
-  -- benchmarks/profile.py
+  -- benchmarks/profile.py "$@"
