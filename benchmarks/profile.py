@@ -1,7 +1,8 @@
 import argparse
-import os
-import sys
 from functools import wraps, partial
+import os
+import subprocess
+import sys
 import time
 
 import valuta
@@ -42,6 +43,28 @@ def python_iso_string_representation():
     for _ in range(TEST_CYCLES):
         for currency_cls in CURRENCIES:
             convert_to_currency_units(currency_cls.uid, 1_000)
+
+
+@register
+def django_benchmark_product():
+    res = subprocess.check_output(
+        [
+            "python",
+            "examples/django_example/manage.py",
+            "benchmark_product",
+        ]
+    ).strip()
+
+
+@register
+def django_benchmark_product_amount_fields_is_none():
+    res = subprocess.check_output(
+        [
+            "python",
+            "examples/django_example/manage.py",
+            "benchmark_product_amount_fields_is_none",
+        ]
+    ).strip()
 
 
 @profile

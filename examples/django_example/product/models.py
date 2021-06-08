@@ -4,6 +4,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 import valuta
+from valuta.shortcuts import convert_to_currency_units
 from valuta.utils import get_currency_choices, get_currency_choices_with_code
 from valuta.contrib.django_integration.models import CurrencyField
 
@@ -17,6 +18,7 @@ __all__ = (
     "ProductProxyCastToDecimal",
     "ProductProxyLimitChoicesTo",
     "ProductProxyChoicesFuncNone",
+    "ProductProxyAmountFieldsIsNone",
 )
 
 
@@ -171,3 +173,25 @@ class ProductProxyChoicesFuncNone(AbstractProduct):
         db_table = Product._meta.db_table
         verbose_name = _("Product proxy (get_choices_func=None)")
         verbose_name_plural = _("Product proxies (get_choices_func=None)")
+
+
+class ProductProxyAmountFieldsIsNone(AbstractProduct):
+    """A sort of a proxy model to Product.
+
+    The `amount_fields` is None here. No magic functions. Just a currency
+    field.
+    """
+
+    currency = CurrencyField(_("Currency"))
+
+    class Meta:
+        managed = False
+        db_table = Product._meta.db_table
+        verbose_name = _("Product proxy (amount_fields=None)")
+        verbose_name_plural = _("Product proxies (amount_fields=None)")
+
+    def price_in_currency_units(self):
+        return convert_to_currency_units(self.currency, self.price)
+
+    def price_with_tax_in_currency_units(self):
+        return convert_to_currency_units(self.currency, self.price_with_tax)
