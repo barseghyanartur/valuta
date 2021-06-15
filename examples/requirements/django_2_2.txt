@@ -6,8 +6,6 @@
 #
 appdirs==1.4.4
     # via virtualenv
-asgiref==3.3.4
-    # via django
 attrs==21.2.0
     # via pytest
 babel==2.9.1
@@ -20,7 +18,7 @@ distlib==0.3.2
     # via virtualenv
 django-debug-toolbar==3.2.1
     # via -r django_2_2.in
-django==3.2.4
+django==2.2.24
     # via
     #   -r django_2_2.in
     #   django-debug-toolbar
@@ -99,9 +97,7 @@ toml==0.10.2
 tox==3.23.1
     # via -r test.in
 typing-extensions==3.10.0.0
-    # via
-    #   asgiref
-    #   importlib-metadata
+    # via importlib-metadata
 virtualenv==20.4.7
     # via tox
 zipp==3.4.1

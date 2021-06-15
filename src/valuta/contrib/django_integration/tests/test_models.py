@@ -1,5 +1,6 @@
 from decimal import Decimal
 
+from django import VERSION
 from django.utils.translation import gettext_lazy as _
 from django.test import TestCase, override_settings
 
@@ -26,8 +27,16 @@ __all__ = ("DjangoIntegrationTestCase",)
 class DjangoIntegrationTestCase(TestCase):
     def test_limit_choices_to(self):
         with self.subTest("Field choices"):
+
+            if VERSION[:2] > (2, 2):
+                field = ProductProxyLimitChoicesTo.currency.field
+            else:
+                for field in ProductProxyLimitChoicesTo._meta.fields:
+                    if field.name == "currency":
+                        break
+
             self.assertListEqual(
-                ProductProxyLimitChoicesTo.currency.field.choices,
+                field.choices,
                 [("AMD", "Armenian Dram (AMD)"), ("EUR", "Euro (EUR)")],
             )
 
@@ -62,8 +71,16 @@ class DjangoIntegrationTestCase(TestCase):
                 )
 
         with self.subTest("Field choices from django settings"):
+
+            if VERSION[:2] > (2, 2):
+                field = ProductValueFieldLimitChoicesSettings.currency.field
+            else:
+                for field in ProductValueFieldLimitChoicesSettings._meta.fields:
+                    if field.name == "currency":
+                        break
+
             self.assertListEqual(
-                ProductValueFieldLimitChoicesSettings.currency.field.choices,
+                field.choices,
                 [("AMD", "Armenian Dram"), ("EUR", "Euro")],
             )
 

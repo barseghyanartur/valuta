@@ -162,7 +162,7 @@ typing-extensions==3.10.0.0
     #   importlib-metadata
 urllib3==1.26.5
     # via requests
-valuta==0.1.7
+valuta==0.1.8
     # via -r docs.in
 virtualenv==20.4.7
     # via tox
