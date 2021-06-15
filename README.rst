@@ -133,6 +133,9 @@ amount in minor currency units, it adds up (magic) methods to the model class
 for converting field amounts to major currency units (often simply called
 ``currency units``).
 
+There are also `template tags and filters`_ for when you need to render
+non-model data (for instance, JSON) in templates without prior pre-processing.
+
 Model field
 ~~~~~~~~~~~
 Model definition
