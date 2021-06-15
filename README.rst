@@ -27,7 +27,7 @@ List of currencies is generated from a single CSV dump obtained from the
     :alt: Supported Python versions
 
 .. image:: https://img.shields.io/travis/barseghyanartur/valuta/master.svg
-   :target: http://travis-ci.org/barseghyanartur/valuta
+   :target: http://travis-ci.com/barseghyanartur/valuta
    :alt: Build Status
 
 .. image:: https://readthedocs.org/projects/valuta/badge/?version=latest
