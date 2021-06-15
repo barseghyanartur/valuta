@@ -107,7 +107,7 @@ class BaseCurrency(metaclass=Registry):
     """
 
     uid: Optional[str] = None
-    rate: int
+    rate: Union[int, float, Decimal]
 
     @classmethod
     def validate(cls):
@@ -119,7 +119,7 @@ class BaseCurrency(metaclass=Registry):
 
     @classmethod
     def convert_to_currency_units(
-        cls, value: Union[int, float, Decimal]
+        cls, value: int
     ) -> Union[int, float, Decimal]:
         """Convert to amount in currency units."""
         return value / cls.rate

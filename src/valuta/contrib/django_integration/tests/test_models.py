@@ -1,5 +1,4 @@
 from decimal import Decimal
-import unittest
 
 from django.utils.translation import gettext_lazy as _
 from django.test import TestCase, override_settings

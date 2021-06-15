@@ -326,6 +326,76 @@ And then use it as follows:
         get_choices_func=get_currency_choices_with_sign,
     )
 
+Template tags and filters
+~~~~~~~~~~~~~~~~~~~~~~~~~
+Most of the cases would be covered by the `Model field`_, but it could be
+that you will have non-model data (for instance, JSON) that you need to
+properly render in the templates (without prior pre-processing). In that case
+``valuta_tags`` template tags/filters library might help.
+
+Template tags prerequisites
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+If you want to use templatetags library, you need to add
+``valuta.contrib.django_integration`` to your ``INSTALLED_APPS``:
+
+.. code-block:: python
+
+    INSTALLED_APPS = (
+        # ...
+        "valuta.contrib.django_integration",
+        # ...
+    )
+
+Sample data
+^^^^^^^^^^^
+.. code-block:: python
+
+    instance = {
+        "price": 1_000,
+        "price_with_tax": 1_200,
+        "currency_code": "EUR",
+    }
+
+Sample template filters template
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+*template_filter_price_in_currency_units.html*
+
+.. code-block:: html
+
+    {% load valuta_tags %}
+
+    {{ instance.price|convert_to_currency_units:instance.currency_code }}
+
+Sample template filters renderer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. code-block:: python
+
+    from django.template.loader import render_to_string
+
+    render_to_string(
+        "template_filter_price_in_currency_units.html", {"instance": instance}
+    )
+
+Sample template tags template
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+*template_tag_price_in_currency_units.html*
+
+.. code-block:: html
+
+    {% load valuta_tags %}
+
+    {% convert_to_currency_units instance.price instance.currency_code %}
+
+Sample template tags renderer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. code-block:: python
+
+    from django.template.loader import render_to_string
+
+    render_to_string(
+        "template_tag_price_in_currency_units.html", {"instance": instance}
+    )
+
 Supported currencies
 ====================
 Currencies marked with `(*)` are custom (added manually). The rest is obtained

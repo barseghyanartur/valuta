@@ -85,6 +85,7 @@ INSTALLED_APPS = (
     "django.contrib.staticfiles",
     # Example
     "product",
+    "valuta.contrib.django_integration",
 )
 
 MIDDLEWARE = (
