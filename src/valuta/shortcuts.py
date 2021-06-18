@@ -1,5 +1,5 @@
 from decimal import Decimal
-from typing import Union
+from typing import Union, Optional
 
 from .base import Registry, BaseCurrency
 from .exceptions import InvalidCurrency
@@ -16,7 +16,7 @@ def convert_to_currency_units(
     fail_silently: bool = True,
 ) -> Union[int, float, Decimal, None]:
     """Convert value represented in minor currency to major currency units."""
-    cls: BaseCurrency = Registry.get(currency_code)
+    cls: Optional[BaseCurrency] = Registry.get(currency_code)
     if cls:
         return cls.convert_to_currency_units(value)
     elif not fail_silently:

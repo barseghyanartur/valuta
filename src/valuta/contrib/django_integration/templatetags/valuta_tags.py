@@ -19,12 +19,12 @@ __all__ = (
 @register.filter(name="convert_to_currency_units")
 def filter_convert_to_currency_units(
     value: int, currency_code: str
-) -> Union[int, float]:
+) -> Union[int, float, Decimal, None]:
     return convert_to_currency_units(currency_code, value)
 
 
 @register.simple_tag(name="convert_to_currency_units")
 def tag_convert_to_currency_units(
     value: int, currency_code: str
-) -> Union[int, float, Decimal]:
+) -> Union[int, float, Decimal, None]:
     return convert_to_currency_units(currency_code, value)
