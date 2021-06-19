@@ -84,6 +84,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Coveralls Finished
+      env:
+        GITHUB_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
       run: |
         pip install coveralls
         coveralls
