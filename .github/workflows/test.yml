@@ -90,7 +90,9 @@ jobs:
       run: |
         sudo apt-get install git -y
         pip install coveralls
+        ls -al
         cd /home/runner/work/valuta/valuta/
+        ls -al
         coveralls -v --service=github-actions
 #  finish:
 #    needs: test
