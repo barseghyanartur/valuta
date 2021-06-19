@@ -87,7 +87,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
       run: |
-        apt-get install git -y
+        sudo apt-get install git -y
         pip install coveralls
         cd /home/runner/work/valuta/valuta/
         coveralls
