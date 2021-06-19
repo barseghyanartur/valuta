@@ -79,24 +79,25 @@ jobs:
     - name: Run Tests
       run: tox -e ${{ matrix.tox_env }}
 
-#  finish:
-#    needs: test
-#    runs-on: ubuntu-latest
-#    steps:
-#    - name: Coveralls Finished
-#      env:
-#        GITHUB_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
-#      run: |
-#        sudo apt-get install git -y
-#        pip install coveralls
-#        cd /home/runner/work/valuta/valuta/
-#        coveralls
   finish:
     needs: test
     runs-on: ubuntu-latest
     steps:
     - name: Coveralls Finished
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.COVERALLS_GITHUB_TOKEN }}
-        parallel-finished: true
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        GITHUB_TOKEN: $COVERALLS_REPO_TOKEN
+      run: |
+        sudo apt-get install git -y
+        pip install coveralls
+        cd /home/runner/work/valuta/valuta/
+        coveralls -v --service=github-actions
+#  finish:
+#    needs: test
+#    runs-on: ubuntu-latest
+#    steps:
+#    - name: Coveralls Finished
+#      uses: coverallsapp/github-action@master
+#      with:
+#        github-token: ${{ secrets.COVERALLS_GITHUB_TOKEN }}
+#        parallel-finished: true
