@@ -92,7 +92,7 @@ jobs:
         pip install coveralls
         pwd
         ls -al
-        cd /home/runner/work/valuta/valuta/
+        cd /home/runner/work/valuta/
         pwd
         ls -al
         coveralls -v --service=github-actions
