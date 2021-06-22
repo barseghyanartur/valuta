@@ -13,54 +13,54 @@ jobs:
           - python-version: 3.6
             requirements: django_2_2
             tox_env: py36-django22
-#          - python-version: 3.7
-#            requirements: django_2_2
-#            tox_env: py37-django22
-#          - python-version: 3.8
-#            requirements: django_2_2
-#            tox_env: py38-django22
-#          - python-version: 3.9
-#            requirements: django_2_2
-#            tox_env: py39-django22
-#
-#          - python-version: 3.6
-#            requirements: django_3_0
-#            tox_env: py36-django30
-#          - python-version: 3.7
-#            requirements: django_3_0
-#            tox_env: py37-django30
-#          - python-version: 3.8
-#            requirements: django_3_0
-#            tox_env: py38-django30
-#          - python-version: 3.9
-#            requirements: django_3_0
-#            tox_env: py39-django30
-#
-#          - python-version: 3.6
-#            requirements: django_3_1
-#            tox_env: py36-django31
-#          - python-version: 3.7
-#            requirements: django_3_1
-#            tox_env: py37-django31
-#          - python-version: 3.8
-#            requirements: django_3_1
-#            tox_env: py38-django31
-#          - python-version: 3.9
-#            requirements: django_3_1
-#            tox_env: py39-django31
-#
-#          - python-version: 3.6
-#            requirements: django_3_2
-#            tox_env: py36-django32
-#          - python-version: 3.7
-#            requirements: django_3_2
-#            tox_env: py37-django32
-#          - python-version: 3.8
-#            requirements: django_3_2
-#            tox_env: py38-django32
-#          - python-version: 3.9
-#            requirements: django_3_2
-#            tox_env: py39-django32
+          - python-version: 3.7
+            requirements: django_2_2
+            tox_env: py37-django22
+          - python-version: 3.8
+            requirements: django_2_2
+            tox_env: py38-django22
+          - python-version: 3.9
+            requirements: django_2_2
+            tox_env: py39-django22
+
+          - python-version: 3.6
+            requirements: django_3_0
+            tox_env: py36-django30
+          - python-version: 3.7
+            requirements: django_3_0
+            tox_env: py37-django30
+          - python-version: 3.8
+            requirements: django_3_0
+            tox_env: py38-django30
+          - python-version: 3.9
+            requirements: django_3_0
+            tox_env: py39-django30
+
+          - python-version: 3.6
+            requirements: django_3_1
+            tox_env: py36-django31
+          - python-version: 3.7
+            requirements: django_3_1
+            tox_env: py37-django31
+          - python-version: 3.8
+            requirements: django_3_1
+            tox_env: py38-django31
+          - python-version: 3.9
+            requirements: django_3_1
+            tox_env: py39-django31
+
+          - python-version: 3.6
+            requirements: django_3_2
+            tox_env: py36-django32
+          - python-version: 3.7
+            requirements: django_3_2
+            tox_env: py37-django32
+          - python-version: 3.8
+            requirements: django_3_2
+            tox_env: py38-django32
+          - python-version: 3.9
+            requirements: django_3_2
+            tox_env: py39-django32
 
     steps:
     - uses: actions/checkout@v2
@@ -84,29 +84,6 @@ jobs:
         parallel: true
         flag-name: Run Tests
 
-#  finish:
-#    needs: test
-#    runs-on: ubuntu-latest
-#    steps:
-#    - name: Coveralls Finished
-#      env:
-#        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-#        GITHUB_TOKEN: $COVERALLS_REPO_TOKEN
-#      run: |
-#        sudo apt-get install git -y
-#        pip install coveralls
-#        coveralls -v --service=github-actions
-
-#  finish:
-#    needs: test
-#    runs-on: ubuntu-latest
-#    steps:
-#    - name: Coveralls Finished
-#      uses: coverallsapp/github-action@master
-#      with:
-#        github-token: ${{ secrets.COVERALLS_GITHUB_TOKEN }}
-#        parallel-finished: true
-
   coveralls_finish:
     needs: test
     runs-on: ubuntu-latest
@@ -118,5 +95,4 @@ jobs:
       uses: AndreMiras/coveralls-python-action@develop
       with:
         parallel-finished: true
-#        github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
         debug: True
