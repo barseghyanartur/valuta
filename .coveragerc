@@ -6,6 +6,7 @@ omit =
     examples/simple/project/wsgi.py
     examples/simple/product/migrations/*
     .tox/*
+relative_files = True
 
 [report]
 exclude_lines =
