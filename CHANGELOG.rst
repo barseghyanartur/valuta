@@ -15,6 +15,14 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.2
+---
+2021-06-24
+
+- Added `display_in_currency_units` method, `shortcuts` module function and
+  a magic method to the Django integration package, as well as the template
+  tags library.
+
 0.1.9
 -----
 2021-06-15

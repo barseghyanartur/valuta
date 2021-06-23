@@ -1,8 +1,13 @@
 from decimal import Decimal
 import operator
 from typing import Optional, Dict, Union, List, Set, Tuple, ItemsView
-from babel.numbers import get_currency_name, get_currency_symbol
+from babel.numbers import (
+    get_currency_name,
+    get_currency_symbol,
+    format_currency,
+)
 
+from .constants import DEFAULT_DISPLAY_FORMAT
 from .exceptions import ImproperlyConfigured
 from .helpers import classproperty
 
@@ -123,6 +128,15 @@ class BaseCurrency(metaclass=Registry):
     ) -> Union[int, float, Decimal]:
         """Convert to amount in currency units."""
         return value / cls.rate
+
+    @classmethod
+    def display_in_currency_units(
+        cls,
+        value: int,
+        format: Optional[str] = DEFAULT_DISPLAY_FORMAT,
+    ) -> str:
+        """Convert to amount in currency units."""
+        return format_currency(value / cls.rate, cls.uid, format)
 
     @classproperty
     def name(cls) -> str:

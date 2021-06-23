@@ -19,6 +19,10 @@ class SimpleProduct:
     def get_context(self) -> Dict[str, "SimpleProduct"]:
         return {"instance": self}
 
+    # ***********************************************************
+    # *************** Convert to currency units *****************
+    # ***********************************************************
+
     def filter_product_price_in_currency_units(self) -> str:
         return render_to_string(
             "product/filter_price_in_currency_units.html", self.get_context()
@@ -38,5 +42,33 @@ class SimpleProduct:
     def tag_product_price_with_tax_in_currency_units(self) -> str:
         return render_to_string(
             "product/tag_price_with_tax_in_currency_units.html",
+            self.get_context(),
+        )
+
+    # ***********************************************************
+    # *************** Display in currency units *****************
+    # ***********************************************************
+
+    def filter_product_price_display_in_currency_units(self) -> str:
+        return render_to_string(
+            "product/filter_price_display_in_currency_units.html",
+            self.get_context(),
+        )
+
+    def filter_product_price_with_tax_display_in_currency_units(self) -> str:
+        return render_to_string(
+            "product/filter_price_with_tax_display_in_currency_units.html",
+            self.get_context(),
+        )
+
+    def tag_product_price_display_in_currency_units(self) -> str:
+        return render_to_string(
+            "product/tag_price_display_in_currency_units.html",
+            self.get_context(),
+        )
+
+    def tag_product_price_with_tax_display_in_currency_units(self) -> str:
+        return render_to_string(
+            "product/tag_price_with_tax_display_in_currency_units.html",
             self.get_context(),
         )

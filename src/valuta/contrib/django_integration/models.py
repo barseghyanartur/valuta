@@ -11,6 +11,7 @@ from django.db.models import (
 from django.conf import settings
 
 from ...base import Registry
+from ...constants import DEFAULT_DISPLAY_FORMAT
 from ...utils import get_currency_choices_with_code
 
 __author__ = "Artur Barseghyan"
@@ -60,11 +61,22 @@ class CurrencyField(models.CharField):
             )
             if self.amount_fields:
                 for amount_field in self.amount_fields:
+                    # Set `_in_currency_units`
                     setattr(
                         cls,
                         f"{amount_field}_in_currency_units",
                         partialmethod(
                             self.__class__._convert_to_currency_units,
+                            field=self,
+                            amount_field=amount_field,
+                        ),
+                    )
+                    # Set `_display_in_currency_units`
+                    setattr(
+                        cls,
+                        f"{amount_field}_display_in_currency_units",
+                        partialmethod(
+                            self.__class__._display_in_currency_units,
                             field=self,
                             amount_field=amount_field,
                         ),
@@ -100,4 +112,23 @@ class CurrencyField(models.CharField):
         )
         if field.cast_to:
             return field.cast_to(value)
+        return value
+
+    def _display_in_currency_units(
+        self,
+        field: "CurrencyField",
+        amount_field: str,
+        format: Optional[str] = DEFAULT_DISPLAY_FORMAT,
+        **kwargs,
+    ):
+        key = getattr(self, field.name)
+        if not key:
+            return None
+        currency_cls = Registry.get(key)
+        if currency_cls is None:
+            return None
+        amount_in_fractional_units = getattr(self, amount_field)
+        value = currency_cls.display_in_currency_units(
+            amount_in_fractional_units, format
+        )
         return value

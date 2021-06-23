@@ -25,6 +25,11 @@ __all__ = ("DjangoIntegrationTestCase",)
 
 
 class DjangoIntegrationTestCase(TestCase):
+
+    # ***********************************************************
+    # *************** Convert to currency units *****************
+    # ***********************************************************
+
     def test_limit_choices_to(self):
         with self.subTest("Field choices"):
 
@@ -75,7 +80,9 @@ class DjangoIntegrationTestCase(TestCase):
             if VERSION[:2] > (2, 2):
                 field = ProductValueFieldLimitChoicesSettings.currency.field
             else:
-                for field in ProductValueFieldLimitChoicesSettings._meta.fields:
+                for (
+                    field
+                ) in ProductValueFieldLimitChoicesSettings._meta.fields:
                     if field.name == "currency":
                         break
 
@@ -279,3 +286,97 @@ class DjangoIntegrationTestCase(TestCase):
             }
         )
         self.assertEqual(p.price_in_currency_units(), 1)
+
+    # ***********************************************************
+    # *************** Display in currency units *****************
+    # ***********************************************************
+
+    def test_display_1(self):
+        p = Product.objects.create(
+            **{
+                "name": "My test product",
+                "price": 1_000,
+                "price_with_tax": 1_200,
+                "currency": valuta.UGX.uid,
+            }
+        )
+        self.assertEqual(p.price_display_in_currency_units(), "1000")
+
+    def test_display_5(self):
+        p = Product.objects.create(
+            **{
+                "name": "My test product",
+                "price": 1_000,
+                "price_with_tax": 1_200,
+                "currency": valuta.MRU.uid,
+            }
+        )
+        self.assertEqual(p.price_display_in_currency_units(), "200.00")
+
+    def test_display_10(self):
+        p = Product.objects.create(
+            **{
+                "name": "My test product",
+                "price": 1_000,
+                "price_with_tax": 1_200,
+                "currency": valuta.VND.uid,
+            }
+        )
+        self.assertEqual(p.price_display_in_currency_units(), "100")
+
+    def test_display_100(self):
+        p = Product.objects.create(
+            **{
+                "name": "My test product",
+                "price": 1_000,
+                "price_with_tax": 1_200,
+                "currency": valuta.EUR.uid,
+            }
+        )
+        self.assertEqual(p.price_display_in_currency_units(), "10.00")
+
+    def test_display_1000(self):
+        p = Product.objects.create(
+            **{
+                "name": "My test product",
+                "price": 1_000,
+                "price_with_tax": 1_200,
+                "currency": valuta.TND.uid,
+            }
+        )
+        self.assertEqual(p.price_display_in_currency_units(), "1.000")
+
+    def test_display_jpy(self):
+        p = Product.objects.create(
+            **{
+                "name": "My test product",
+                "price": 1_000,
+                "price_with_tax": 1_200,
+                "currency": valuta.JPY.uid,
+            }
+        )
+        self.assertEqual(p.price_display_in_currency_units(), "10")
+
+    def test_display_empty_currency_value(self):
+        p = Product.objects.create(
+            **{
+                "name": "My test product 2",
+                "price": 10000,
+                "price_with_tax": 12000,
+                "currency": "",
+            }
+        )
+        price_display_in_currency_units = p.price_display_in_currency_units()
+        self.assertIsNone(price_display_in_currency_units)
+
+    def test_display_invalid_currency_value(self):
+        p = Product.objects.create(
+            **{
+                "name": "My test product 2",
+                "price": 10000,
+                "price_with_tax": 12000,
+                "currency": "INVALID",
+            }
+        )
+        price_display_in_currency_units = p.price_display_in_currency_units()
+        self.assertIsNone(price_display_in_currency_units)

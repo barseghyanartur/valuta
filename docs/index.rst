@@ -26,8 +26,8 @@ List of currencies is generated from a single CSV dump obtained from the
     :target: https://pypi.python.org/pypi/valuta/
     :alt: Supported Python versions
 
-.. image:: https://img.shields.io/travis/barseghyanartur/valuta/master.svg
-   :target: http://travis-ci.com/barseghyanartur/valuta
+.. image:: https://github.com/barseghyanartur/valuta/workflows/test/badge.svg
+   :target: https://github.com/barseghyanartur/valuta/actions
    :alt: Build Status
 
 .. image:: https://readthedocs.org/projects/valuta/badge/?version=latest
@@ -73,6 +73,8 @@ Pure Python
 -----------
 Using currency classes directly
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+If you need numbers back for further calculations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. code-block:: python
 
     import valuta
@@ -92,8 +94,87 @@ Using currency classes directly
     valuta.TND.convert_to_currency_units(1_000)
     # 1.0
 
+    valuta.JPY.convert_to_currency_units(1_000)
+    # 10.0
+
+If you need to display the values and want a nice string back
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. code-block:: python
+
+    import valuta
+
+    valuta.EUR.display_in_currency_units(1_000)
+    # '10.00'
+
+    valuta.UGX.display_in_currency_units(1_000)
+    # '1000'
+
+    valuta.MRU.display_in_currency_units(1_000)
+    # '200.00'
+
+    valuta.VND.display_in_currency_units(1_000)
+    # '100'
+
+    valuta.TND.display_in_currency_units(1_000)
+    # '1.000'
+
+    valuta.JPY.display_in_currency_units(1_000)
+    # '10'
+
+The ``display_in_currency_units`` method accepts optional ``format``
+argument. Most common values are listed in the ``valuta.constants``:
+
+- ``DISPLAY_FORMAT_NUMBER``: (default)
+- ``DISPLAY_FORMAT_HUMAN_READABLE``
+- ``DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_CODE``
+- ``DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_SYMBOL``
+
+A couple of examples:
+
+.. code-block:: python
+
+    from valuta.constants import *
+
+    valuta.JPY.display_in_currency_units(
+        1_000_000,
+        format=DISPLAY_FORMAT_HUMAN_READABLE
+    )
+    # '10,000'
+
+    valuta.JPY.display_in_currency_units(
+        1_000_000,
+        format=DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_CODE
+    )
+    # 'JPY 10,000'
+
+    valuta.JPY.display_in_currency_units(
+        1_000_000,
+        format=DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_SYMBOL
+    )
+    # '¥ 10,000'
+
+    valuta.EUR.display_in_currency_units(
+        1_000_000,
+        format=DISPLAY_FORMAT_HUMAN_READABLE
+    )
+    # '10,000.00'
+
+    valuta.EUR.display_in_currency_units(
+        1_000_000,
+        format=DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_CODE
+    )
+    # 'EUR 10,000.00'
+
+    valuta.EUR.display_in_currency_units(
+        1_000_000,
+        format=DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_SYMBOL
+    )
+    # '€ 10,000.00'
+
 Working with string representations of the (ISO-4217) currency codes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+If you need numbers back for further calculations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. code-block:: python
 
     from valuta.shortcuts import convert_to_currency_units
@@ -113,6 +194,33 @@ Working with string representations of the (ISO-4217) currency codes
     convert_to_currency_units("TND", 1_000)
     # 1.0
 
+    convert_to_currency_units("JPY", 1_000)
+    # 10.0
+
+If you need to display the values and want a nice string back
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. code-block:: python
+
+    from valuta.shortcuts import display_in_currency_units
+
+    display_in_currency_units("EUR", 1_000)
+    # '10.00'
+
+    display_in_currency_units("UGX", 1_000)
+    # '1000'
+
+    display_in_currency_units("MRU", 1_000)
+    # '200.00'
+
+    display_in_currency_units("VND", 1_000)
+    # '100'
+
+    display_in_currency_units("TND", 1_000)
+    # '1.000'
+
+    display_in_currency_units("JPY", 1_000)
+    # '10'
+
 By default, exceptions arising from invalid currency codes are
 suppressed (``None`` will be returned on invalid currency codes).
 
@@ -123,6 +231,9 @@ to ``False``. The following example will throw a
 .. code-block:: python
 
     convert_to_currency_units("i-dont-exist", 1_000, fail_silently=False)
+
+The ``display_in_currency_units`` shortcut function also optional ``format``
+argument.
 
 Django integration
 ------------------
@@ -183,6 +294,34 @@ You could then refer to the `price` and `price_with_tax` as follows:
 Note, that every field listed in the ``amount_fields`` gets a correspondent
 model method with suffix ``_in_currency_units`` for converting the field
 amounts to (major) currency units.
+
+Converting amounts for display using `magic methods`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+You could then refer to the `price` and `price_with_tax` as follows:
+
+.. code-block:: python
+
+    product.price_display_in_currency_units()
+    # '1.00'
+    product.price_with_tax_display_in_currency_units()
+    # '1.2'
+
+Note, that every field listed in the ``amount_fields`` gets a correspondent
+model method with suffix ``_display_in_currency_units`` for converting the field
+amounts to (major) currency units.
+
+Magic methods also accept optional ``format`` argument.
+
+.. code-block:: python
+
+    product.price_display_in_currency_units(
+        format=DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_SYMBOL
+    )
+    # '€ 1.00'
+    product.price_with_tax_display_in_currency_units(
+        format=DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_CODE
+    )
+    # 'EUR 1.00'
 
 Limiting the currency choices
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -359,8 +498,11 @@ Sample data
         "currency_code": "EUR",
     }
 
+Without formatting
+^^^^^^^^^^^^^^^^^^
+
 Sample template filters template
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+++++++++++++++++++++++++++++++++
 *template_filter_price_in_currency_units.html*
 
 .. code-block:: html
@@ -370,7 +512,7 @@ Sample template filters template
     {{ instance.price|convert_to_currency_units:instance.currency_code }}
 
 Sample template filters renderer
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+++++++++++++++++++++++++++++++++
 .. code-block:: python
 
     from django.template.loader import render_to_string
@@ -380,7 +522,7 @@ Sample template filters renderer
     )
 
 Sample template tags template
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++++++++++++++++++++++++++++++
 *template_tag_price_in_currency_units.html*
 
 .. code-block:: html
@@ -390,13 +532,57 @@ Sample template tags template
     {% convert_to_currency_units instance.price instance.currency_code %}
 
 Sample template tags renderer
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++++++++++++++++++++++++++++++
 .. code-block:: python
 
     from django.template.loader import render_to_string
 
     render_to_string(
         "template_tag_price_in_currency_units.html", {"instance": instance}
+    )
+
+
+With formatting
+^^^^^^^^^^^^^^^
+
+Sample template filters template
+++++++++++++++++++++++++++++++++
+*template_filter_price_display_in_currency_units.html*
+
+.. code-block:: html
+
+    {% load valuta_tags %}
+
+    {{ instance.price|display_in_currency_units:instance.currency_code }}
+
+Sample template filters renderer
+++++++++++++++++++++++++++++++++
+.. code-block:: python
+
+    from django.template.loader import render_to_string
+
+    render_to_string(
+        "template_filter_price_display_in_currency_units.html", {"instance": instance}
+    )
+
+Sample template tags template
++++++++++++++++++++++++++++++
+*template_tag_price_display_in_currency_units.html*
+
+.. code-block:: html
+
+    {% load valuta_tags %}
+
+    {% display_in_currency_units instance.price instance.currency_code %}
+
+Sample template tags renderer
++++++++++++++++++++++++++++++
+.. code-block:: python
+
+    from django.template.loader import render_to_string
+
+    render_to_string(
+        "template_tag_price_display_in_currency_units.html", {"instance": instance}
     )
 
 Supported currencies
