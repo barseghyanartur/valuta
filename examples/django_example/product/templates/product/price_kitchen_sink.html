@@ -1,0 +1,25 @@
+{% load valuta_tags %}
+
+<p id="display_filter_DISPLAY_FORMAT_NUMBER">{{ instance.price|display_in_currency_units:instance.currency_code }}</p>
+<p id="display_filter_DISPLAY_FORMAT_HUMAN_READABLE">{{ instance.price|display_in_currency_units:instance.currency_code }}</p>
+<p id="display_filter_DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_CODE">{{ instance.price|display_in_currency_units:instance.currency_code }}</p>
+<p id="display_filter_DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_SYMBOL">{{ instance.price|display_in_currency_units:instance.currency_code }}</p>
+<p id="display_filter_DEFAULT_DISPLAY_FORMAT">{{ instance.price|display_in_currency_units:instance.currency_code }}</p>
+
+<p id="display_tag_DISPLAY_FORMAT_NUMBER">{{ instance.price|display_in_currency_units:instance.currency_code }}</p>
+<p id="display_tag_DISPLAY_FORMAT_HUMAN_READABLE">{{ instance.price|display_in_currency_units:instance.currency_code }}</p>
+<p id="display_tag_DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_CODE">{{ instance.price|display_in_currency_units:instance.currency_code }}</p>
+<p id="display_tag_DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_SYMBOL">{{ instance.price|display_in_currency_units:instance.currency_code }}</p>
+<p id="display_tag_DEFAULT_DISPLAY_FORMAT">{{ instance.price|display_in_currency_units:instance.currency_code }}</p>
+
+<p id="convert_filter_DISPLAY_FORMAT_NUMBER">{{ instance.price|display_in_currency_units:instance.currency_code }}</p>
+<p id="convert_filter_DISPLAY_FORMAT_HUMAN_READABLE">{{ instance.price|display_in_currency_units:instance.currency_code }}</p>
+<p id="convert_filter_DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_CODE">{{ instance.price|display_in_currency_units:instance.currency_code }}</p>
+<p id="convert_filter_DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_SYMBOL">{{ instance.price|display_in_currency_units:instance.currency_code }}</p>
+<p id="convert_filter_DEFAULT_DISPLAY_FORMAT">{{ instance.price|display_in_currency_units:instance.currency_code }}</p>
+
+<p id="convert_tag_DISPLAY_FORMAT_NUMBER">{{ instance.price|display_in_currency_units:instance.currency_code }}</p>
+<p id="convert_tag_DISPLAY_FORMAT_HUMAN_READABLE">{{ instance.price|display_in_currency_units:instance.currency_code }}</p>
+<p id="convert_tag_DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_CODE">{{ instance.price|display_in_currency_units:instance.currency_code }}</p>
+<p id="convert_tag_DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_SYMBOL">{{ instance.price|display_in_currency_units:instance.currency_code }}</p>
+<p id="convert_tag_DEFAULT_DISPLAY_FORMAT">{{ instance.price|display_in_currency_units:instance.currency_code }}</p>

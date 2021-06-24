@@ -15,6 +15,14 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.2.1
+-----
+2021-06-25
+
+- Added `valuta.contrib.django_integration.context_processors.constants``
+  context processor module.
+- Documentation improvements.
+
 0.2
 ---
 2021-06-24

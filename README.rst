@@ -121,13 +121,37 @@ If you need to display the values and want a nice string back
     valuta.JPY.display_in_currency_units(1_000)
     # '10'
 
-The ``display_in_currency_units`` method accepts optional ``format``
-argument. Most common values are listed in the ``valuta.constants``:
+Custom string formatting
+++++++++++++++++++++++++
+Based on the specifics of the given currency, displayed numbers may have or
+not may have decimal points.
 
-- ``DISPLAY_FORMAT_NUMBER``: (default)
-- ``DISPLAY_FORMAT_HUMAN_READABLE``
-- ``DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_CODE``
-- ``DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_SYMBOL``
+The ``display_in_currency_units`` method accepts optional ``format``
+argument. Most common values are listed in the ``valuta.constants``.
+
+**DISPLAY_FORMAT_NUMBER**
+
+The default option.
+
+Example values: ``'10000'`` or ``'10000.00'``.
+
+**DISPLAY_FORMAT_HUMAN_READABLE**
+
+Displays a human readable number.
+
+Example values: ``'10,000'`` or ``'10,000.00'``.
+
+**DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_CODE**
+
+Displays a human readable number with currency code.
+
+Example values: ``'JPY 10,000'`` or ``'EUR 10,000.00'``.
+
+**DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_SYMBOL**
+
+Displays a human readable number with currency symbol.
+
+Example values: ``'¥ 10,000'`` or ``'€ 10,000.00'``.
 
 A couple of examples:
 
@@ -232,8 +256,8 @@ to ``False``. The following example will throw a
 
     convert_to_currency_units("i-dont-exist", 1_000, fail_silently=False)
 
-The ``display_in_currency_units`` shortcut function also optional ``format``
-argument.
+The ``display_in_currency_units`` shortcut function also accepts
+optional ``format`` argument.
 
 Django integration
 ------------------
@@ -488,6 +512,28 @@ If you want to use templatetags library, you need to add
         # ...
     )
 
+If you want to make use of pre-defined rendering formats, it might be
+useful to add ``valuta.contrib.django_integration.context_processors.constants``
+to the ``context_processors``.
+
+.. code-block:: python
+
+    TEMPLATES = [{
+        # ...
+        "OPTIONS": {
+            # ...
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "valuta.contrib.django_integration.context_processors.constants",
+            ],
+            # ...
+        },
+        # ...
+    }]
+
 Sample data
 ^^^^^^^^^^^
 .. code-block:: python
@@ -541,7 +587,6 @@ Sample template tags renderer
         "template_tag_price_in_currency_units.html", {"instance": instance}
     )
 
-
 With formatting
 ^^^^^^^^^^^^^^^
 
@@ -574,6 +619,19 @@ Sample template tags template
     {% load valuta_tags %}
 
     {% display_in_currency_units instance.price instance.currency_code %}
+
+You can also display units in specific format (including the currency symbol).
+Most common use-cases are pre-defined in ``valuta.constants`` and if you have
+included the correspondent context processor as instructed above, you could
+use it as follows:
+
+.. code-block:: html
+
+    {% load valuta_tags %}
+
+    {% display_in_currency_units instance.price instance.currency_code DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_CODE %}
+
+For the full list of options, see `Custom string formatting`_.
 
 Sample template tags renderer
 +++++++++++++++++++++++++++++
