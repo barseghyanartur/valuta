@@ -33,12 +33,16 @@ def display_in_currency_units(
     currency_code: str,
     value: int,
     format: Optional[str] = DEFAULT_DISPLAY_FORMAT,
+    locale: Optional[str] = None,
+    decimal_quantization: bool = True,
     fail_silently: bool = True,
 ) -> Union[str, None]:
     """Convert value represented in minor currency to major currency units."""
     cls: Optional[BaseCurrency] = Registry.get(currency_code)
     if cls:
-        return cls.display_in_currency_units(value, format)
+        return cls.display_in_currency_units(
+            value, format, locale, decimal_quantization
+        )
     elif not fail_silently:
         raise InvalidCurrency(
             f"Invalid or empty currency code: {currency_code}"

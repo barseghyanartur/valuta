@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.2.2
+-----
+2021-06-28
+
+- Add `locale` and `decimal_quantization` args to the `format_currency` 
+  everywhere.
+
 0.2.1
 -----
 2021-06-25

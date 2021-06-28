@@ -119,6 +119,8 @@ class CurrencyField(models.CharField):
         field: "CurrencyField",
         amount_field: str,
         format: Optional[str] = DEFAULT_DISPLAY_FORMAT,
+        locale: Optional[str] = None,
+        decimal_quantization: bool = True,
         **kwargs,
     ):
         key = getattr(self, field.name)
@@ -129,6 +131,6 @@ class CurrencyField(models.CharField):
             return None
         amount_in_fractional_units = getattr(self, amount_field)
         value = currency_cls.display_in_currency_units(
-            amount_in_fractional_units, format
+            amount_in_fractional_units, format, locale, decimal_quantization
         )
         return value

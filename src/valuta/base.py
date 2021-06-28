@@ -134,9 +134,20 @@ class BaseCurrency(metaclass=Registry):
         cls,
         value: int,
         format: Optional[str] = DEFAULT_DISPLAY_FORMAT,
+        locale: Optional[str] = None,
+        decimal_quantization: bool = True,
     ) -> str:
         """Convert to amount in currency units."""
-        return format_currency(value / cls.rate, cls.uid, format)
+        kwargs = {}
+        if locale is not None:
+            kwargs = {"locale": locale}
+        return format_currency(
+            value / cls.rate,
+            cls.uid,
+            format,
+            decimal_quantization=decimal_quantization,
+            **kwargs,
+        )
 
     @classproperty
     def name(cls) -> str:
