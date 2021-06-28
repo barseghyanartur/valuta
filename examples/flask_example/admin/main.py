@@ -167,9 +167,6 @@ class PostAdmin(sqla.ModelView):
         'date',
         ('user', ('user.last_name', 'user.first_name')),  # sort on multiple columns
     ]
-    column_labels = {
-        'title': 'Post Title'  # Rename 'title' column in list view
-    }
     column_searchable_list = [
         'title',
         'tags.name',
@@ -177,7 +174,7 @@ class PostAdmin(sqla.ModelView):
         'user.last_name',
     ]
     column_labels = {
-        'title': 'Title',
+        'title': 'Post Title',  # Rename 'title' column in list view
         'tags.name': 'Tags',
         'user.first_name': 'User\'s first name',
         'user.last_name': 'Last name',
