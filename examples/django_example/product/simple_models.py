@@ -75,7 +75,9 @@ class SimpleProduct:
             self.get_context(),
         )
 
-    def tag_product_price_display_in_currency_units_with_locale(self, locale) -> str:
+    def tag_product_price_display_in_currency_units_with_locale(
+        self, locale
+    ) -> str:
         return render_to_string(
             "product/tag_price_display_in_currency_units_with_locale.html",
             self.get_context(locale=locale),
