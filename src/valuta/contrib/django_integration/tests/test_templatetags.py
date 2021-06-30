@@ -12,7 +12,7 @@ __all__ = ("TemplateTagsTestCase",)
 
 
 def suppress_strange_bug(value):
-    normalize("NFKD", value).replace(' ', '')
+    return normalize("NFKD", value).replace(" ", "")
 
 
 class TemplateTagsTestCase(TestCase):
