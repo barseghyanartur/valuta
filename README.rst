@@ -127,8 +127,8 @@ Based on the specifics of the given currency, displayed numbers may have or
 not may have decimal points.
 
 The ``display_in_currency_units`` method accepts optional ``format``,
-``locale`` and ```` arguments. Most common values for ``format`` are listed in
-the ``valuta.constants``.
+``locale`` and ``decimal_quantization`` arguments. Most common values for
+``format`` are listed in the ``valuta.constants``.
 
 format
 ******
