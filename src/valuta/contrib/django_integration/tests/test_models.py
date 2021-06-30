@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.test import TestCase, override_settings
 
 import valuta
+from valuta.constants import DISPLAY_FORMAT_NUMBER
 from valuta.contrib.django_integration.models import CurrencyField
 from valuta.utils import get_currency_choices
 
@@ -291,7 +292,7 @@ class DjangoIntegrationTestCase(TestCase):
     # *************** Display in currency units *****************
     # ***********************************************************
 
-    def test_display_1(self):
+    def test_display_1_format_number(self):
         p = Product.objects.create(
             **{
                 "name": "My test product",
@@ -300,9 +301,12 @@ class DjangoIntegrationTestCase(TestCase):
                 "currency": valuta.UGX.uid,
             }
         )
-        self.assertEqual(p.price_display_in_currency_units(), "1000")
+        self.assertEqual(
+            p.price_display_in_currency_units(format=DISPLAY_FORMAT_NUMBER),
+            "1000",
+        )
 
-    def test_display_5(self):
+    def test_display_5_format_number(self):
         p = Product.objects.create(
             **{
                 "name": "My test product",
@@ -311,9 +315,12 @@ class DjangoIntegrationTestCase(TestCase):
                 "currency": valuta.MRU.uid,
             }
         )
-        self.assertEqual(p.price_display_in_currency_units(), "200.00")
+        self.assertEqual(
+            p.price_display_in_currency_units(format=DISPLAY_FORMAT_NUMBER),
+            "200.00",
+        )
 
-    def test_display_10(self):
+    def test_display_10_format_number(self):
         p = Product.objects.create(
             **{
                 "name": "My test product",
@@ -322,9 +329,12 @@ class DjangoIntegrationTestCase(TestCase):
                 "currency": valuta.VND.uid,
             }
         )
-        self.assertEqual(p.price_display_in_currency_units(), "100")
+        self.assertEqual(
+            p.price_display_in_currency_units(format=DISPLAY_FORMAT_NUMBER),
+            "100",
+        )
 
-    def test_display_100(self):
+    def test_display_100_format_number(self):
         p = Product.objects.create(
             **{
                 "name": "My test product",
@@ -333,9 +343,12 @@ class DjangoIntegrationTestCase(TestCase):
                 "currency": valuta.EUR.uid,
             }
         )
-        self.assertEqual(p.price_display_in_currency_units(), "10.00")
+        self.assertEqual(
+            p.price_display_in_currency_units(format=DISPLAY_FORMAT_NUMBER),
+            "10.00",
+        )
 
-    def test_display_1000(self):
+    def test_display_1000_format_number(self):
         p = Product.objects.create(
             **{
                 "name": "My test product",
@@ -344,9 +357,12 @@ class DjangoIntegrationTestCase(TestCase):
                 "currency": valuta.TND.uid,
             }
         )
-        self.assertEqual(p.price_display_in_currency_units(), "1.000")
+        self.assertEqual(
+            p.price_display_in_currency_units(format=DISPLAY_FORMAT_NUMBER),
+            "1.000",
+        )
 
-    def test_display_jpy(self):
+    def test_display_jpy_format_number(self):
         p = Product.objects.create(
             **{
                 "name": "My test product",
@@ -355,7 +371,10 @@ class DjangoIntegrationTestCase(TestCase):
                 "currency": valuta.JPY.uid,
             }
         )
-        self.assertEqual(p.price_display_in_currency_units(), "10")
+        self.assertEqual(
+            p.price_display_in_currency_units(format=DISPLAY_FORMAT_NUMBER),
+            "10",
+        )
 
     def test_display_empty_currency_value(self):
         p = Product.objects.create(
