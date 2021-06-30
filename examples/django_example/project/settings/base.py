@@ -119,7 +119,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = "en"
+LANGUAGE_CODE = "en-US"
 
 TIME_ZONE = "UTC"
 
