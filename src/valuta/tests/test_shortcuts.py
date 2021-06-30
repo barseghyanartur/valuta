@@ -1,5 +1,6 @@
 import unittest
 
+from ..constants import DISPLAY_FORMAT_HUMAN_READABLE, DISPLAY_FORMAT_NUMBER
 from ..currencies import TND, EUR, MRU, VND, UGX
 from ..exceptions import InvalidCurrency
 from ..shortcuts import convert_to_currency_units, display_in_currency_units
@@ -75,15 +76,99 @@ class TestShortcuts(unittest.TestCase):
 
     def test_display_in_currency_units(self):
         """Test `display_in_currency_units` with valid codes."""
-        self.assertEqual(display_in_currency_units(UGX.uid, 10), "10")
+        self.assertEqual(
+            display_in_currency_units(
+                UGX.uid, 10, format=DISPLAY_FORMAT_NUMBER
+            ),
+            "10",
+        )
 
-        self.assertEqual(display_in_currency_units(MRU.uid, 5), "1.00")
+        self.assertEqual(
+            display_in_currency_units(
+                MRU.uid, 5, format=DISPLAY_FORMAT_NUMBER
+            ),
+            "1.00",
+        )
 
-        self.assertEqual(display_in_currency_units(VND.uid, 10), "1")
+        self.assertEqual(
+            display_in_currency_units(
+                VND.uid, 10, format=DISPLAY_FORMAT_NUMBER
+            ),
+            "1",
+        )
 
-        self.assertEqual(display_in_currency_units(EUR.uid, 100), "1.00")
+        self.assertEqual(
+            display_in_currency_units(
+                EUR.uid, 100, format=DISPLAY_FORMAT_NUMBER
+            ),
+            "1.00",
+        )
 
-        self.assertEqual(display_in_currency_units(TND.uid, 1_000), "1.000")
+        self.assertEqual(
+            display_in_currency_units(
+                TND.uid, 1_000, format=DISPLAY_FORMAT_NUMBER
+            ),
+            "1.000",
+        )
+
+    def test_display_in_currency_units_with_locale(self):
+        """Test `display_in_currency_units` with valid codes and locale."""
+        with self.subTest("EUR locale nl_NL"):
+            self.assertEqual(
+                display_in_currency_units(
+                    EUR.uid,
+                    100,
+                    locale="nl_NL",
+                ),
+                "€\xa01,00",
+            )
+
+            self.assertEqual(
+                display_in_currency_units(
+                    EUR.uid,
+                    100_000,
+                    locale="nl_NL",
+                ),
+                "€\xa01.000,00",
+            )
+
+        with self.subTest("TND locale fr_TN"):
+            self.assertEqual(
+                display_in_currency_units(
+                    TND.uid,
+                    100,
+                    locale="fr_TN",
+                ),
+                "0,100\xa0DT",
+            )
+
+            self.assertEqual(
+                display_in_currency_units(
+                    TND.uid,
+                    1_000,
+                    locale="fr_TN",
+                ),
+                "1,000\xa0DT",
+            )
+
+        with self.subTest("TND locale nl_NL"):
+            self.assertEqual(
+                display_in_currency_units(
+                    TND.uid,
+                    100,
+                    locale="nl_NL",
+                ),
+                "TND\xa00,100",
+            )
+
+            self.assertEqual(
+                display_in_currency_units(
+                    TND.uid,
+                    1_000,
+                    locale="nl_NL",
+                ),
+                "TND\xa01,000",
+            )
 
     def _display_test_currency_code_is_none(self, fail_silently: bool = True):
         self.assertEqual(
