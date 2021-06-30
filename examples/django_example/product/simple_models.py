@@ -1,6 +1,6 @@
 from typing import Dict
 
-from django.template import Template, Context
+# from django.template import Template, Context
 from django.template.loader import render_to_string
 
 __all__ = ("SimpleProduct",)
@@ -53,18 +53,18 @@ class SimpleProduct:
     # ***********************************************************
 
     def filter_product_price_display_in_currency_units(self) -> str:
-        template = Template(
-            "{% load valuta_tags %}"
-            "{{ "
-            "instance.price|display_in_currency_units:instance.currency_code"
-            " }}"
-        )
-        context = Context(self.get_context())
-        return template.render(context)
-        # return render_to_string(
-        #     "product/filter_price_display_in_currency_units.html",
-        #     self.get_context(),
+        # template = Template(
+        #     "{% load valuta_tags %}"
+        #     "{{ "
+        #     "instance.price|display_in_currency_units:instance.currency_code"
+        #     " }}"
         # )
+        # context = Context(self.get_context())
+        # return template.render(context)
+        return render_to_string(
+            "product/filter_price_display_in_currency_units.html",
+            self.get_context(),
+        )
 
     def filter_product_price_with_tax_display_in_currency_units(self) -> str:
         return render_to_string(
@@ -73,18 +73,18 @@ class SimpleProduct:
         )
 
     def tag_product_price_display_in_currency_units(self) -> str:
-        template = Template(
-            "{% load valuta_tags %}"
-            "{% "
-            "display_in_currency_units instance.price instance.currency_code"
-            " %}"
-        )
-        context = Context(self.get_context())
-        return template.render(context)
-        # return render_to_string(
-        #     "product/tag_price_display_in_currency_units.html",
-        #     self.get_context(),
+        # template = Template(
+        #     "{% load valuta_tags %}"
+        #     "{% "
+        #     "display_in_currency_units instance.price instance.currency_code"
+        #     " %}"
         # )
+        # context = Context(self.get_context())
+        # return template.render(context)
+        return render_to_string(
+            "product/tag_price_display_in_currency_units.html",
+            self.get_context(),
+        )
 
     def tag_product_price_with_tax_display_in_currency_units(self) -> str:
         return render_to_string(
