@@ -1,7 +1,9 @@
 from admin import db
-from admin.models import User, Post, Tag, Tree, AVAILABLE_USER_TYPES
+# from admin.models import User, Post, Tag, Tree, AVAILABLE_USER_TYPES
 import random
 import datetime
+
+from .models import Product
 
 
 def build_sample_db():
@@ -11,6 +13,8 @@ def build_sample_db():
 
     db.drop_all()
     db.create_all()
+    db.session.commit()
+    return
 
     # Create sample Users
     first_names = [

@@ -39,6 +39,12 @@ class CurrencyType(TypeDecorator):
         self.cast_to = cast_to
         if get_choices_func is None:
             get_choices_func = get_currency_choices_with_code
-        kwargs["max_length"] = 10
-        kwargs["choices"] = get_choices_func(limit_choices_to)
+        # kwargs["max_length"] = 10
+        self.choices = get_choices_func(limit_choices_to)
         super().__init__(*args, **kwargs)
+
+    def process_bind_param(self, value, dialect):
+        return [k for k, v in self.choices.iteritems() if v == value][0]
+
+    def process_result_value(self, value, dialect):
+        return self.choices[value]
