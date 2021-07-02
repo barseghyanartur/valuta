@@ -45,22 +45,24 @@ else:
     ]
 
 
-TEMPLATES = [{
-    "BACKEND": "django.template.backends.django.DjangoTemplates",
-    # 'APP_DIRS': True,
-    "DIRS": [PROJECT_DIR(os.path.join("..", "templates"))],
-    "OPTIONS": {
-        "context_processors": [
-            "django.template.context_processors.debug",
-            "django.template.context_processors.request",
-            "django.contrib.auth.context_processors.auth",
-            "django.contrib.messages.context_processors.messages",
-            # "valuta.contrib.django_integration.context_processors.constants",
-        ],
-        "loaders": _TEMPLATE_LOADERS,
-        "debug": DEBUG_TEMPLATE,
-    },
-}]
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        # 'APP_DIRS': True,
+        "DIRS": [PROJECT_DIR(os.path.join("..", "templates"))],
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                # "valuta.contrib.django_integration.context_processors.constants",
+            ],
+            "loaders": _TEMPLATE_LOADERS,
+            "debug": DEBUG_TEMPLATE,
+        },
+    }
+]
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -117,7 +119,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = "en"
+LANGUAGE_CODE = "en-US"
 
 TIME_ZONE = "UTC"
 

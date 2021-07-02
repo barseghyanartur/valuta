@@ -15,11 +15,36 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.3.1
+-----
+2021-07-01
+
+- Suppress weirdest bug with a strange character ``\xa0`` appearing when
+  using template tags without providing a locale on GitHub actions (locally
+  everything passes without the bug).
+
+0.3
+---
+2021-06-29
+
+.. note::
+
+    This release is somewhat incompatible with previous versions for what's
+    related to the displaying value in currency units (using any
+    ``display_in_currency_units`` or shortcuts). If you want old behaviour,
+    add ``format=DISPLAY_FORMAT_NUMBER`` to places where you used
+    ``display_in_currency_units`` method or a correspondent shortcut function.
+
+- Add ``locale`` and ``decimal_quantization`` args to the ``format_currency``
+  everywhere.
+- Do not provide a default value for ``format`` (follow the ``babel`` defaults
+  approach).
+
 0.2.1
 -----
 2021-06-25
 
-- Added `valuta.contrib.django_integration.context_processors.constants``
+- Added ``valuta.contrib.django_integration.context_processors.constants``
   context processor module.
 - Documentation improvements.
 
@@ -27,7 +52,7 @@ are used for versioning (schema follows below):
 ---
 2021-06-24
 
-- Added `display_in_currency_units` method, `shortcuts` module function and
+- Added ``display_in_currency_units`` method, ``shortcuts`` module function and
   a magic method to the Django integration package, as well as the template
   tags library.
 
@@ -47,7 +72,7 @@ are used for versioning (schema follows below):
 -----
 2021-06-05
 
-- Replace all imports from `valuta.registry` with imports from `valuta.base`.
+- Replace all imports from ``valuta.registry`` with imports from ``valuta.base``.
 - Documentation improvements.
 
 0.1.6

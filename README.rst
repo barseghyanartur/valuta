@@ -104,34 +104,35 @@ If you need to display the values and want a nice string back
     import valuta
 
     valuta.EUR.display_in_currency_units(1_000)
-    # '10.00'
+    # '€10.00'
 
     valuta.UGX.display_in_currency_units(1_000)
-    # '1000'
+    # 'UGX1,000'
 
     valuta.MRU.display_in_currency_units(1_000)
-    # '200.00'
+    # 'MRU200.00'
 
     valuta.VND.display_in_currency_units(1_000)
-    # '100'
+    # '₫100'
 
     valuta.TND.display_in_currency_units(1_000)
-    # '1.000'
+    # 'TND1.000'
 
     valuta.JPY.display_in_currency_units(1_000)
-    # '10'
+    # '¥10'
 
 Custom string formatting
 ++++++++++++++++++++++++
 Based on the specifics of the given currency, displayed numbers may have or
 not may have decimal points.
 
-The ``display_in_currency_units`` method accepts optional ``format``
-argument. Most common values are listed in the ``valuta.constants``.
+The ``display_in_currency_units`` method accepts optional ``format``,
+``locale`` and ``decimal_quantization`` arguments. Most common values for
+``format`` are listed in the ``valuta.constants``.
 
+format
+******
 **DISPLAY_FORMAT_NUMBER**
-
-The default option.
 
 Example values: ``'10000'`` or ``'10000.00'``.
 
@@ -195,6 +196,28 @@ A couple of examples:
     )
     # '€ 10,000.00'
 
+locale
+******
+.. code-block:: python
+
+     valuta.JPY.display_in_currency_units(1_000_000_000, locale="nl_NL")
+     # 'JP¥\xa010.000.000'
+
+     valuta.JPY.display_in_currency_units(1_000_000_000, locale="en_US")
+     # '¥10,000,000'
+
+     valuta.EUR.display_in_currency_units(1_000_000_000, locale="nl_NL")
+     # '€\xa010.000.000,00'
+
+    valuta.EUR.display_in_currency_units(1_000_000_000, locale="en_US")
+    #  '€10,000,000.00'
+
+    valuta.AMD.display_in_currency_units(1_000_000_000, locale="en_US")
+    # 'AMD10,000,000.00'
+
+    valuta.AMD.display_in_currency_units(1_000_000_000, locale="hy_AM")
+    # '10 000 000,00 ֏'
+
 Working with string representations of the (ISO-4217) currency codes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 If you need numbers back for further calculations
@@ -228,22 +251,22 @@ If you need to display the values and want a nice string back
     from valuta.shortcuts import display_in_currency_units
 
     display_in_currency_units("EUR", 1_000)
-    # '10.00'
+    # '€10.00'
 
     display_in_currency_units("UGX", 1_000)
-    # '1000'
+    # 'UGX1,000'
 
     display_in_currency_units("MRU", 1_000)
-    # '200.00'
+    # 'MRU200.00'
 
     display_in_currency_units("VND", 1_000)
-    # '100'
+    # '₫100'
 
     display_in_currency_units("TND", 1_000)
-    # '1.000'
+    # 'TND1.000'
 
     display_in_currency_units("JPY", 1_000)
-    # '10'
+    # '¥10'
 
 By default, exceptions arising from invalid currency codes are
 suppressed (``None`` will be returned on invalid currency codes).
@@ -311,7 +334,7 @@ You could then refer to the `price` and `price_with_tax` as follows:
 .. code-block:: python
 
     product.price_in_currency_units()
-    # 1
+    # 1.0
     product.price_with_tax_in_currency_units()
     # 1.2
 
@@ -326,9 +349,9 @@ You could then refer to the `price` and `price_with_tax` as follows:
 .. code-block:: python
 
     product.price_display_in_currency_units()
-    # '1.00'
+    # 'AMD1.00'
     product.price_with_tax_display_in_currency_units()
-    # '1.2'
+    # 'AMD1.20'
 
 Note, that every field listed in the ``amount_fields`` gets a correspondent
 model method with suffix ``_display_in_currency_units`` for converting the field
@@ -338,14 +361,36 @@ Magic methods also accept optional ``format`` argument.
 
 .. code-block:: python
 
+    product = Product.objects.create(
+        name="My test product",
+        price=100_000,
+        price_with_tax=120_000,
+        currency=valuta.EUR.uid,
+    )
+
     product.price_display_in_currency_units(
         format=DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_SYMBOL
     )
-    # '€ 1.00'
+    # '€ 1,000.00'
     product.price_with_tax_display_in_currency_units(
         format=DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_CODE
     )
-    # 'EUR 1.00'
+    # 'EUR 1,200.00'
+
+Combining ``format`` and ``locale`` arguments.
+
+.. code-block:: python
+
+    product.price_display_in_currency_units(
+        format=DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_SYMBOL,
+        locale="nl_NL"
+    )
+    # '€ 1.000,00'
+    product.price_with_tax_display_in_currency_units(
+        format=DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_CODE,
+        locale="nl_NL"
+    )
+    # 'EUR 1.200,00'
 
 Limiting the currency choices
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

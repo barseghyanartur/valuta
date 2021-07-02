@@ -18,24 +18,26 @@ __copyright__ = "2021 Artur Barseghyan"
 __license__ = "GPL-2.0-only OR LGPL-2.1-or-later"
 __all__ = ("ContextProcessorsTestCase",)
 
-TEMPLATES = [{
-    "BACKEND": "django.template.backends.django.DjangoTemplates",
-    "DIRS": [project_dir(os.path.join("..", "templates"))],
-    "OPTIONS": {
-        "context_processors": [
-            "django.template.context_processors.debug",
-            "django.template.context_processors.request",
-            "django.contrib.auth.context_processors.auth",
-            "django.contrib.messages.context_processors.messages",
-            "valuta.contrib.django_integration.context_processors.constants",
-        ],
-        "loaders": [
-            "django.template.loaders.filesystem.Loader",
-            "django.template.loaders.app_directories.Loader",
-        ],
-        "debug": False,
-    },
-}]
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [project_dir(os.path.join("..", "templates"))],
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "valuta.contrib.django_integration.context_processors.constants",
+            ],
+            "loaders": [
+                "django.template.loaders.filesystem.Loader",
+                "django.template.loaders.app_directories.Loader",
+            ],
+            "debug": False,
+        },
+    }
+]
 
 
 class ContextProcessorsTestCase(TestCase):
@@ -53,19 +55,19 @@ class ContextProcessorsTestCase(TestCase):
 
         self.assertInHTML(
             f'<p id="DISPLAY_FORMAT_HUMAN_READABLE">'
-            f'{DISPLAY_FORMAT_HUMAN_READABLE}</p>',
+            f"{DISPLAY_FORMAT_HUMAN_READABLE}</p>",
             html,
         )
 
         self.assertInHTML(
             f'<p id="DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_CODE">'
-            f'{DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_CODE}</p>',
+            f"{DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_CODE}</p>",
             html,
         )
 
         self.assertInHTML(
             f'<p id="DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_SYMBOL">'
-            f'{DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_SYMBOL}</p>',
+            f"{DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_SYMBOL}</p>",
             html,
         )
 

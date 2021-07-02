@@ -38,8 +38,12 @@ def filter_display_in_currency_units(
     value: int,
     currency_code: str,
     format: Optional[str] = DEFAULT_DISPLAY_FORMAT,
+    locale: Optional[str] = None,
+    decimal_quantization: bool = True,
 ) -> Union[str, None]:
-    return display_in_currency_units(currency_code, value, format)
+    return display_in_currency_units(
+        currency_code, value, format, locale, decimal_quantization
+    )
 
 
 @register.simple_tag(name="display_in_currency_units")
@@ -47,5 +51,9 @@ def tag_display_in_currency_units(
     value: int,
     currency_code: str,
     format: Optional[str] = DEFAULT_DISPLAY_FORMAT,
+    locale: Optional[str] = None,
+    decimal_quantization: bool = True,
 ) -> Union[str, None]:
-    return display_in_currency_units(currency_code, value, format)
+    return display_in_currency_units(
+        currency_code, value, format, locale, decimal_quantization
+    )
