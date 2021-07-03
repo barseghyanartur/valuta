@@ -45,6 +45,6 @@ profiler.py.prof
 /examples/static/
 /examples/django_example/project/db.sqlite3
 /examples/django_example/project/static/
-/examples/sqlalchemy_example/
+/examples/sqlalchemy_example/admin/sample_db.sqlite
 
 var/
