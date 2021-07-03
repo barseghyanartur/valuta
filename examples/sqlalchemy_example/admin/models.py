@@ -35,6 +35,12 @@ class AbstractProduct(db.Model):
     def __str__(self):
         return f"{self.name}"
 
+    def price_in_currency_units(self):
+        return convert_to_currency_units(self.currency, self.price)
+
+    def price_with_tax_in_currency_units(self):
+        return convert_to_currency_units(self.currency, self.price_with_tax)
+
 
 class Product(AbstractProduct):
     """Product model."""
@@ -174,9 +180,9 @@ class ProductProxyAmountFieldsIsNone(AbstractProduct):
     __table_args__ = {'extend_existing': True}
 
     currency = db.Column(CurrencyType())
-
-    def price_in_currency_units(self):
-        return convert_to_currency_units(self.currency, self.price)
-
-    def price_with_tax_in_currency_units(self):
-        return convert_to_currency_units(self.currency, self.price_with_tax)
+    #
+    # def price_in_currency_units(self):
+    #     return convert_to_currency_units(self.currency, self.price)
+    #
+    # def price_with_tax_in_currency_units(self):
+    #     return convert_to_currency_units(self.currency, self.price_with_tax)

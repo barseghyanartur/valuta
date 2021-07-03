@@ -5,4 +5,5 @@ Flask
 Flask-Admin
 Flask-BabelEx
 Flask-SQLAlchemy
+Flask-Testing
 sqlalchemy_utils

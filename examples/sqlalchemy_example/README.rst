@@ -10,3 +10,8 @@ Migrate
     cd admin
     alembic upgrade head
 
+Run server
+==========
+.. code-block:: shell
+
+    python examples/sqlalchemy_example/run_server.py

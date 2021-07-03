@@ -3,9 +3,25 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_babelex import Babel
 
 
-app = Flask(__name__)
-app.config.from_pyfile('config.py')
-db = SQLAlchemy(app)
+app: Flask
+db: SQLAlchemy
+
+# app = Flask(__name__)
+# app.config.from_pyfile('config.py')
+# db = SQLAlchemy(app)
+
+
+def create_app(config_filename):
+    global app
+    app = Flask(__name__)
+    app.config.from_pyfile(config_filename)
+
+    global db
+    db = SQLAlchemy(app)
+
+
+create_app('config.py')
+
 
 # Initialize babel
 babel = Babel(app)
@@ -22,3 +38,6 @@ def get_locale():
 
 
 import admin.main
+
+
+
