@@ -1,121 +1,182 @@
-from admin import db
-from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy import sql, cast
-import uuid
+from decimal import Decimal
 
-from sqlalchemy_utils import ChoiceType, EmailType, UUIDType, URLType#, CurrencyType
-from sqlalchemy_utils import ColorType, ArrowType, IPAddressType, TimezoneType
-import arrow
-import enum
+import valuta
+from valuta.shortcuts import convert_to_currency_units
+from valuta.utils import get_currency_choices, get_currency_choices_with_code
 from valuta.contrib.sqlalchemy_integration.types import CurrencyType
 
+from . import db
+from .helpers import get_currency_choices_with_sign
 
-class Product(db.Model):
+
+__all__ = (
+    "AbstractProduct",
+    "Product",
+    "ProductProxyCastToInt",
+    "ProductProxyCastToFloat",
+    "ProductProxyCastToDecimal",
+    "ProductProxyLimitChoicesTo",
+    "ProductProxyChoicesFuncNone",
+    "ProductProxyAmountFieldsIsNone",
+)
+
+
+class AbstractProduct(db.Model):
+    """Abstract product model."""
+
+    __abstract__ = True
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Unicode(64), unique=True)
     price = db.Column(db.Integer())
     price_with_tax = db.Column(db.Integer())
-    currency = db.Column(CurrencyType())
+    # currency = db.Column(CurrencyType())
 
     def __str__(self):
         return f"{self.name}"
 
 
-# AVAILABLE_USER_TYPES = [
-#     (u'admin', u'Admin'),
-#     (u'content-writer', u'Content writer'),
-#     (u'editor', u'Editor'),
-#     (u'regular-user', u'Regular user'),
-# ]
-#
-#
-# # Create models
-# class User(db.Model):
-#     id = db.Column(UUIDType(binary=False), default=uuid.uuid4, primary_key=True)
-#
-#     # use a regular string field, for which we can specify a list of available choices later on
-#     type = db.Column(db.String(100))
-#
-#     # fixed choices can be handled in a number of different ways:
-#     enum_choice_field = db.Column(ChoiceType(AVAILABLE_USER_TYPES), nullable=True)
-#     sqla_utils_choice_field = db.Column(ChoiceType(AVAILABLE_USER_TYPES), nullable=True)
-#     sqla_utils_enum_choice_field = db.Column(ChoiceType(AVAILABLE_USER_TYPES), nullable=True)
-#
-#     first_name = db.Column(db.String(100))
-#     last_name = db.Column(db.String(100))
-#
-#     # some sqlalchemy_utils data types (see https://sqlalchemy-utils.readthedocs.io/)
-#     email = db.Column(EmailType, unique=True, nullable=False)
-#     website = db.Column(URLType)
-#     ip_address = db.Column(IPAddressType)
-#     currency = db.Column(CurrencyType, nullable=True, default=None)
-#     timezone = db.Column(TimezoneType(backend='pytz'))
-#
-#     dialling_code = db.Column(db.Integer())
-#     local_phone_number = db.Column(db.String(10))
-#
-#     featured_post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
-#     featured_post = db.relationship('Post', foreign_keys=[featured_post_id])
-#
-#     @hybrid_property
-#     def phone_number(self):
-#         if self.dialling_code and self.local_phone_number:
-#             number = str(self.local_phone_number)
-#             return "+{} ({}) {} {} {}".format(self.dialling_code, number[0], number[1:3], number[3:6], number[6::])
-#         return
-#
-#     @phone_number.expression
-#     def phone_number(cls):
-#         return sql.operators.ColumnOperators.concat(cast(cls.dialling_code, db.String), cls.local_phone_number)
-#
-#     def __str__(self):
-#         return "{}, {}".format(self.last_name, self.first_name)
-#
-#     def __repr__(self):
-#         return "{}: {}".format(self.id, self.__str__())
-#
-#
-# # Create M2M table
-# post_tags_table = db.Table('post_tags', db.Model.metadata,
-#                            db.Column('post_id', db.Integer, db.ForeignKey('post.id')),
-#                            db.Column('tag_id', db.Integer, db.ForeignKey('tag.id'))
-#                            )
-#
-#
-# class Post(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     title = db.Column(db.String(120))
-#     text = db.Column(db.Text, nullable=False)
-#     date = db.Column(db.Date)
-#
-#     # some sqlalchemy_utils data types (see https://sqlalchemy-utils.readthedocs.io/)
-#     background_color = db.Column(ColorType)
-#     created_at = db.Column(ArrowType, default=arrow.utcnow())
-#     user_id = db.Column(UUIDType(binary=False), db.ForeignKey(User.id))
-#
-#     user = db.relationship(User, foreign_keys=[user_id], backref='posts')
-#     tags = db.relationship('Tag', secondary=post_tags_table)
-#
-#     def __str__(self):
-#         return "{}".format(self.title)
-#
-#
-# class Tag(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.Unicode(64), unique=True)
-#
-#     def __str__(self):
-#         return "{}".format(self.name)
-#
-#
-# class Tree(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(64))
-#
-#     # recursive relationship
-#     parent_id = db.Column(db.Integer, db.ForeignKey('tree.id'))
-#     parent = db.relationship('Tree', remote_side=[id], backref='children')
-#
-#     def __str__(self):
-#         return "{}".format(self.name)
+class Product(AbstractProduct):
+    """Product model."""
+
+    __tablename__ = 'product'
+    __table_args__ = {'extend_existing': True}
+
+    currency = db.Column(
+        CurrencyType(
+            amount_fields=(
+                "price",
+                "price_with_tax",
+            ),
+            get_choices_func=get_currency_choices_with_code,
+        )
+    )
+
+
+class ProductProxyCastToInt(AbstractProduct):
+    """A sort of a proxy model to Product.
+
+    Casts amount in fractional units to int.
+    """
+
+    __tablename__ = Product.__tablename__
+    __table_args__ = {'extend_existing': True}
+
+    currency = db.Column(
+        CurrencyType(
+            amount_fields=(
+                "price",
+                "price_with_tax",
+            ),
+            cast_to=int,
+        )
+    )
+
+
+class ProductProxyCastToFloat(AbstractProduct):
+    """A sort of a proxy model to Product.
+
+    Casts amount in fractional units to float.
+    """
+
+    __tablename__ = Product.__tablename__
+    __table_args__ = {'extend_existing': True}
+
+    currency = db.Column(
+        CurrencyType(
+            amount_fields=(
+                "price",
+                "price_with_tax",
+            ),
+            get_choices_func=get_currency_choices,
+            cast_to=float,
+        )
+    )
+
+
+class ProductProxyCastToDecimal(AbstractProduct):
+    """A sort of a proxy model to Product.
+
+    Casts amount in fractional units to decimal.
+    """
+
+    __tablename__ = Product.__tablename__
+    __table_args__ = {'extend_existing': True}
+
+    currency = db.Column(
+        CurrencyType(
+            amount_fields=(
+                "price",
+                "price_with_tax",
+            ),
+            get_choices_func=get_currency_choices_with_sign,
+            cast_to=lambda __v: Decimal(str(__v)),
+        )
+    )
+
+
+class ProductProxyLimitChoicesTo(AbstractProduct):
+    """A sort of a proxy model to Product.
+
+    Casts amount in fractional units to int.
+    """
+
+    __tablename__ = Product.__tablename__
+    __table_args__ = {'extend_existing': True}
+
+    currency = db.Column(
+        CurrencyType(
+            amount_fields=(
+                "price",
+                "price_with_tax",
+            ),
+            limit_choices_to=(
+                valuta.EUR.uid,
+                valuta.AMD.uid,
+            ),
+            get_choices_func=get_currency_choices_with_code,
+        )
+    )
+
+
+class ProductProxyChoicesFuncNone(AbstractProduct):
+    """A sort of a proxy model to Product.
+
+    The `get_choices_func` argument is None here.
+    """
+
+    __tablename__ = Product.__tablename__
+    __table_args__ = {'extend_existing': True}
+
+    currency = db.Column(
+        CurrencyType(
+            amount_fields=(
+                "price",
+                "price_with_tax",
+            ),
+            limit_choices_to=(
+                valuta.EUR.uid,
+                valuta.AMD.uid,
+            ),
+            get_choices_func=None,
+        )
+    )
+
+
+class ProductProxyAmountFieldsIsNone(AbstractProduct):
+    """A sort of a proxy model to Product.
+
+    The `amount_fields` is None here. No magic functions. Just a currency
+    field.
+    """
+
+    __tablename__ = Product.__tablename__
+    __table_args__ = {'extend_existing': True}
+
+    currency = db.Column(CurrencyType())
+
+    def price_in_currency_units(self):
+        return convert_to_currency_units(self.currency, self.price)
+
+    def price_with_tax_in_currency_units(self):
+        return convert_to_currency_units(self.currency, self.price_with_tax)
