@@ -1,6 +1,6 @@
-====================================
-Flask example project for ``valuta``
-====================================
+=========================================
+SQLAlchemy example project for ``valuta``
+=========================================
 *Used mainly for SQLAlchemy/Flask-Admin integration show-off.*
 
 Migrate
