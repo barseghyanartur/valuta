@@ -12,8 +12,8 @@ from valuta.constants import DISPLAY_FORMAT_NUMBER
 # from valuta.contrib.django_integration.models import CurrencyField
 from valuta.utils import get_currency_choices
 
-from admin import create_app, db
-from admin.models import (
+from valuta_admin import create_app, db
+from valuta_admin.models import (
     AbstractProduct,
     Product,
     ProductProxyCastToInt,
@@ -37,7 +37,7 @@ class SQLAlchemyIntegrationTestCase(TestCase):
     def create_app(self):
 
         # pass in test configuration
-        return create_app(self)
+        return create_app("config_test.py")
 
     def setUp(self):
         db.create_all()
@@ -123,29 +123,33 @@ class SQLAlchemyIntegrationTestCase(TestCase):
         )
         db.session.add(p)
         db.session.commit()
+
         price_in_currency_units = p.price_in_currency_units()
         self.assertEqual(price_in_currency_units, 100)
 
         price_with_tax_in_currency_units = p.price_with_tax_in_currency_units()
         self.assertEqual(price_with_tax_in_currency_units, 120)
-    #
-    # def test_cast_to_int(self):
-    #     p = ProductProxyCastToInt.objects.create(
-    #         **{
-    #             "name": "My test product",
-    #             "price": 10000,
-    #             "price_with_tax": 12000,
-    #             "currency": valuta.EUR.uid,
-    #         }
-    #     )
-    #     price_in_currency_units = p.price_in_currency_units()
-    #     self.assertEqual(price_in_currency_units, 100)
-    #     self.assertTrue(isinstance(price_in_currency_units, int))
-    #
-    #     price_with_tax_in_currency_units = p.price_with_tax_in_currency_units()
-    #     self.assertEqual(price_with_tax_in_currency_units, 120)
-    #     self.assertTrue(isinstance(price_in_currency_units, int))
-    #
+
+    def test_cast_to_int(self):
+        p = ProductProxyCastToInt(
+            **{
+                "name": "My test product",
+                "price": 10000,
+                "price_with_tax": 12000,
+                "currency": valuta.EUR.uid,
+            }
+        )
+        db.session.add(p)
+        db.session.commit()
+
+        price_in_currency_units = p.price_in_currency_units()
+        self.assertEqual(price_in_currency_units, 100)
+        self.assertIsInstance(price_in_currency_units, int)
+
+        price_with_tax_in_currency_units = p.price_with_tax_in_currency_units()
+        self.assertEqual(price_with_tax_in_currency_units, 120)
+        self.assertIsInstance(price_in_currency_units, int)
+
     # def test_cast_to_float(self):
     #     p = ProductProxyCastToFloat.objects.create(
     #         **{

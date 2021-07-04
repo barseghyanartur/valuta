@@ -1,4 +1,4 @@
-from admin import db
+from valuta_admin import db
 
 
 def build_sample_db():

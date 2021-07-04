@@ -118,11 +118,11 @@ class DjangoIntegrationTestCase(TestCase):
         )
         price_in_currency_units = p.price_in_currency_units()
         self.assertEqual(price_in_currency_units, 100)
-        self.assertTrue(isinstance(price_in_currency_units, int))
+        self.assertIsInstance(price_in_currency_units, int)
 
         price_with_tax_in_currency_units = p.price_with_tax_in_currency_units()
         self.assertEqual(price_with_tax_in_currency_units, 120)
-        self.assertTrue(isinstance(price_in_currency_units, int))
+        self.assertIsInstance(price_in_currency_units, int)
 
     def test_cast_to_float(self):
         p = ProductProxyCastToFloat.objects.create(
@@ -135,11 +135,11 @@ class DjangoIntegrationTestCase(TestCase):
         )
         price_in_currency_units = p.price_in_currency_units()
         self.assertEqual(price_in_currency_units, 100.0)
-        self.assertTrue(isinstance(price_in_currency_units, float))
+        self.assertIsInstance(price_in_currency_units, float)
 
         price_with_tax_in_currency_units = p.price_with_tax_in_currency_units()
         self.assertEqual(price_with_tax_in_currency_units, 120.0)
-        self.assertTrue(isinstance(price_in_currency_units, float))
+        self.assertIsInstance(price_in_currency_units, float)
 
     def test_cast_to_decimal(self):
         p = ProductProxyCastToDecimal.objects.create(
@@ -152,11 +152,11 @@ class DjangoIntegrationTestCase(TestCase):
         )
         price_in_currency_units = p.price_in_currency_units()
         self.assertEqual(price_in_currency_units, Decimal("100.0"))
-        self.assertTrue(isinstance(price_in_currency_units, Decimal))
+        self.assertIsinstance(price_in_currency_units, Decimal)
 
         price_with_tax_in_currency_units = p.price_with_tax_in_currency_units()
         self.assertEqual(price_with_tax_in_currency_units, Decimal("120.0"))
-        self.assertTrue(isinstance(price_in_currency_units, Decimal))
+        self.assertIsinstance(price_in_currency_units, Decimal)
 
     def test_empty_currency_value(self):
         p = Product.objects.create(

@@ -11,13 +11,15 @@ db: SQLAlchemy
 # db = SQLAlchemy(app)
 
 
-def create_app(config_filename):
+def create_app(config_filename: str) -> Flask:
     global app
     app = Flask(__name__)
     app.config.from_pyfile(config_filename)
 
     global db
     db = SQLAlchemy(app)
+
+    return app
 
 
 create_app('config.py')
@@ -37,7 +39,7 @@ def get_locale():
     return session.get('lang', 'en')
 
 
-import admin.main
+import valuta_admin.main
 
 
 
