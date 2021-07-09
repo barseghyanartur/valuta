@@ -1,6 +1,10 @@
 from decimal import Decimal
+import json
+from typing import Union, Optional
 
 import valuta
+from valuta.base import Registry
+from valuta.constants import DEFAULT_DISPLAY_FORMAT
 from valuta.shortcuts import convert_to_currency_units
 from valuta.utils import get_currency_choices, get_currency_choices_with_code
 from valuta.contrib.sqlalchemy_integration.types import CurrencyType
@@ -21,6 +25,14 @@ __all__ = (
 )
 
 
+def to_dict(self):
+    return json.loads(json.dumps(self, default=lambda o: o.__dict__))
+
+
+def dict_from_class(cls):
+    return dict((key, value) for (key, value) in cls.__dict__.items())
+
+
 class AbstractProduct(db.Model):
     """Abstract product model."""
 
@@ -35,18 +47,73 @@ class AbstractProduct(db.Model):
     def __str__(self):
         return f"{self.name}"
 
+    def get_currency_cls_for_currency(self):
+        if not self.currency:
+            return None
+        return Registry.get(self.currency.code)
+
     def price_in_currency_units(self):
-        return convert_to_currency_units(self.currency, self.price)
+        if not self.currency:
+            return None
+
+        value = convert_to_currency_units(self.currency.code, self.price)
+        if self.currency.cast_to:
+            return self.currency.cast_to(value)
+        return value
 
     def price_with_tax_in_currency_units(self):
-        return convert_to_currency_units(self.currency, self.price_with_tax)
+        if not self.currency:
+            return None
+
+        value = convert_to_currency_units(
+            self.currency.code, self.price_with_tax
+        )
+        if self.currency.cast_to:
+            return self.currency.cast_to(value)
+        return value
+
+    def price_display_in_currency_units(
+        self,
+        format: Optional[str] = DEFAULT_DISPLAY_FORMAT,
+        locale: Optional[str] = None,
+        decimal_quantization: bool = True,
+    ):
+        if not self.currency:
+            return None
+
+        currency_cls = Registry.get(self.currency.code)
+        if currency_cls is None:
+            return None
+
+        value = currency_cls.display_in_currency_units(
+            self.price, format, locale, decimal_quantization
+        )
+        return value
+
+    def price_with_tax_display_in_currency_units(
+        self,
+        format: Optional[str] = DEFAULT_DISPLAY_FORMAT,
+        locale: Optional[str] = None,
+        decimal_quantization: bool = True,
+    ):
+        if not self.currency:
+            return None
+
+        currency_cls = Registry.get(self.currency.code)
+        if currency_cls is None:
+            return None
+
+        value = currency_cls.display_in_currency_units(
+            self.price_with_tax, format, locale, decimal_quantization
+        )
+        return value
 
 
 class Product(AbstractProduct):
     """Product model."""
 
-    __tablename__ = 'product'
-    __table_args__ = {'extend_existing': True}
+    __tablename__ = "product"
+    __table_args__ = {"extend_existing": True}
 
     currency = db.Column(
         CurrencyType(
@@ -66,7 +133,7 @@ class ProductProxyCastToInt(AbstractProduct):
     """
 
     __tablename__ = Product.__tablename__
-    __table_args__ = {'extend_existing': True}
+    __table_args__ = {"extend_existing": True}
 
     currency = db.Column(
         CurrencyType(
@@ -86,7 +153,7 @@ class ProductProxyCastToFloat(AbstractProduct):
     """
 
     __tablename__ = Product.__tablename__
-    __table_args__ = {'extend_existing': True}
+    __table_args__ = {"extend_existing": True}
 
     currency = db.Column(
         CurrencyType(
@@ -107,7 +174,7 @@ class ProductProxyCastToDecimal(AbstractProduct):
     """
 
     __tablename__ = Product.__tablename__
-    __table_args__ = {'extend_existing': True}
+    __table_args__ = {"extend_existing": True}
 
     currency = db.Column(
         CurrencyType(
@@ -128,7 +195,7 @@ class ProductProxyLimitChoicesTo(AbstractProduct):
     """
 
     __tablename__ = Product.__tablename__
-    __table_args__ = {'extend_existing': True}
+    __table_args__ = {"extend_existing": True}
 
     currency = db.Column(
         CurrencyType(
@@ -152,7 +219,7 @@ class ProductProxyChoicesFuncNone(AbstractProduct):
     """
 
     __tablename__ = Product.__tablename__
-    __table_args__ = {'extend_existing': True}
+    __table_args__ = {"extend_existing": True}
 
     currency = db.Column(
         CurrencyType(
@@ -177,7 +244,7 @@ class ProductProxyAmountFieldsIsNone(AbstractProduct):
     """
 
     __tablename__ = Product.__tablename__
-    __table_args__ = {'extend_existing': True}
+    __table_args__ = {"extend_existing": True}
 
     currency = db.Column(CurrencyType())
     #

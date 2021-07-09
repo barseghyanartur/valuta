@@ -15,9 +15,9 @@ from .models import (
 
 
 # Flask views
-@app.route('/')
+@app.route("/")
 def index():
-    tmp = u"""
+    tmp = """
 <p><a href="/admin/?lang=en">Click me to get to Admin! (English)</a></p>
 <p><a href="/admin/?lang=cs">Click me to get to Admin! (Czech)</a></p>
 <p><a href="/admin/?lang=de">Click me to get to Admin! (German)</a></p>
@@ -33,13 +33,15 @@ def index():
     return tmp
 
 
-@app.route('/favicon.ico')
+@app.route("/favicon.ico")
 def favicon():
-    return send_file('static/favicon.ico')
+    return send_file("static/favicon.ico")
 
 
 # Create admin
-admin = admin.Admin(app, name='Example: SQLAlchemy', template_mode='bootstrap4')
+admin = admin.Admin(
+    app, name="Example: SQLAlchemy", template_mode="bootstrap4"
+)
 
 # Add views
 admin.add_view(sqla.ModelView(Product, db.session))

@@ -9,6 +9,7 @@ from flask_testing import TestCase
 
 import valuta
 from valuta.constants import DISPLAY_FORMAT_NUMBER
+
 # from valuta.contrib.django_integration.models import CurrencyField
 from valuta.utils import get_currency_choices
 
@@ -150,278 +151,341 @@ class SQLAlchemyIntegrationTestCase(TestCase):
         self.assertEqual(price_with_tax_in_currency_units, 120)
         self.assertIsInstance(price_in_currency_units, int)
 
-    # def test_cast_to_float(self):
-    #     p = ProductProxyCastToFloat.objects.create(
-    #         **{
-    #             "name": "My test product",
-    #             "price": 10000,
-    #             "price_with_tax": 12000,
-    #             "currency": valuta.EUR.uid,
-    #         }
-    #     )
-    #     price_in_currency_units = p.price_in_currency_units()
-    #     self.assertEqual(price_in_currency_units, 100.0)
-    #     self.assertTrue(isinstance(price_in_currency_units, float))
-    #
-    #     price_with_tax_in_currency_units = p.price_with_tax_in_currency_units()
-    #     self.assertEqual(price_with_tax_in_currency_units, 120.0)
-    #     self.assertTrue(isinstance(price_in_currency_units, float))
-    #
-    # def test_cast_to_decimal(self):
-    #     p = ProductProxyCastToDecimal.objects.create(
-    #         **{
-    #             "name": "My test product",
-    #             "price": 10000,
-    #             "price_with_tax": 12000,
-    #             "currency": valuta.EUR.uid,
-    #         }
-    #     )
-    #     price_in_currency_units = p.price_in_currency_units()
-    #     self.assertEqual(price_in_currency_units, Decimal("100.0"))
-    #     self.assertTrue(isinstance(price_in_currency_units, Decimal))
-    #
-    #     price_with_tax_in_currency_units = p.price_with_tax_in_currency_units()
-    #     self.assertEqual(price_with_tax_in_currency_units, Decimal("120.0"))
-    #     self.assertTrue(isinstance(price_in_currency_units, Decimal))
-    #
-    # def test_empty_currency_value(self):
-    #     p = Product.objects.create(
-    #         **{
-    #             "name": "My test product 2",
-    #             "price": 10000,
-    #             "price_with_tax": 12000,
-    #             "currency": "",
-    #         }
-    #     )
-    #     price_in_currency_units = p.price_in_currency_units()
-    #     self.assertIsNone(price_in_currency_units)
-    #
-    # def test_invalid_currency_value(self):
-    #     p = Product.objects.create(
-    #         **{
-    #             "name": "My test product 2",
-    #             "price": 10000,
-    #             "price_with_tax": 12000,
-    #             "currency": "INVALID",
-    #         }
-    #     )
-    #     price_in_currency_units = p.price_in_currency_units()
-    #     self.assertIsNone(price_in_currency_units)
-    #
-    # def test_get_choices_func_is_none(self):
-    #     p = ProductProxyChoicesFuncNone.objects.create(
-    #         **{
-    #             "name": "My test product 3",
-    #             "price": 10000,
-    #             "price_with_tax": 12000,
-    #             "currency": valuta.EUR.uid,
-    #         }
-    #     )
-    #     price_in_currency_units = p.price_in_currency_units()
-    #     self.assertEqual(price_in_currency_units, 100)
-    #
-    #     price_with_tax_in_currency_units = p.price_with_tax_in_currency_units()
-    #     self.assertEqual(price_with_tax_in_currency_units, 120)
-    #
-    # def test_get_currency_cls(self):
-    #     p = ProductProxyChoicesFuncNone.objects.create(
-    #         **{
-    #             "name": "My test product 4",
-    #             "price": 10000,
-    #             "price_with_tax": 12000,
-    #             "currency": valuta.EUR.uid,
-    #         }
-    #     )
-    #     currency_cls = p.get_currency_cls_for_currency()
-    #     self.assertEqual(currency_cls, valuta.EUR)
-    #
-    # def test_get_currency_cls_empty_currency_value(self):
-    #     p = ProductProxyChoicesFuncNone.objects.create(
-    #         **{
-    #             "name": "My test product 5",
-    #             "price": 10000,
-    #             "price_with_tax": 12000,
-    #             "currency": "",
-    #         }
-    #     )
-    #     currency_cls = p.get_currency_cls_for_currency()
-    #     self.assertIsNone(currency_cls)
-    #
-    # def test_get_currency_cls_invalid_currency_value(self):
-    #     p = ProductProxyChoicesFuncNone.objects.create(
-    #         **{
-    #             "name": "My test product 6",
-    #             "price": 10000,
-    #             "price_with_tax": 12000,
-    #             "currency": "INVALID",
-    #         }
-    #     )
-    #     currency_cls = p.get_currency_cls_for_currency()
-    #     self.assertIsNone(currency_cls)
-    #
-    # def test_1(self):
-    #     p = Product.objects.create(
-    #         **{
-    #             "name": "My test product",
-    #             "price": 1_000,
-    #             "price_with_tax": 1_200,
-    #             "currency": valuta.UGX.uid,
-    #         }
-    #     )
-    #     self.assertEqual(p.price_in_currency_units(), 1_000)
-    #
-    # def test_5(self):
-    #     p = Product.objects.create(
-    #         **{
-    #             "name": "My test product",
-    #             "price": 1_000,
-    #             "price_with_tax": 1_200,
-    #             "currency": valuta.MRU.uid,
-    #         }
-    #     )
-    #     self.assertEqual(p.price_in_currency_units(), 200)
-    #
-    # def test_10(self):
-    #     p = Product.objects.create(
-    #         **{
-    #             "name": "My test product",
-    #             "price": 1_000,
-    #             "price_with_tax": 1_200,
-    #             "currency": valuta.VND.uid,
-    #         }
-    #     )
-    #     self.assertEqual(p.price_in_currency_units(), 100)
-    #
-    # def test_100(self):
-    #     p = Product.objects.create(
-    #         **{
-    #             "name": "My test product",
-    #             "price": 1_000,
-    #             "price_with_tax": 1_200,
-    #             "currency": valuta.EUR.uid,
-    #         }
-    #     )
-    #     self.assertEqual(p.price_in_currency_units(), 10)
-    #
-    # def test_1000(self):
-    #     p = Product.objects.create(
-    #         **{
-    #             "name": "My test product",
-    #             "price": 1_000,
-    #             "price_with_tax": 1_200,
-    #             "currency": valuta.TND.uid,
-    #         }
-    #     )
-    #     self.assertEqual(p.price_in_currency_units(), 1)
-    #
+    def test_cast_to_float(self):
+        p = ProductProxyCastToFloat(
+            **{
+                "name": "My test product",
+                "price": 10000,
+                "price_with_tax": 12000,
+                "currency": valuta.EUR.uid,
+            }
+        )
+        db.session.add(p)
+        db.session.commit()
+
+        price_in_currency_units = p.price_in_currency_units()
+        self.assertEqual(price_in_currency_units, 100.0)
+        self.assertTrue(isinstance(price_in_currency_units, float))
+
+        price_with_tax_in_currency_units = p.price_with_tax_in_currency_units()
+        self.assertEqual(price_with_tax_in_currency_units, 120.0)
+        self.assertTrue(isinstance(price_in_currency_units, float))
+
+    def test_cast_to_decimal(self):
+        p = ProductProxyCastToDecimal(
+            **{
+                "name": "My test product",
+                "price": 10000,
+                "price_with_tax": 12000,
+                "currency": valuta.EUR.uid,
+            }
+        )
+        db.session.add(p)
+        db.session.commit()
+
+        price_in_currency_units = p.price_in_currency_units()
+        self.assertEqual(price_in_currency_units, Decimal("100.0"))
+        self.assertTrue(isinstance(price_in_currency_units, Decimal))
+
+        price_with_tax_in_currency_units = p.price_with_tax_in_currency_units()
+        self.assertEqual(price_with_tax_in_currency_units, Decimal("120.0"))
+        self.assertTrue(isinstance(price_in_currency_units, Decimal))
+
+    def test_empty_currency_value(self):
+        p = Product(
+            **{
+                "name": "My test product 2",
+                "price": 10000,
+                "price_with_tax": 12000,
+                "currency": "",
+            }
+        )
+        db.session.add(p)
+        db.session.commit()
+
+        price_in_currency_units = p.price_in_currency_units()
+        self.assertIsNone(price_in_currency_units)
+
+    def test_invalid_currency_value(self):
+        p = Product(
+            **{
+                "name": "My test product 2",
+                "price": 10000,
+                "price_with_tax": 12000,
+                "currency": "INVALID",
+            }
+        )
+        db.session.add(p)
+        db.session.commit()
+
+        price_in_currency_units = p.price_in_currency_units()
+        self.assertIsNone(price_in_currency_units)
+
+    def test_get_choices_func_is_none(self):
+        p = ProductProxyChoicesFuncNone(
+            **{
+                "name": "My test product 3",
+                "price": 10000,
+                "price_with_tax": 12000,
+                "currency": valuta.EUR.uid,
+            }
+        )
+        db.session.add(p)
+        db.session.commit()
+
+        price_in_currency_units = p.price_in_currency_units()
+        self.assertEqual(price_in_currency_units, 100)
+
+        price_with_tax_in_currency_units = p.price_with_tax_in_currency_units()
+        self.assertEqual(price_with_tax_in_currency_units, 120)
+
+    def test_get_currency_cls(self):
+        p = ProductProxyChoicesFuncNone(
+            **{
+                "name": "My test product 4",
+                "price": 10000,
+                "price_with_tax": 12000,
+                "currency": valuta.EUR.uid,
+            }
+        )
+        db.session.add(p)
+        db.session.commit()
+
+        currency_cls = p.get_currency_cls_for_currency()
+        self.assertEqual(currency_cls, valuta.EUR)
+
+    def test_get_currency_cls_empty_currency_value(self):
+        p = ProductProxyChoicesFuncNone(
+            **{
+                "name": "My test product 5",
+                "price": 10000,
+                "price_with_tax": 12000,
+                "currency": "",
+            }
+        )
+        db.session.add(p)
+        db.session.commit()
+
+        currency_cls = p.get_currency_cls_for_currency()
+        self.assertIsNone(currency_cls)
+
+    def test_get_currency_cls_invalid_currency_value(self):
+        p = ProductProxyChoicesFuncNone(
+            **{
+                "name": "My test product 6",
+                "price": 10000,
+                "price_with_tax": 12000,
+                "currency": "INVALID",
+            }
+        )
+        db.session.add(p)
+        db.session.commit()
+
+        currency_cls = p.get_currency_cls_for_currency()
+        self.assertIsNone(currency_cls)
+
+    def test_1(self):
+        p = Product(
+            **{
+                "name": "My test product",
+                "price": 1_000,
+                "price_with_tax": 1_200,
+                "currency": valuta.UGX.uid,
+            }
+        )
+        db.session.add(p)
+        db.session.commit()
+
+        self.assertEqual(p.price_in_currency_units(), 1_000)
+
+    def test_5(self):
+        p = Product(
+            **{
+                "name": "My test product",
+                "price": 1_000,
+                "price_with_tax": 1_200,
+                "currency": valuta.MRU.uid,
+            }
+        )
+        db.session.add(p)
+        db.session.commit()
+
+        self.assertEqual(p.price_in_currency_units(), 200)
+
+    def test_10(self):
+        p = Product(
+            **{
+                "name": "My test product",
+                "price": 1_000,
+                "price_with_tax": 1_200,
+                "currency": valuta.VND.uid,
+            }
+        )
+        db.session.add(p)
+        db.session.commit()
+
+        self.assertEqual(p.price_in_currency_units(), 100)
+
+    def test_100(self):
+        p = Product(
+            **{
+                "name": "My test product",
+                "price": 1_000,
+                "price_with_tax": 1_200,
+                "currency": valuta.EUR.uid,
+            }
+        )
+        db.session.add(p)
+        db.session.commit()
+
+        self.assertEqual(p.price_in_currency_units(), 10)
+
+    def test_1000(self):
+        p = Product(
+            **{
+                "name": "My test product",
+                "price": 1_000,
+                "price_with_tax": 1_200,
+                "currency": valuta.TND.uid,
+            }
+        )
+        db.session.add(p)
+        db.session.commit()
+
+        self.assertEqual(p.price_in_currency_units(), 1)
+
     # # ***********************************************************
     # # *************** Display in currency units *****************
     # # ***********************************************************
     #
-    # def test_display_1_format_number(self):
-    #     p = Product.objects.create(
-    #         **{
-    #             "name": "My test product",
-    #             "price": 1_000,
-    #             "price_with_tax": 1_200,
-    #             "currency": valuta.UGX.uid,
-    #         }
-    #     )
-    #     self.assertEqual(
-    #         p.price_display_in_currency_units(format=DISPLAY_FORMAT_NUMBER),
-    #         "1000",
-    #     )
-    #
-    # def test_display_5_format_number(self):
-    #     p = Product.objects.create(
-    #         **{
-    #             "name": "My test product",
-    #             "price": 1_000,
-    #             "price_with_tax": 1_200,
-    #             "currency": valuta.MRU.uid,
-    #         }
-    #     )
-    #     self.assertEqual(
-    #         p.price_display_in_currency_units(format=DISPLAY_FORMAT_NUMBER),
-    #         "200.00",
-    #     )
-    #
-    # def test_display_10_format_number(self):
-    #     p = Product.objects.create(
-    #         **{
-    #             "name": "My test product",
-    #             "price": 1_000,
-    #             "price_with_tax": 1_200,
-    #             "currency": valuta.VND.uid,
-    #         }
-    #     )
-    #     self.assertEqual(
-    #         p.price_display_in_currency_units(format=DISPLAY_FORMAT_NUMBER),
-    #         "100",
-    #     )
-    #
-    # def test_display_100_format_number(self):
-    #     p = Product.objects.create(
-    #         **{
-    #             "name": "My test product",
-    #             "price": 1_000,
-    #             "price_with_tax": 1_200,
-    #             "currency": valuta.EUR.uid,
-    #         }
-    #     )
-    #     self.assertEqual(
-    #         p.price_display_in_currency_units(format=DISPLAY_FORMAT_NUMBER),
-    #         "10.00",
-    #     )
-    #
-    # def test_display_1000_format_number(self):
-    #     p = Product.objects.create(
-    #         **{
-    #             "name": "My test product",
-    #             "price": 1_000,
-    #             "price_with_tax": 1_200,
-    #             "currency": valuta.TND.uid,
-    #         }
-    #     )
-    #     self.assertEqual(
-    #         p.price_display_in_currency_units(format=DISPLAY_FORMAT_NUMBER),
-    #         "1.000",
-    #     )
-    #
-    # def test_display_jpy_format_number(self):
-    #     p = Product.objects.create(
-    #         **{
-    #             "name": "My test product",
-    #             "price": 1_000,
-    #             "price_with_tax": 1_200,
-    #             "currency": valuta.JPY.uid,
-    #         }
-    #     )
-    #     self.assertEqual(
-    #         p.price_display_in_currency_units(format=DISPLAY_FORMAT_NUMBER),
-    #         "10",
-    #     )
-    #
-    # def test_display_empty_currency_value(self):
-    #     p = Product.objects.create(
-    #         **{
-    #             "name": "My test product 2",
-    #             "price": 10000,
-    #             "price_with_tax": 12000,
-    #             "currency": "",
-    #         }
-    #     )
-    #     price_display_in_currency_units = p.price_display_in_currency_units()
-    #     self.assertIsNone(price_display_in_currency_units)
-    #
-    # def test_display_invalid_currency_value(self):
-    #     p = Product.objects.create(
-    #         **{
-    #             "name": "My test product 2",
-    #             "price": 10000,
-    #             "price_with_tax": 12000,
-    #             "currency": "INVALID",
-    #         }
-    #     )
-    #     price_display_in_currency_units = p.price_display_in_currency_units()
-    #     self.assertIsNone(price_display_in_currency_units)
+    def test_display_1_format_number(self):
+        p = Product(
+            **{
+                "name": "My test product",
+                "price": 1_000,
+                "price_with_tax": 1_200,
+                "currency": valuta.UGX.uid,
+            }
+        )
+        db.session.add(p)
+        db.session.commit()
+
+        self.assertEqual(
+            p.price_display_in_currency_units(format=DISPLAY_FORMAT_NUMBER),
+            "1000",
+        )
+
+    def test_display_5_format_number(self):
+        p = Product(
+            **{
+                "name": "My test product",
+                "price": 1_000,
+                "price_with_tax": 1_200,
+                "currency": valuta.MRU.uid,
+            }
+        )
+        db.session.add(p)
+        db.session.commit()
+
+        self.assertEqual(
+            p.price_display_in_currency_units(format=DISPLAY_FORMAT_NUMBER),
+            "200.00",
+        )
+
+    def test_display_10_format_number(self):
+        p = Product(
+            **{
+                "name": "My test product",
+                "price": 1_000,
+                "price_with_tax": 1_200,
+                "currency": valuta.VND.uid,
+            }
+        )
+        db.session.add(p)
+        db.session.commit()
+
+        self.assertEqual(
+            p.price_display_in_currency_units(format=DISPLAY_FORMAT_NUMBER),
+            "100",
+        )
+
+    def test_display_100_format_number(self):
+        p = Product(
+            **{
+                "name": "My test product",
+                "price": 1_000,
+                "price_with_tax": 1_200,
+                "currency": valuta.EUR.uid,
+            }
+        )
+        db.session.add(p)
+        db.session.commit()
+
+        self.assertEqual(
+            p.price_display_in_currency_units(format=DISPLAY_FORMAT_NUMBER),
+            "10.00",
+        )
+
+    def test_display_1000_format_number(self):
+        p = Product(
+            **{
+                "name": "My test product",
+                "price": 1_000,
+                "price_with_tax": 1_200,
+                "currency": valuta.TND.uid,
+            }
+        )
+        db.session.add(p)
+        db.session.commit()
+
+        self.assertEqual(
+            p.price_display_in_currency_units(format=DISPLAY_FORMAT_NUMBER),
+            "1.000",
+        )
+
+    def test_display_jpy_format_number(self):
+        p = Product(
+            **{
+                "name": "My test product",
+                "price": 1_000,
+                "price_with_tax": 1_200,
+                "currency": valuta.JPY.uid,
+            }
+        )
+        db.session.add(p)
+        db.session.commit()
+
+        self.assertEqual(
+            p.price_display_in_currency_units(format=DISPLAY_FORMAT_NUMBER),
+            "10",
+        )
+
+    def test_display_empty_currency_value(self):
+        p = Product(
+            **{
+                "name": "My test product 2",
+                "price": 10000,
+                "price_with_tax": 12000,
+                "currency": "",
+            }
+        )
+        db.session.add(p)
+        db.session.commit()
+
+        price_display_in_currency_units = p.price_display_in_currency_units()
+        self.assertIsNone(price_display_in_currency_units)
+
+    def test_display_invalid_currency_value(self):
+        p = Product(
+            **{
+                "name": "My test product 2",
+                "price": 10000,
+                "price_with_tax": 12000,
+                "currency": "INVALID",
+            }
+        )
+        db.session.add(p)
+        db.session.commit()
+
+        price_display_in_currency_units = p.price_display_in_currency_units()
+        self.assertIsNone(price_display_in_currency_units)

@@ -22,7 +22,7 @@ def create_app(config_filename: str) -> Flask:
     return app
 
 
-create_app('config.py')
+create_app("config.py")
 
 
 # Initialize babel
@@ -31,15 +31,12 @@ babel = Babel(app)
 
 @babel.localeselector
 def get_locale():
-    override = request.args.get('lang')
+    override = request.args.get("lang")
 
     if override:
-        session['lang'] = override
+        session["lang"] = override
 
-    return session.get('lang', 'en')
+    return session.get("lang", "en")
 
 
 import valuta_admin.main
-
-
-
