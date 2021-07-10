@@ -8,7 +8,11 @@ from ...utils import get_currency_choices_with_code
 __author__ = "Artur Barseghyan"
 __copyright__ = "2021 Artur Barseghyan"
 __license__ = "GPL-2.0-only OR LGPL-2.1-or-later"
-__all__ = ("CurrencyType",)
+__all__ = (
+    "CurrencyType",
+    "ChoiceWithExtras",
+    "ChoiceTypeWithExtrasImpl",
+)
 
 
 class ChoiceWithExtras(Choice):

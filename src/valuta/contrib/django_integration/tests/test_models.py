@@ -152,11 +152,11 @@ class DjangoIntegrationTestCase(TestCase):
         )
         price_in_currency_units = p.price_in_currency_units()
         self.assertEqual(price_in_currency_units, Decimal("100.0"))
-        self.assertIsinstance(price_in_currency_units, Decimal)
+        self.assertIsInstance(price_in_currency_units, Decimal)
 
         price_with_tax_in_currency_units = p.price_with_tax_in_currency_units()
         self.assertEqual(price_with_tax_in_currency_units, Decimal("120.0"))
-        self.assertIsinstance(price_in_currency_units, Decimal)
+        self.assertIsInstance(price_in_currency_units, Decimal)
 
     def test_empty_currency_value(self):
         p = Product.objects.create(
