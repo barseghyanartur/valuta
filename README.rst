@@ -699,7 +699,7 @@ No magic methods are implemented yet (although planned to). What you get
 is a simple SQLAlchemy type for storing the data. For the rest you will have
 to make use of the ``valuta.shortcuts``.
 
-See `sqlalchemy-integration/examples/sqlalchemy_example/valuta_admin/models.py <https://github.com/barseghyanartur/valuta/blob/feature/sqlalchemy-integration/examples/sqlalchemy_example/valuta_admin/models.py#L50>`
+See `sqlalchemy-integration/examples/sqlalchemy_example/valuta_admin/models.py <https://github.com/barseghyanartur/valuta/blob/feature/sqlalchemy-integration/examples/sqlalchemy_example/valuta_admin/models.py#L50>`_
 as a good example.
 
 Model definition
