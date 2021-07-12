@@ -47,6 +47,8 @@ Prerequisites
 - Core package requires Python 3.6, 3.7, 3.8 or 3.9.
 - Django integration package (``valuta.contrib.django_integration``) requires
   Django 2.2, 3.0, 3.1 or 3.2.
+- SQLAlchemy integration package (``valuta.contrib.sqlalchemy_integration``)
+  has been tested with SQLAlchemy 1.4.x.
 
 Documentation
 =============
@@ -687,6 +689,11 @@ Sample template tags renderer
     render_to_string(
         "template_tag_price_display_in_currency_units.html", {"instance": instance}
     )
+
+SQLAlchemy integration
+----------------------
+Similarly to Django integration package, the SQLAlchemy integration package is
+a simple ``CurrencyType`` representing the ISO-4217 codes of the currencies.
 
 Supported currencies
 ====================
