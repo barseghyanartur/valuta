@@ -3,7 +3,7 @@ import json
 from typing import Union, Optional
 
 import valuta
-from valuta.base import Registry
+from valuta.base import Registry, BaseCurrency
 from valuta.constants import DEFAULT_DISPLAY_FORMAT
 from valuta.shortcuts import convert_to_currency_units
 from valuta.utils import get_currency_choices, get_currency_choices_with_code
@@ -25,12 +25,12 @@ __all__ = (
 )
 
 
-def to_dict(self):
-    return json.loads(json.dumps(self, default=lambda o: o.__dict__))
-
-
-def dict_from_class(cls):
-    return dict((key, value) for (key, value) in cls.__dict__.items())
+# def to_dict(self):
+#     return json.loads(json.dumps(self, default=lambda o: o.__dict__))
+#
+#
+# def dict_from_class(cls):
+#     return dict((key, value) for (key, value) in cls.__dict__.items())
 
 
 class AbstractProduct(db.Model):
@@ -43,15 +43,15 @@ class AbstractProduct(db.Model):
     price = db.Column(db.Integer())
     price_with_tax = db.Column(db.Integer())
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.name}"
 
-    def get_currency_cls_for_currency(self):
+    def get_currency_cls_for_currency(self) -> Union[BaseCurrency, None]:
         if not self.currency:
             return None
         return Registry.get(self.currency.code)
 
-    def price_in_currency_units(self):
+    def price_in_currency_units(self) -> Union[int, float, Decimal, None]:
         if not self.currency:
             return None
 
@@ -60,7 +60,9 @@ class AbstractProduct(db.Model):
             return self.currency.cast_to(value)
         return value
 
-    def price_with_tax_in_currency_units(self):
+    def price_with_tax_in_currency_units(
+        self,
+    ) -> Union[int, float, Decimal, None]:
         if not self.currency:
             return None
 
@@ -76,7 +78,7 @@ class AbstractProduct(db.Model):
         format: Optional[str] = DEFAULT_DISPLAY_FORMAT,
         locale: Optional[str] = None,
         decimal_quantization: bool = True,
-    ):
+    ) -> str:
         if not self.currency:
             return None
 
@@ -94,7 +96,7 @@ class AbstractProduct(db.Model):
         format: Optional[str] = DEFAULT_DISPLAY_FORMAT,
         locale: Optional[str] = None,
         decimal_quantization: bool = True,
-    ):
+    ) -> str:
         if not self.currency:
             return None
 
