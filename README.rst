@@ -695,6 +695,45 @@ SQLAlchemy integration
 Similarly to Django integration package, the SQLAlchemy integration package is
 a simple ``CurrencyType`` representing the ISO-4217 codes of the currencies.
 
+No magic methods are implemented yet (although planned to). What you get
+is a simple SQLAlchemy type for storing the data. For the rest you will have
+to make use of the ``valuta.shortcuts``.
+
+See `sqlalchemy-integration/examples/sqlalchemy_example/valuta_admin/models.py <https://github.com/barseghyanartur/valuta/blob/feature/sqlalchemy-integration/examples/sqlalchemy_example/valuta_admin/models.py#L50>`
+as a good example.
+
+Model definition
+~~~~~~~~~~~~~~~~
+**Sample model**
+
+*product/models.py*
+
+.. code-block:: python
+
+    from valuta.contrib.sqlalchemy_integration.types import CurrencyType
+    from . import db  # Standard SQLAlchemy way
+
+    class Product(db.Model):
+
+        id = db.Column(db.Integer, primary_key=True)
+        name = db.Column(db.Unicode(64), unique=True)
+        price = db.Column(db.Integer())
+        price_with_tax = db.Column(db.Integer())
+        currency = db.Column(CurrencyType())
+
+**Sample data**
+
+.. code-block:: python
+
+    import valuta
+    from product.models import Product
+    product = Product(
+        name="My test product",
+        price=100,
+        price_with_tax=120,
+        currency=valuta.AMD.uid,
+    )
+
 Supported currencies
 ====================
 Currencies marked with `(*)` are custom (added manually). The rest is obtained

@@ -17,7 +17,7 @@ are used for versioning (schema follows below):
 
 0.3.2
 -----
-2021-07-12
+2021-07-13
 
 - Add basic SQLAlchemy support.
 

@@ -42,7 +42,6 @@ class AbstractProduct(db.Model):
     name = db.Column(db.Unicode(64), unique=True)
     price = db.Column(db.Integer())
     price_with_tax = db.Column(db.Integer())
-    # currency = db.Column(CurrencyType())
 
     def __str__(self):
         return f"{self.name}"
