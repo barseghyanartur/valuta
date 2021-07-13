@@ -48,6 +48,11 @@ tests_require = [
     "coverage",
 ]
 
+extras_require = {
+    "django": ["Django>=2.2"],
+    "sqlalchemy": ["SQLAlchemy>=1.0", "SQLAlchemy-Utils>=0.37.0"],
+},
+
 setup(
     name="valuta",
     version=version,

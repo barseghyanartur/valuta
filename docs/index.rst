@@ -45,9 +45,9 @@ List of currencies is generated from a single CSV dump obtained from the
 Prerequisites
 =============
 - Core package requires Python 3.6, 3.7, 3.8 or 3.9.
-- Django integration package (``valuta.contrib.django_integration``) requires
+- `Django integration`_ package (``valuta.contrib.django_integration``) requires
   Django 2.2, 3.0, 3.1 or 3.2.
-- SQLAlchemy integration package (``valuta.contrib.sqlalchemy_integration``)
+- `SQLAlchemy integration`_ package (``valuta.contrib.sqlalchemy_integration``)
   has been tested with SQLAlchemy 1.4.x.
 
 Documentation
@@ -295,6 +295,12 @@ for converting field amounts to major currency units (often simply called
 
 There are also `template tags and filters`_ for when you need to render
 non-model data (for instance, JSON) in templates without prior pre-processing.
+
+Installation
+~~~~~~~~~~~~
+.. code-block:: sh
+
+    pip install valuta[django]
 
 Model field
 ~~~~~~~~~~~
@@ -701,6 +707,12 @@ to make use of the ``valuta.shortcuts``.
 
 See `examples/sqlalchemy_example/valuta_admin/models.py <https://github.com/barseghyanartur/valuta/blob/master/examples/sqlalchemy_example/valuta_admin/models.py#L50>`_
 as a good example.
+
+Installation
+~~~~~~~~~~~~
+.. code-block:: sh
+
+    pip install valuta[sqlalchemy]
 
 Model definition
 ~~~~~~~~~~~~~~~~
