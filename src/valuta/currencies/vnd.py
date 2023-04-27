@@ -10,4 +10,4 @@ class VND(BaseCurrency):
     """VND - Vietnamese đồng."""
 
     uid: str = "VND"
-    rate: int = 10
+    rate: int = 1
