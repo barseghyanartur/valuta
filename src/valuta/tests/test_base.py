@@ -1,8 +1,8 @@
-from copy import deepcopy
 import unittest
+from copy import deepcopy
 
 from ..base import BaseCurrency, Registry
-from ..currencies import TND, EUR, MRU, VND, UGX
+from ..currencies import EUR, MRU, TND, UGX, VND
 from ..exceptions import ImproperlyConfigured
 from ..utils import get_currency_choices_with_code
 

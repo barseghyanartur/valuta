@@ -1,5 +1,3 @@
-from typing import Dict
-
 # from django.template import Template, Context
 from django.template.loader import render_to_string
 
@@ -7,7 +5,6 @@ __all__ = ("SimpleProduct",)
 
 
 class SimpleProduct:
-
     currency_code: str
     price: int
     price_with_tax: int
@@ -17,7 +14,7 @@ class SimpleProduct:
         self.price = price
         self.price_with_tax = price_with_tax
 
-    def get_context(self, **kwargs) -> Dict[str, "SimpleProduct"]:
+    def get_context(self, **kwargs) -> dict[str, "SimpleProduct"]:
         context = {"instance": self}
         context.update(**kwargs)
         return context

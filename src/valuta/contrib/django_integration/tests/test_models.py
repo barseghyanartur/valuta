@@ -1,23 +1,22 @@
 from decimal import Decimal
 
 from django import VERSION
-from django.utils.translation import gettext_lazy as _
 from django.test import TestCase, override_settings
+from django.utils.translation import gettext_lazy as _
+from product.models import (
+    AbstractProduct,
+    Product,
+    ProductProxyCastToDecimal,
+    ProductProxyCastToFloat,
+    ProductProxyCastToInt,
+    ProductProxyChoicesFuncNone,
+    ProductProxyLimitChoicesTo,
+)
 
 import valuta
 from valuta.constants import DISPLAY_FORMAT_NUMBER
 from valuta.contrib.django_integration.models import CurrencyField
 from valuta.utils import get_currency_choices
-
-from product.models import (
-    AbstractProduct,
-    Product,
-    ProductProxyCastToInt,
-    ProductProxyCastToFloat,
-    ProductProxyCastToDecimal,
-    ProductProxyLimitChoicesTo,
-    ProductProxyChoicesFuncNone,
-)
 
 __author__ = "Artur Barseghyan"
 __copyright__ = "2021 Artur Barseghyan"
@@ -26,14 +25,12 @@ __all__ = ("DjangoIntegrationTestCase",)
 
 
 class DjangoIntegrationTestCase(TestCase):
-
     # ***********************************************************
     # *************** Convert to currency units *****************
     # ***********************************************************
 
     def test_limit_choices_to(self):
         with self.subTest("Field choices"):
-
             if VERSION[:2] > (2, 2):
                 field = ProductProxyLimitChoicesTo.currency.field
             else:
@@ -77,7 +74,6 @@ class DjangoIntegrationTestCase(TestCase):
                 )
 
         with self.subTest("Field choices from django settings"):
-
             if VERSION[:2] > (2, 2):
                 field = ProductValueFieldLimitChoicesSettings.currency.field
             else:

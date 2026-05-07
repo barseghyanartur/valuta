@@ -47,7 +47,7 @@ def read_csv_and_write_output(
     if not os.path.isabs(out_dir):
         out_dir = project_dir(out_dir)
 
-    processed = set([])
+    processed = set()
     with open(in_file) as csv_file:
         reader = csv.reader(csv_file)
         if skip_first_line:

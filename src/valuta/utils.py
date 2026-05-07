@@ -1,4 +1,5 @@
-from typing import Tuple, List, Set, Union
+from typing import Union
+
 from .base import Registry
 
 __author__ = "Artur Barseghyan"
@@ -11,9 +12,9 @@ __all__ = (
 
 
 def get_currency_choices(
-    limit_choices_to: Union[Tuple[str, ...], List[str], Set[str]] = None,
+    limit_choices_to: Union[tuple[str, ...], list[str], set[str]] = None,
     sort_by_key: bool = False,
-) -> List[Tuple[str, str]]:
+) -> list[tuple[str, str]]:
     """Get currency choices.
 
     List of choices in the following format::
@@ -27,9 +28,9 @@ def get_currency_choices(
 
 
 def get_currency_choices_with_code(
-    limit_choices_to: Union[Tuple[str, ...], List[str], Set[str]] = None,
+    limit_choices_to: Union[tuple[str, ...], list[str], set[str]] = None,
     sort_by_key: bool = False,
-) -> List[Tuple[str, str]]:
+) -> list[tuple[str, str]]:
     """Get currency choices with code.
 
     List of choices in the following format::

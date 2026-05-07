@@ -1,7 +1,8 @@
-from valuta_admin import app
-from valuta_admin.data import build_sample_db
 import os
 import os.path as op
+
+from valuta_admin import app
+from valuta_admin.data import build_sample_db
 
 # Build a sample db on the fly, if one does not exist yet.
 app_dir = op.join(op.realpath(os.path.dirname(__file__)), "valuta_admin")

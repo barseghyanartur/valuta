@@ -1,10 +1,9 @@
-from factory import LazyAttribute, Faker
+from factory import Faker, LazyAttribute
 from factory.django import DjangoModelFactory
 from factory.fuzzy import FuzzyChoice
+from product.models import Product
 
 from valuta.utils import get_currency_choices
-
-from product.models import Product
 
 __all__ = ("ProductFactory",)
 

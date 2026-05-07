@@ -1,10 +1,9 @@
 import unittest
 
-from ..constants import DISPLAY_FORMAT_HUMAN_READABLE, DISPLAY_FORMAT_NUMBER
-from ..currencies import TND, EUR, MRU, VND, UGX
+from ..constants import DISPLAY_FORMAT_NUMBER
+from ..currencies import EUR, MRU, TND, UGX, VND
 from ..exceptions import InvalidCurrency
 from ..shortcuts import convert_to_currency_units, display_in_currency_units
-
 
 __author__ = "Artur Barseghyan"
 __copyright__ = "2021 Artur Barseghyan"

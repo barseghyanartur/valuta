@@ -1,10 +1,12 @@
-from decimal import Decimal
 import operator
-from typing import Optional, Dict, Union, List, Set, Tuple, ItemsView
+from collections.abc import ItemsView
+from decimal import Decimal
+from typing import Optional, Union
+
 from babel.numbers import (
+    format_currency,
     get_currency_name,
     get_currency_symbol,
-    format_currency,
 )
 
 from .constants import DEFAULT_DISPLAY_FORMAT
@@ -21,7 +23,7 @@ __all__ = (
 
 
 class Registry(type):
-    REGISTRY: Dict[str, "BaseCurrency"] = {}
+    REGISTRY: dict[str, "BaseCurrency"] = {}
 
     def __new__(mcs, name, bases, attrs):
         new_cls = type.__new__(mcs, name, bases, attrs)
@@ -54,9 +56,9 @@ class Registry(type):
     @classmethod
     def values(
         mcs,
-        limit_choices_to: Union[Tuple[str, ...], List[str], Set[str]] = None,
+        limit_choices_to: Union[tuple[str, ...], list[str], set[str]] = None,
         sort_by_key: bool = False,
-    ) -> List[Tuple[str, str]]:
+    ) -> list[tuple[str, str]]:
         if limit_choices_to is None:
             values = [
                 (__key, __value.name)
@@ -77,9 +79,9 @@ class Registry(type):
     @classmethod
     def values_with_code(
         mcs,
-        limit_choices_to: Union[Tuple[str, ...], List[str], Set[str]] = None,
+        limit_choices_to: Union[tuple[str, ...], list[str], set[str]] = None,
         sort_by_key: bool = False,
-    ) -> List[Tuple[str, str]]:
+    ) -> list[tuple[str, str]]:
         if limit_choices_to is None:
             values = [
                 (__key, f"{__value.name} ({__key})")

@@ -1,5 +1,4 @@
 from django.core.management.base import BaseCommand
-
 from factories import ProductFactory
 from product.models import ProductProxyAmountFieldsIsNone
 

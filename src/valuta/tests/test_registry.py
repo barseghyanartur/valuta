@@ -11,4 +11,3 @@ class TestRegistry(unittest.TestCase):
 
     def test_import_from_registry(self):
         """Test import from deprecated `valuta.registry` module."""
-        from ..registry import Registry

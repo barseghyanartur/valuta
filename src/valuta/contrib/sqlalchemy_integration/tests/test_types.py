@@ -1,9 +1,8 @@
 from flask_testing import TestCase
+from valuta_admin import create_app, db
 
 import valuta
 from valuta.contrib.sqlalchemy_integration.types import ChoiceWithExtras
-
-from valuta_admin import create_app, db
 
 __author__ = "Artur Barseghyan"
 __copyright__ = "2021 Artur Barseghyan"
@@ -12,12 +11,10 @@ __all__ = ("SQLAlchemyTestTypesTestCase",)
 
 
 class SQLAlchemyTestTypesTestCase(TestCase):
-
     SQLALCHEMY_DATABASE_URI = "sqlite://"
     TESTING = True
 
     def create_app(self):
-
         # pass in test configuration
         return create_app("config_test.py")
 

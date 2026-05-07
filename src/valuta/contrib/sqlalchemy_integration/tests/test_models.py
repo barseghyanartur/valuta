@@ -3,26 +3,20 @@ from decimal import Decimal
 # from django import VERSION
 # from django.utils.translation import gettext_lazy as _
 # from django.test import override_settings
-
 from flask_testing import TestCase
-
+from valuta_admin import create_app, db
+from valuta_admin.models import (
+    Product,
+    ProductProxyCastToDecimal,
+    ProductProxyCastToFloat,
+    ProductProxyCastToInt,
+    ProductProxyChoicesFuncNone,
+)
 
 import valuta
 from valuta.constants import DISPLAY_FORMAT_NUMBER
 
 # from valuta.contrib.django_integration.models import CurrencyField
-from valuta.utils import get_currency_choices
-
-from valuta_admin import create_app, db
-from valuta_admin.models import (
-    AbstractProduct,
-    Product,
-    ProductProxyCastToInt,
-    ProductProxyCastToFloat,
-    ProductProxyCastToDecimal,
-    ProductProxyLimitChoicesTo,
-    ProductProxyChoicesFuncNone,
-)
 
 __author__ = "Artur Barseghyan"
 __copyright__ = "2021 Artur Barseghyan"
@@ -31,12 +25,10 @@ __all__ = ("SQLAlchemyIntegrationTestCase",)
 
 
 class SQLAlchemyIntegrationTestCase(TestCase):
-
     SQLALCHEMY_DATABASE_URI = "sqlite://"
     TESTING = True
 
     def create_app(self):
-
         # pass in test configuration
         return create_app("config_test.py")
 

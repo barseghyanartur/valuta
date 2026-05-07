@@ -1,5 +1,5 @@
 from decimal import Decimal
-from typing import Union, Optional
+from typing import Optional, Union
 
 from django import template
 

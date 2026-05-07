@@ -241,7 +241,7 @@ LIST_CURRENCIES_OUTPUT = """
 ├───────────┼──────────────────────────────────────────┤
 │ PGK       │ Papua New Guinean Kina                   │
 ├───────────┼──────────────────────────────────────────┤
-│ PHP       │ Philippine Piso                          │
+│ PHP       │ Philippine Peso                          │
 ├───────────┼──────────────────────────────────────────┤
 │ PKR       │ Pakistani Rupee                          │
 ├───────────┼──────────────────────────────────────────┤
@@ -253,7 +253,7 @@ LIST_CURRENCIES_OUTPUT = """
 ├───────────┼──────────────────────────────────────────┤
 │ PYG       │ Paraguayan Guarani                       │
 ├───────────┼──────────────────────────────────────────┤
-│ QAR       │ Qatari Rial                              │
+│ QAR       │ Qatari Riyal                             │
 ├───────────┼──────────────────────────────────────────┤
 │ RON       │ Romanian Leu                             │
 ├───────────┼──────────────────────────────────────────┤
@@ -277,7 +277,7 @@ LIST_CURRENCIES_OUTPUT = """
 ├───────────┼──────────────────────────────────────────┤
 │ SHP       │ St. Helena Pound                         │
 ├───────────┼──────────────────────────────────────────┤
-│ SLL       │ Sierra Leonean Leone                     │
+│ SLL       │ Sierra Leonean Leone (1964—2022)         │
 ├───────────┼──────────────────────────────────────────┤
 │ SLS       │ SLS                                      │
 ├───────────┼──────────────────────────────────────────┤
@@ -587,11 +587,11 @@ LIST_CURRENCIES_OUTPUT_SORTED_BY_VALUE = """
 ├───────────┼──────────────────────────────────────────┤
 │ PEN       │ Peruvian Sol                             │
 ├───────────┼──────────────────────────────────────────┤
-│ PHP       │ Philippine Piso                          │
+│ PHP       │ Philippine Peso                          │
 ├───────────┼──────────────────────────────────────────┤
 │ PLN       │ Polish Zloty                             │
 ├───────────┼──────────────────────────────────────────┤
-│ QAR       │ Qatari Rial                              │
+│ QAR       │ Qatari Riyal                             │
 ├───────────┼──────────────────────────────────────────┤
 │ RON       │ Romanian Leu                             │
 ├───────────┼──────────────────────────────────────────┤
@@ -609,7 +609,7 @@ LIST_CURRENCIES_OUTPUT_SORTED_BY_VALUE = """
 ├───────────┼──────────────────────────────────────────┤
 │ SCR       │ Seychellois Rupee                        │
 ├───────────┼──────────────────────────────────────────┤
-│ SLL       │ Sierra Leonean Leone                     │
+│ SLL       │ Sierra Leonean Leone (1964—2022)         │
 ├───────────┼──────────────────────────────────────────┤
 │ SGD       │ Singapore Dollar                         │
 ├───────────┼──────────────────────────────────────────┤
@@ -805,9 +805,9 @@ CURRENCY_CHOICES = [
     ("PGK", "Papua New Guinean Kina"),
     ("PYG", "Paraguayan Guarani"),
     ("PEN", "Peruvian Sol"),
-    ("PHP", "Philippine Piso"),
+    ("PHP", "Philippine Peso"),
     ("PLN", "Polish Zloty"),
-    ("QAR", "Qatari Rial"),
+    ("QAR", "Qatari Riyal"),
     ("RON", "Romanian Leu"),
     ("RUB", "Russian Ruble"),
     ("RWF", "Rwandan Franc"),
@@ -816,7 +816,7 @@ CURRENCY_CHOICES = [
     ("SAR", "Saudi Riyal"),
     ("RSD", "Serbian Dinar"),
     ("SCR", "Seychellois Rupee"),
-    ("SLL", "Sierra Leonean Leone"),
+    ("SLL", "Sierra Leonean Leone (1964—2022)"),
     ("SGD", "Singapore Dollar"),
     ("SBD", "Solomon Islands Dollar"),
     ("SOS", "Somali Shilling"),
@@ -970,13 +970,13 @@ CURRENCY_CHOICES_SORT_BY_KEY = [
     ("PAB", "Panamanian Balboa"),
     ("PEN", "Peruvian Sol"),
     ("PGK", "Papua New Guinean Kina"),
-    ("PHP", "Philippine Piso"),
+    ("PHP", "Philippine Peso"),
     ("PKR", "Pakistani Rupee"),
     ("PLN", "Polish Zloty"),
     ("PND", "PND"),
     ("PRB", "PRB"),
     ("PYG", "Paraguayan Guarani"),
-    ("QAR", "Qatari Rial"),
+    ("QAR", "Qatari Riyal"),
     ("RON", "Romanian Leu"),
     ("RSD", "Serbian Dinar"),
     ("RUB", "Russian Ruble"),
@@ -988,7 +988,7 @@ CURRENCY_CHOICES_SORT_BY_KEY = [
     ("SEK", "Swedish Krona"),
     ("SGD", "Singapore Dollar"),
     ("SHP", "St. Helena Pound"),
-    ("SLL", "Sierra Leonean Leone"),
+    ("SLL", "Sierra Leonean Leone (1964—2022)"),
     ("SLS", "SLS"),
     ("SOS", "Somali Shilling"),
     ("SRD", "Surinamese Dollar"),
@@ -1143,9 +1143,9 @@ CURRENCY_CHOICES_WITH_CODE = [
     ("PGK", "Papua New Guinean Kina (PGK)"),
     ("PYG", "Paraguayan Guarani (PYG)"),
     ("PEN", "Peruvian Sol (PEN)"),
-    ("PHP", "Philippine Piso (PHP)"),
+    ("PHP", "Philippine Peso (PHP)"),
     ("PLN", "Polish Zloty (PLN)"),
-    ("QAR", "Qatari Rial (QAR)"),
+    ("QAR", "Qatari Riyal (QAR)"),
     ("RON", "Romanian Leu (RON)"),
     ("RUB", "Russian Ruble (RUB)"),
     ("RWF", "Rwandan Franc (RWF)"),
@@ -1154,7 +1154,7 @@ CURRENCY_CHOICES_WITH_CODE = [
     ("SAR", "Saudi Riyal (SAR)"),
     ("RSD", "Serbian Dinar (RSD)"),
     ("SCR", "Seychellois Rupee (SCR)"),
-    ("SLL", "Sierra Leonean Leone (SLL)"),
+    ("SLL", "Sierra Leonean Leone (1964—2022) (SLL)"),
     ("SGD", "Singapore Dollar (SGD)"),
     ("SBD", "Solomon Islands Dollar (SBD)"),
     ("SOS", "Somali Shilling (SOS)"),
@@ -1308,13 +1308,13 @@ CURRENCY_CHOICES_WITH_CODE_SORT_BY_KEY = [
     ("PAB", "Panamanian Balboa (PAB)"),
     ("PEN", "Peruvian Sol (PEN)"),
     ("PGK", "Papua New Guinean Kina (PGK)"),
-    ("PHP", "Philippine Piso (PHP)"),
+    ("PHP", "Philippine Peso (PHP)"),
     ("PKR", "Pakistani Rupee (PKR)"),
     ("PLN", "Polish Zloty (PLN)"),
     ("PND", "PND (PND)"),
     ("PRB", "PRB (PRB)"),
     ("PYG", "Paraguayan Guarani (PYG)"),
-    ("QAR", "Qatari Rial (QAR)"),
+    ("QAR", "Qatari Riyal (QAR)"),
     ("RON", "Romanian Leu (RON)"),
     ("RSD", "Serbian Dinar (RSD)"),
     ("RUB", "Russian Ruble (RUB)"),
@@ -1326,7 +1326,7 @@ CURRENCY_CHOICES_WITH_CODE_SORT_BY_KEY = [
     ("SEK", "Swedish Krona (SEK)"),
     ("SGD", "Singapore Dollar (SGD)"),
     ("SHP", "St. Helena Pound (SHP)"),
-    ("SLL", "Sierra Leonean Leone (SLL)"),
+    ("SLL", "Sierra Leonean Leone (1964—2022) (SLL)"),
     ("SLS", "SLS (SLS)"),
     ("SOS", "Somali Shilling (SOS)"),
     ("SRD", "Surinamese Dollar (SRD)"),

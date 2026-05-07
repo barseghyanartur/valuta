@@ -2,6 +2,7 @@ import os
 
 from django.test import TestCase, override_settings
 from django.urls import reverse
+from project.settings.core import project_dir
 
 from valuta.constants import (
     DEFAULT_DISPLAY_FORMAT,
@@ -10,8 +11,6 @@ from valuta.constants import (
     DISPLAY_FORMAT_HUMAN_READABLE_WITH_CURRENCY_SYMBOL,
     DISPLAY_FORMAT_NUMBER,
 )
-
-from project.settings.core import project_dir
 
 __author__ = "Artur Barseghyan"
 __copyright__ = "2021 Artur Barseghyan"
@@ -45,7 +44,6 @@ class ContextProcessorsTestCase(TestCase):
 
     @override_settings(TEMPLATES=TEMPLATES)
     def test_context_processors(self):
-
         response = self.client.get(reverse("home"))
         html = response.rendered_content
         self.assertInHTML(
