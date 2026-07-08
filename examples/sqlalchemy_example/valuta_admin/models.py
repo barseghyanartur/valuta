@@ -1,17 +1,15 @@
 from decimal import Decimal
-import json
-from typing import Union, Optional
+from typing import Optional, Union
 
 import valuta
-from valuta.base import Registry, BaseCurrency
+from valuta.base import BaseCurrency, Registry
 from valuta.constants import DEFAULT_DISPLAY_FORMAT
+from valuta.contrib.sqlalchemy_integration.types import CurrencyType
 from valuta.shortcuts import convert_to_currency_units
 from valuta.utils import get_currency_choices, get_currency_choices_with_code
-from valuta.contrib.sqlalchemy_integration.types import CurrencyType
 
 from . import db
 from .helpers import get_currency_choices_with_sign
-
 
 __all__ = (
     "AbstractProduct",

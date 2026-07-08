@@ -4,9 +4,9 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 import valuta
+from valuta.contrib.django_integration.models import CurrencyField
 from valuta.shortcuts import convert_to_currency_units
 from valuta.utils import get_currency_choices, get_currency_choices_with_code
-from valuta.contrib.django_integration.models import CurrencyField
 
 from .helpers import get_currency_choices_with_sign
 

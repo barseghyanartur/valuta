@@ -1,14 +1,14 @@
 from functools import partialmethod
-from typing import Union, List, Tuple, Optional, Set, Callable
+from typing import Callable, Optional, Union
 
+from django.conf import settings
 from django.db import models
 from django.db.models import (
-    IntegerField,
     BigIntegerField,
-    SmallIntegerField,
     FloatField,
+    IntegerField,
+    SmallIntegerField,
 )
-from django.conf import settings
 
 from ...base import Registry
 from ...constants import DEFAULT_DISPLAY_FORMAT
@@ -27,10 +27,10 @@ class CurrencyField(models.CharField):
         self,
         *args,
         amount_fields: Optional[
-            Union[List[str], Tuple[str, ...], Set[str]]
+            Union[list[str], tuple[str, ...], set[str]]
         ] = None,
         limit_choices_to: Optional[
-            Union[List[str], Tuple[str, ...], Set[str]]
+            Union[list[str], tuple[str, ...], set[str]]
         ] = None,
         get_choices_func: Callable = get_currency_choices_with_code,
         cast_to: Optional[Callable] = None,

@@ -1,28 +1,233 @@
-# Example configuration for Black.
+[project]
+name = "valuta"
+description = "Currencies done right."
+readme = "README.rst"
+version = "0.3.2"
+requires-python = ">=3.9"
+license = "GPL-2.0-only OR LGPL-2.1-or-later"
+authors = [
+    { name = "Artur Barseghyan", email = "artur.barseghyan@gmail.com" },
+]
+maintainers = [
+    { name = "Artur Barseghyan", email = "artur.barseghyan@gmail.com" },
+]
+keywords = ["currency"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "Babel>=2.1.1",
+]
 
-# NOTE: you have to use single-quoted strings in TOML for regular expressions.
-# It's the equivalent of r-strings in Python.  Multiline strings are treated as
-# verbose regular expressions by Black.  Use [ ] to denote a significant space
-# character.
+[project.scripts]
+valuta-generate-currencies = "valuta.cli:generate_currencies"
+valuta-list-currencies = "valuta.cli:list_currencies"
 
-[tool.black]
-line-length = 79
-target-version = ['py36', 'py37', 'py38', 'py39']
-include = '\.pyi?$'
-extend-exclude = '''
-/(
-  # The following are specific to Black, you probably don't want those.
-  | blib2to3
-  | tests/data
-  | profiling
-  | migrations
-)/
-'''
+[project.urls]
+Homepage = "https://github.com/barseghyanartur/valuta/"
+Repository = "https://github.com/barseghyanartur/valuta"
+Issues = "https://github.com/barseghyanartur/valuta/issues"
+Documentation = "https://valuta.readthedocs.io/"
+Changelog = "https://valuta.readthedocs.io/en/latest/changelog.html"
 
+[project.optional-dependencies]
+django = ["Django>=2.2"]
+sqlalchemy = ["SQLAlchemy>=1.0", "SQLAlchemy-Utils>=0.37.0"]
 
-# Build system information below.
-# NOTE: You don't need this in your own Black configuration.
+[dependency-groups]
+dev = [
+    "ipython",
+    "pre-commit",
+    "ruff",
+    "mypy",
+]
+test = [
+    "Faker",
+    "Flask",
+    "Flask-Admin",
+    "Flask-Babel",
+    "Flask-SQLAlchemy",
+    "Flask-Testing",
+    "coverage",
+    "factory-boy",
+    "pytest",
+    "pytest-cov",
+    "pytest-django",
+    "pytest-ordering",
+]
+docs = [
+    "doc8",
+    "sphinx",
+    "sphinx-autobuild",
+    "sphinx-rtd-theme>=1.3.0",
+]
+build = [
+    "build",
+    "twine",
+    "wheel",
+]
+all = [
+    { include-group = "dev" },
+    { include-group = "test" },
+    { include-group = "docs" },
+    { include-group = "build" },
+]
+
+[tool.uv]
+default-groups = ["dev", "test"]
+package = true
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["valuta", "valuta.*"]
+
+[tool.setuptools.package-data]
+"valuta" = ["list_of_circulating_currencies.csv"]
 
 [build-system]
-requires = ["setuptools>=41.0", "setuptools-scm", "wheel"]
+requires = ["setuptools>=41.0", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+line-length = 79
+fix = true
+src = ["src/valuta"]
+target-version = "py39"
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    "docs/_build",
+    "benchmarks",
+    "src/valuta/contrib/django_integration/migrations",
+]
+
+[tool.ruff.lint]
+select = [
+    "B",
+    "C4",
+    "E",
+    "F",
+    "G",
+    "I",
+    "ISC",
+    "INP",
+    "N",
+    "PERF",
+    "Q",
+    "SIM",
+]
+ignore = [
+    "B028",    # pre-existing: no explicit stacklevel in warnings.warn
+    "F403",    # pre-existing: star imports in __init__.py (intentional wildcard re-export)
+    "G004",
+    "ISC003",
+    "N804",    # pre-existing: metaclass methods use `mcs` by convention
+    "N805",    # pre-existing: existing non-self first args
+    "N818",    # pre-existing: exception names without Error suffix are part of public API
+    "N999",    # pre-existing: try.py is the Turkish Lira module (keyword as filename)
+    "SIM117",  # pre-existing: nested with-statements in test assertions are intentional
+]
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.lint.isort]
+known-first-party = ["valuta"]
+
+[tool.ruff.lint.per-file-ignores]
+"conftest.py" = ["PERF203"]
+"examples/**" = ["E402", "E501", "F401", "F405", "INP001", "SIM105"]
+"examples/django_example/**" = ["F401", "F405"]
+"docs/*.py" = ["E402", "E501", "INP001"]
+
+[tool.doc8]
+max-line-length = 120
+ignore-path = [
+    ".venv",
+    "docs/requirements.txt",
+    "src/valuta.egg-info/SOURCES.txt",
+    "LICENSE_LGPL_2.1.txt",
+]
+
+[tool.pytest.ini_options]
+addopts = [
+    "-ra",
+    "--cov=valuta",
+    "--cov-report=html",
+    "--cov-report=term-missing",
+    "--cov-append",
+    "--capture=no",
+]
+testpaths = [
+    "src/valuta/tests",
+    "src/valuta/contrib/django_integration/tests",
+    "src/valuta/contrib/sqlalchemy_integration/tests",
+]
+pythonpath = [
+    "src",
+    "examples/django_example",
+    "examples/sqlalchemy_example",
+]
+norecursedirs = [
+    ".git",
+    ".tox",
+    ".venv",
+    "build",
+    "dist",
+    "migrations",
+]
+DJANGO_SETTINGS_MODULE = "project.settings.testing"
+
+[tool.coverage.run]
+branch = true
+relative_files = true
+source = ["valuta"]
+omit = [
+    ".tox/*",
+    "src/valuta/tests/*",
+    "src/valuta/contrib/django_integration/tests/*",
+    "examples/*",
+]
+
+[tool.coverage.report]
+fail_under = 95
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "raise NotImplementedError",
+]
+
+[tool.mypy]
+ignore_missing_imports = true
+warn_no_return = false
+mypy_path = "src"
+exclude = ["setup.py"]

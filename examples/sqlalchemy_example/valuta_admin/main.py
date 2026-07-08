@@ -1,5 +1,5 @@
-from flask import send_file
 import flask_admin as admin
+from flask import send_file
 from flask_admin.contrib import sqla
 
 from . import app, db
@@ -39,9 +39,7 @@ def favicon():
 
 
 # Create admin
-admin = admin.Admin(
-    app, name="Example: SQLAlchemy", template_mode="bootstrap4"
-)
+admin = admin.Admin(app, name="Example: SQLAlchemy")
 
 # Add views
 admin.add_view(sqla.ModelView(Product, db.session))

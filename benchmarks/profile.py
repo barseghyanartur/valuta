@@ -1,14 +1,11 @@
 import argparse
-from functools import wraps, partial
 import os
 import subprocess
 import sys
-import time
 
-import valuta
 from valuta.shortcuts import convert_to_currency_units
 
-path = os.path.join(os.path.abspath(os.path.dirname(__name__)), 'benchmarks')
+path = os.path.join(os.path.abspath(os.path.dirname(__name__)), "benchmarks")
 
 sys.path.insert(0, path)
 
@@ -28,6 +25,7 @@ def register(func):
 
     def wrapper():
         func()
+
     return wrapper
 
 
@@ -76,12 +74,12 @@ def main():
         default=list(REGISTRY.keys())[0],
         action="store",
         help="Function to call",
-        choices=list(REGISTRY.keys())
+        choices=list(REGISTRY.keys()),
     )
 
     args = parser.parse_args(sys.argv[1:])
     func_name = args.func
-    func = REGISTRY.get(func_name, None)
+    func = REGISTRY.get(func_name)
 
     if callable(func):
         print(f"Calling `{func_name}`")

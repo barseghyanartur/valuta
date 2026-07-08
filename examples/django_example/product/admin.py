@@ -3,10 +3,10 @@ from django.utils.translation import gettext_lazy as _
 
 from .models import (
     Product,
-    ProductProxyLimitChoicesTo,
-    ProductProxyCastToInt,
-    ProductProxyCastToFloat,
     ProductProxyCastToDecimal,
+    ProductProxyCastToFloat,
+    ProductProxyCastToInt,
+    ProductProxyLimitChoicesTo,
 )
 
 __all__ = (

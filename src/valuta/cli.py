@@ -62,7 +62,7 @@ def list_currencies():
     print("│ ISO code  │ Currency                                 │")
     print("├───────────┼──────────────────────────────────────────┤")
     for counter, (iso_code, currency) in enumerate(currencies):
-        print(f"│ {iso_code}       │ {currency}{' '*(41-len(currency))}│")
+        print(f"│ {iso_code}       │ {currency}{' ' * (41 - len(currency))}│")
         if counter == total - 1:
             print("└───────────┴──────────────────────────────────────────┘")
         else:

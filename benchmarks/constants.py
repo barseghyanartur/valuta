@@ -1,8 +1,8 @@
 import valuta
 
 __all__ = (
-    'TEST_CYCLES',
-    'CURRENCIES',
+    "TEST_CYCLES",
+    "CURRENCIES",
 )
 
 CURRENCIES = (

@@ -1,0 +1,53 @@
+exclude: >-
+  (?x)^(
+    src/valuta/contrib/django_integration/migrations/.*|
+    docs/_build/.*|
+    builddocs/.*|
+    \.eggs/.*
+  )$
+default_stages: [ pre-commit, pre-push ]
+default_language_version:
+  python: python3
+
+repos:
+
+  - repo: https://github.com/PyCQA/doc8
+    rev: v2.0.0
+    hooks:
+      - id: doc8
+        args: []
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: >-
+          (?x)^(
+            src/valuta/contrib/django_integration/migrations/.*
+          )$
+
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+      - id: debug-statements
+      - id: check-merge-conflict
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.14.5
+    hooks:
+      - id: ruff-check
+        name: lint
+        files: .
+        args: [ "--config", "pyproject.toml", "--fix" ]
+      - id: ruff-format
+        name: format
+        files: .
+        args: [ "--config", "pyproject.toml" ]
+
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.21.1
+    hooks:
+      - id: pyupgrade
+        args: [ "--py39-plus" ]

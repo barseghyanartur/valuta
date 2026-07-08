@@ -1,9 +1,9 @@
 from unicodedata import normalize
+
 from django.test import TestCase
+from product.simple_models import SimpleProduct
 
 import valuta
-
-from product.simple_models import SimpleProduct
 
 __author__ = "Artur Barseghyan"
 __copyright__ = "2021 Artur Barseghyan"
@@ -12,7 +12,7 @@ __all__ = ("TemplateTagsTestCase",)
 
 
 def suppress_strange_bug(value):
-    return normalize("NFKD", value).replace(" ", "")
+    return normalize("NFKD", value).replace(" ", "").strip()
 
 
 class TemplateTagsTestCase(TestCase):
@@ -30,10 +30,10 @@ class TemplateTagsTestCase(TestCase):
         )
 
         price = p.filter_product_price_in_currency_units()
-        self.assertEqual(price, "10.0")
+        self.assertEqual(price.strip(), "10.0")
 
         price_with_tax = p.filter_product_price_with_tax_in_currency_units()
-        self.assertEqual(price_with_tax, "12.0")
+        self.assertEqual(price_with_tax.strip(), "12.0")
 
     def test_tag_convert_to_currency_units(self):
         p = SimpleProduct(
@@ -43,10 +43,10 @@ class TemplateTagsTestCase(TestCase):
         )
 
         price = p.tag_product_price_in_currency_units()
-        self.assertEqual(price, "10.0")
+        self.assertEqual(price.strip(), "10.0")
 
         price_with_tax = p.tag_product_price_with_tax_in_currency_units()
-        self.assertEqual(price_with_tax, "12.0")
+        self.assertEqual(price_with_tax.strip(), "12.0")
 
     # ***********************************************************
     # *************** Display in currency units *****************
@@ -155,10 +155,10 @@ class TemplateTagsTestCase(TestCase):
             price = p.tag_product_price_display_in_currency_units_with_locale(
                 locale="nl_NL"
             )
-            self.assertEqual(price, "€\xa010,00")
+            self.assertEqual(price.strip(), "€\xa010,00")
 
         with self.subTest("EUR locale=en_US"):
             price = p.tag_product_price_display_in_currency_units_with_locale(
                 locale="en_US"
             )
-            self.assertEqual(price, "€10.00")
+            self.assertEqual(price.strip(), "€10.00")

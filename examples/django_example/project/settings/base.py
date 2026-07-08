@@ -12,22 +12,21 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 import sys
 
-from .core import PROJECT_DIR, gettext
+from .core import PROJECT_DIR
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 try:
     from .local_settings import DEBUG_TEMPLATE
-except Exception as err:
+except Exception:
     DEBUG_TEMPLATE = False
 
 try:
     from .local_settings import USE_CACHED_TEMPLATE_LOADERS
-except Exception as err:
+except Exception:
     USE_CACHED_TEMPLATE_LOADERS = False
 
 if USE_CACHED_TEMPLATE_LOADERS:
-
     _TEMPLATE_LOADERS = [
         (
             "django.template.loaders.cached.Loader",
@@ -38,7 +37,6 @@ if USE_CACHED_TEMPLATE_LOADERS:
         ),
     ]
 else:
-
     _TEMPLATE_LOADERS = [
         "django.template.loaders.filesystem.Loader",
         "django.template.loaders.app_directories.Loader",
@@ -138,7 +136,7 @@ STATIC_ROOT = PROJECT_DIR(os.path.join(BASE_DIR, "static"))
 # Do not put any settings below this line
 try:
     from .local_settings import *
-except Exception as err:
+except Exception:
     pass
 
 # Make the `django-nine` package available without installation.

@@ -63,9 +63,9 @@ jobs:
             tox_env: py39-django32
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install Dependencies
@@ -79,7 +79,7 @@ jobs:
     - name: Run Tests
       run: tox -e ${{ matrix.tox_env }}
     - name: Coveralls
-      uses: AndreMiras/coveralls-python-action@develop
+      uses: AndreMiras/coveralls-python-action@v20201129
       with:
         parallel: true
         flag-name: Run Tests
@@ -92,7 +92,7 @@ jobs:
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-      uses: AndreMiras/coveralls-python-action@develop
+      uses: AndreMiras/coveralls-python-action@v20201129
       with:
         parallel-finished: true
         debug: True

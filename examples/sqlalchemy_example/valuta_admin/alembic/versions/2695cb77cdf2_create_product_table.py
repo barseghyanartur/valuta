@@ -1,13 +1,13 @@
 """create product table
 
 Revision ID: 2695cb77cdf2
-Revises: 
+Revises:
 Create Date: 2021-07-03 00:08:14.129153
 
 """
-from alembic import op
-import sqlalchemy as sa
 
+import sqlalchemy as sa
+from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "2695cb77cdf2"

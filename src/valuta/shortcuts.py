@@ -1,7 +1,7 @@
 from decimal import Decimal
-from typing import Union, Optional
+from typing import Optional, Union
 
-from .base import Registry, BaseCurrency
+from .base import BaseCurrency, Registry
 from .constants import DEFAULT_DISPLAY_FORMAT
 from .exceptions import InvalidCurrency
 

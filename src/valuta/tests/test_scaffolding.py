@@ -2,8 +2,8 @@ import os
 import tempfile
 import unittest
 
-from ..scaffolding import read_csv_and_write_output
 from ..helpers import project_dir
+from ..scaffolding import read_csv_and_write_output
 from .data import LIST_GENERATED_CURRENCY_MODULES
 
 __author__ = "Artur Barseghyan"

@@ -1,6 +1,6 @@
+import os
 from importlib import import_module
 from inspect import isclass
-import os
 from pkgutil import iter_modules
 
 __author__ = "Artur Barseghyan"
@@ -13,11 +13,10 @@ package_dir = os.path.dirname(__file__)
 
 __all = []
 
-for (_, module_name, _) in iter_modules([package_dir]):
-
+for _, module_name, _ in iter_modules([package_dir]):
     # Import the module and iterate through its attributes
     module = import_module(f"{__name__}.{module_name}")
-    __all.extend(getattr(module, "__all__"))
+    __all.extend(module.__all__)
     for attribute_name in dir(module):
         attribute = getattr(module, attribute_name)
 
